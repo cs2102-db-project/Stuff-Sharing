@@ -8,9 +8,21 @@
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "ejs": "~2.5.7",
+    "ejs": "^2.5.9",
     "express": "~4.16.0",
-    "http-errors": "~1.6.2",
+    "http-errors": "^1.6.3",
     "morgan": "~1.9.0"
-  }
+  },
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs2102-db-project/Stuff-Sharing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cs2102-db-project/Stuff-Sharing/issues"
+  },
+  "homepage": "https://github.com/cs2102-db-project/Stuff-Sharing#readme"
 }
