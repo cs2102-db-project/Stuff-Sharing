@@ -1,31 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Profiles', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      userId: {
-        type: Sequelize.INTEGER
-      },
-      picture: {
-        type: Sequelize.STRING
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    queryInterface.sequelize.query("\
+      CREATE TABLE Profiles(\
+      userId INTEGER primaryKey references Account\
+        on delete CASCADE,\
+      name STRING,\
+      picture STRING,\
+      address STRING\
+    ");
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Profiles');
