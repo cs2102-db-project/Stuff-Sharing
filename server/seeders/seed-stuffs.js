@@ -10,22 +10,26 @@ module.exports = {
         stuffId: 1,
         name: 'book',
         picture: 'picture?',
-        owner: 'John Doe'
+        owner: 'johndoe',
+        description: 'its a book'
       }, {
         stuffId: 2,
         name: 'car',
         picture: 'picture?',
-        owner: 'John Doe'
+        owner: 'johndoe',
+        description: 'its a car'
       }, {
         stuffId: 3,
         name: 'car wash',
         picture: 'picture?',
-        owner: 'Jane Doe'
+        owner: 'janedoe',
+        description: 'its a car wash'
       }, {
         stuffId: 4,
         name: 'math notes',
         picture: 'picture?',
-        owner: 'Jane Doe'
+        owner: 'janedoe',
+        description: 'its math notes'
       }], {});
   },
 
