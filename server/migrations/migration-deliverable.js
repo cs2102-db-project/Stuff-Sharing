@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
-        CREATE TABLE Deliverables(\
+    return queryInterface.sequelize.query("\
+        CREATE TABLE IF NOT EXISTS Deliverables(\
             stuffId INTEGER references Stuff(stuffId),\
             deliveryCost FLOAT8 not null,\
             primary key (stuffId)\

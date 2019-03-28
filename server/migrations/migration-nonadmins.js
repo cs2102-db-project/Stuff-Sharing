@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
-        CREATE TABLE Non-Admins(\
+    return queryInterface.sequelize.query("\
+        CREATE TABLE IF NOT EXISTS Non-Admins(\
           username TEXT references Accounts,\
           primary key (username)\
         )\

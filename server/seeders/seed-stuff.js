@@ -6,7 +6,7 @@ module.exports = {
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
     */
-      return queryInterface.bulkInsert('Stuffs', [{
+      return queryInterface.bulkInsert('Stuff', [{
         stuffId: 1,
         name: 'book',
         picture: 'picture?',
@@ -38,6 +38,6 @@ module.exports = {
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
     */
-      return queryInterface.bulkDelete('Stuffs', null, {});
+      return queryInterface.bulkDelete('Stuff', null, {});
   }
 };
