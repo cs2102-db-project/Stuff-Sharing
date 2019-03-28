@@ -1,10 +1,10 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
+    return queryInterface.sequelize.query("\
         CREATE TYPE status_t as enum('ONGOING', 'ENDED');\
         \
-        CREATE TABLE Transactions(\
+        CREATE TABLE IF NOT EXISTS Transactions(\
             transId INTEGER,\
             loaner STRING not null,\
             loanee STRING not null,\
