@@ -6,18 +6,17 @@ module.exports = {
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
     */
-      return queryInterface.bulkInsert('Profiles', [{
-        userId: 1,
-        name: 'John Doe',
+      return queryInterface.bulkInsert('Stuffs', [{
+        stuffId: 1,
+        name: 'book',
         picture: 'picture?',
-        address: '10 john road'
+        owner: 'John Doe'
       }, {
-        userId: 2,
-        name: 'Jane Doe',
+        stuffId: 2,
+        name: 'car',
         picture: 'picture?',
-        address: '10 jane road'
-      }
-      ], {});
+        owner: 'John Doe'
+      }], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -25,6 +24,6 @@ module.exports = {
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
     */
-      return queryInterface.bulkDelete('Profiles', null, {});
+      return queryInterface.bulkDelete('Stuffs', null, {});
   }
 };

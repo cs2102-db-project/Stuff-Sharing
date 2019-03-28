@@ -4,7 +4,6 @@ module.exports = {
     queryInterface.sequelize.query("\
       CREATE TABLE Admins(\
       id INTEGER primaryKey references Accounts,\
-      rights STRING\
     ");
   },
   down: (queryInterface, Sequelize) => {

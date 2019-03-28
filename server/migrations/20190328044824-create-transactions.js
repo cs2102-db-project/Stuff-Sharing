@@ -6,12 +6,14 @@ module.exports = {
       \
       CREATE TABLE Transactions(\
       transId INTEGER primaryKey,\
-      loaner STRING,\
-      loanee STRING,\
+      loanerId INTEGER,\
+      loaneeId INTEGER references Profiles,\
+      itemId INTEGER,\
       status status_t,\
       cost DECIMAL(10, 2),\
       startDate DATE,\
-      endDate DATE\
+      endDate DATE,\
+      foreign key(loanerId, itemId) references Owns\
     ");
   },
   down: (queryInterface, Sequelize) => {
