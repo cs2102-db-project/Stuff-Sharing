@@ -8,8 +8,8 @@ module.exports = {
     */
       return queryInterface.bulkInsert('Transactions', [{
         transId: 1,
-        loanerId: 1,
-        loaneeId: 2,
+        loaner: 'johndoe',
+        loanee: 'janedoe',
         itemId: 1,
         status: 'ONGOING',
         cost: 10.00,

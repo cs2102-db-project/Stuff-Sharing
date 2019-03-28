@@ -16,6 +16,16 @@ module.exports = {
         name: 'car',
         picture: 'picture?',
         owner: 'John Doe'
+      }, {
+        stuffId: 3,
+        name: 'car wash',
+        picture: 'picture?',
+        owner: 'Jane Doe'
+      }, {
+        stuffId: 4,
+        name: 'math notes',
+        picture: 'picture?',
+        owner: 'Jane Doe'
       }], {});
   },
 

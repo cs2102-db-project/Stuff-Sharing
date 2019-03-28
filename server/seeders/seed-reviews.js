@@ -7,7 +7,7 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
     */
       return queryInterface.bulkInsert('Reviews', [{
-        reviewId: 'John Doe',
+        reviewer: 'johndoe',
         transactionId: 1,
         rating: 10
         details: 'good'
