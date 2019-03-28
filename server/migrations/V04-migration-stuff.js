@@ -6,10 +6,10 @@ module.exports = {
             stuffId INTEGER,\
             picture TEXT,\
             name VARCHAR(100) not null,\
-            owner TEXT,\
+            owner TEXT not null,\
             description TEXT,\
             primary key (stuffId),\
-            foreign key (owner) references Accounts\
+            foreign key (owner) references Profiles(username)\
         )\
     ")
   },

@@ -4,7 +4,7 @@ module.exports = {
     return queryInterface.sequelize.query("\
         CREATE TABLE IF NOT EXISTS Intangibles(\
             stuffId INTEGER references Stuff(stuffId),\
-            primary key (stuffId),\
+            primary key (stuffId)\
         )\
     ");
   },

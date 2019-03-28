@@ -2,8 +2,8 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.query("\
-        CREATE TABLE IF NOT EXISTS Non-Admins(\
-          username TEXT references Accounts,\
+        CREATE TABLE IF NOT EXISTS NonAdmins(\
+          username TEXT references Accounts(username),\
           primary key (username)\
         )\
     ");

@@ -3,12 +3,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.query("\
         CREATE TABLE IF NOT EXISTS Profiles(\
-            userId INTEGER references Account\
+            username TEXT references Accounts(username)\
                 on delete CASCADE,\
-            name STRING not null,\
-            picture STRING,\
-            address STRING,\
-            primary key (userId)\
+            name TEXT not null,\
+            picture TEXT,\
+            address VARCHAR(100),\
+            primary key (username)\
         )\
     ");
   },

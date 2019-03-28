@@ -6,8 +6,8 @@ module.exports = {
         \
         CREATE TABLE IF NOT EXISTS Transactions(\
             transId INTEGER,\
-            loaner STRING not null,\
-            loanee STRING not null,\
+            loaner TEXT not null,\
+            loanee TEXT not null,\
             status status_t not null,\
             cost DECIMAL(10, 2) not null,\
             startDate DATE not null,\

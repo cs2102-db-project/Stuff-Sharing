@@ -4,10 +4,11 @@ module.exports = {
     return queryInterface.sequelize.query("\
         CREATE TABLE IF NOT EXISTS Reviews(\
             reviewId INTEGER,\
-            transactionId INTEGER not null references Transactions,\
-            rating int4range(0,10) INTEGER not null,\
+            transId INTEGER not null references Transactions(transId),\
+            rating INTEGER not null,\
             details TEXT not null,\
-            primary key (reviewId)\
+            primary key (reviewId),\
+            check (rating >= 0 and rating <= 10)\
         )\
     ");
   },
