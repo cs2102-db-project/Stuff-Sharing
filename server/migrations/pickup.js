@@ -1,33 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Pickups', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      stuffId: {
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      pickupAddress: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    queryInterface.sequelize.query("\
+        CREATE TABLE Pickups\
+        stuffId INTEGER references Stuff,\
+        pickupAddress varchar(100) not null,\
+        primary key (StuffId)\
+    ")
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Pickups');
+    return queryInterface.sequelize.query("DROP TABLE Pickups");
   }
 };

@@ -1,33 +1,15 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Deliverables', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      stuffId: {
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      deliveryCost: {
-        type: Sequelize.FLOAT
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    queryInterface.sequelize.query("\
+        CREATE TABLE Deliverables(\
+            stuffId INTEGER references Stuff(stuffId),\
+            deliveryCost FLOAT8 not null,\
+            primary key (stuffId)\
+        )\
+    ");
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Deliverables');
+    return queryInterface.sequelize.query("DROP TABLE Deliverables");
   }
 };

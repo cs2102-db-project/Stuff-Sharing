@@ -2,14 +2,16 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.sequelize.query("\
-      CREATE TABLE Profiles(\
-      reviewId INTEGER primary key,\
-      transactionId int4range(0,10) references Transactions,\
-      rating INTEGER,\
-      details TEXT\
+        CREATE TABLE Reviews(\
+            reviewId INTEGER,\
+            transactionId INTEGER not null references Transactions,\
+            rating int4range(0,10) INTEGER not null,\
+            details TEXT not null,\
+            primary key (reviewId)\
+        )\
     ");
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Reviews');
+    return queryInterface.sequelize.query("DROP TABLE Reviews");
   }
 };

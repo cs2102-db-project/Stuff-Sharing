@@ -2,15 +2,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.sequelize.query("\
-      CREATE TABLE Profiles(\
-      userId INTEGER primaryKey references Account\
-        on delete CASCADE,\
-      name STRING,\
-      picture STRING,\
-      address STRING\
+        CREATE TABLE Profiles(\
+            userId INTEGER references Account\
+                on delete CASCADE,\
+            name STRING not null,\
+            picture STRING,\
+            address STRING,\
+            primary key (userId)\
+        )\
     ");
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Profiles');
+    return queryInterface.sequelize.query("DROP TABLE Profiles");
   }
 };

@@ -1,30 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Intangibles', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      stuffId: {
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    queryInterface.sequelize.query("\
+        CREATE TABLE Intangibles(\
+            stuffId INTEGER references Stuff(stuffId),\
+            primary key (stuffId),\
+        )\
+    ");
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Intangibles');
+    return queryInterface.sequelize.query("DROP TABLE Intangibles");
   }
 };
