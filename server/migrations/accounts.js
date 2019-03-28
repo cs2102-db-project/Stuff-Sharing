@@ -3,9 +3,10 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.sequelize.query("\
       CREATE TABLE Accounts(\
-      id INTEGER primaryKey,\
-      username STRING,\
-      password STRING,\
+        username TEXT,\
+        password TEXT not null,\
+        primary key username\
+      )\
     ");
   },
   down: (queryInterface, Sequelize) => {
