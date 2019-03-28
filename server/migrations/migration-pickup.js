@@ -1,11 +1,12 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
-        CREATE TABLE Pickups\
-        stuffId INTEGER references Stuff,\
-        pickupAddress varchar(100) not null,\
-        primary key (StuffId)\
+    return queryInterface.sequelize.query("\
+        CREATE TABLE IF NOT EXISTS Pickups(\
+            stuffId INTEGER references Stuff,\
+            pickupAddress varchar(100) not null,\
+            primary key (StuffId)\
+        )\
     ")
   },
   down: (queryInterface, Sequelize) => {

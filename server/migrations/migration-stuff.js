@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
-        CREATE TABLE Stuff(\
+    return queryInterface.sequelize.query("\
+        CREATE TABLE IF NOT EXISTS Stuff(\
             stuffId INTEGER,\
             picture TEXT,\
             name VARCHAR(100) not null,\

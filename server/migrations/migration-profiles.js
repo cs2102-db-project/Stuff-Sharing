@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.sequelize.query("\
-        CREATE TABLE Profiles(\
+    return queryInterface.sequelize.query("\
+        CREATE TABLE IF NOT EXISTS Profiles(\
             userId INTEGER references Account\
                 on delete CASCADE,\
             name STRING not null,\
