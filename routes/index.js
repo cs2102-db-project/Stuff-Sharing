@@ -5,7 +5,7 @@ var indexController = require('../controllers/indexController');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let val = indexController.random('Ayush');
-  res.render('index', {title: 'Ayush', value: val});
+  res.render('index', {title: 'Stuff Sharing', value: val});
 });
 
 module.exports = router;
