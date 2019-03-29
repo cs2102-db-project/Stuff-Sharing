@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var transactionRouter = require('./routes/transaction');
-var addItemRouter = require('./routes/addItem');
+var addItemRouter = require('./routes/additem');
 
 var app = express();
 
