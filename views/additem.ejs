@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<!-- Page Title -->
+		<title><%= title %></title>
+		
+		<!-- CSS for Styling -->
+        <link rel='stylesheet' href='/stylesheets/addItemStyle.css' />
+        
+        <style>
+        body {
+            background-image: url("https://i.pinimg.com/originals/1a/2c/33/1a2c33c72e0e953dc0842c198784a7ef.jpg");
+            background-size: 100%        
+        }
+        </style>
+		
+  </head>
+  <body>
+      <h1>Show your item to the world!</h1>
+        <div class="container">
+            <form action="#">
+
+                <label for="iname">Item's name</label>
+                <input type="text" id="iname" name="itemname" placeholder="Name">
+            
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" placeholder="Amount">
+            
+                <label for="type">Type</label>
+                <select id="type" name="type">
+                <option value="deliverables">Deliverables</option>
+                <option value="services">Services</option>
+                <option value="pickups">Pickups</option>
+                <option value="intangibles">Intangibles</option>
+                </select>
+            
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Write something..." 
+                    style="	font-family: 'Montserrat', sans-serif; height:200px; width:600px;"></textarea>
+            
+                <input id="submitButton" type="submit" value="Submit">
+            
+            </form>
+        </div>   
+  </body>
+</html>
