@@ -5,7 +5,8 @@
 }
 
 body {
-	background: #f6f5f7;
+	background-image: url("https://scontent-den4-1.cdninstagram.com/vp/ad4496e552ef57d206bac4f78430ca40/5D336AF0/t51.2885-15/e35/46375994_653539281727396_2312784013552622766_n.jpg?_nc_ht=scontent-den4-1.cdninstagram.com");
+	background-size: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -45,8 +46,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #845EC2;
+	background-color: #845EC2;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -54,6 +55,11 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+#signUpButton {
+	border: 1px solid #FF6F91;
+	background-color: #FF6F91;
 }
 
 button:active {
@@ -159,9 +165,9 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: #FF6F91;
+	background: -webkit-linear-gradient(to right, #FF6F91, #845EC2);
+	background: linear-gradient(to right, #FF6F91, #845EC2);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

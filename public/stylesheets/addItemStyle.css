@@ -6,7 +6,6 @@
 
 
 body {
-    background-image: url("https://unsplash.com/photos/RChZT-JlI9g");
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,7 +35,8 @@ h1 {
 }
 
 form {
-    background: linear-gradient(to right, #E0E0E0, #D3D3D3);
+	background: -webkit-linear-gradient(to right, #0066ff, #00ccff);
+	background: linear-gradient(to right, #0066ff, #00ccff);
 	display: flex;
 	align-items: center;
 	justify-content: center;
