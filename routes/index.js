@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var indexController = require('../controllers/indexController');
 
 var queries = require('./sql');
 
@@ -26,7 +27,8 @@ router.get('/', function(req, res, next) {
     }
   })
 
-  res.render('index', { title: 'Express' });
+  let val = indexController.random('Ayush');
+  res.render('index', {title: 'Stuff Sharing', value: val});
 });
 
 module.exports = router;
