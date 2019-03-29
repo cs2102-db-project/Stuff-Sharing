@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+nav {
+	width: 100%;
+}
 
 body {
 	display: flex;
@@ -19,19 +22,6 @@ h1 {
 	font-weight: bold;
     margin: 10px;
     text-align: center;
-}
-
-#submitButton {
-	border-radius: 20px;
-	border: 1px solid #164B77;
-	background-color: #164B77;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
 }
 
 form {
@@ -54,4 +44,17 @@ input, select {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+}
+
+#submitButton {
+	border-radius: 20px;
+	border: 1px solid #164B77;
+	background-color: #164B77;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
 }

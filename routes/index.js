@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var indexController = require('../controllers/indexController');
 
-var queries = require('./sql');
-
 const { Pool } = require('pg')
 const pool = new Pool({
   user: 'postgres',
