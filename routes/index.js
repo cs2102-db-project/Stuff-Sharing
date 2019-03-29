@@ -20,6 +20,11 @@ router.get('/', function(req, res, next) {
       return console.error('Error executing migrations', err.stack)
     }
   })
+  pool.query(queries.seed_database, (err, result) => {
+    if (err) {
+      return console.error('Error seeding database', err.stack)
+    }
+  })
 
   res.render('index', { title: 'Express' });
 });

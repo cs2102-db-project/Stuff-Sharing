@@ -70,4 +70,51 @@ var migrate_database = "\
   );\
 "
 
+
+/* Seed tables */
+var seed_database ="\
+  DELETE FROM accounts;\
+  DELETE FROM admins;\
+  DELETE FROM nonadmins;\
+  DELETE FROM profiles;\
+  DELETE FROM stuff;\
+  DELETE FROM deliverables;\
+  DELETE FROM pickups;\
+  DELETE FROM intangibles;\
+  DELETE FROM services;\
+  DELETE FROM transactions;\
+  DELETE FROM reviews;\
+  \
+  INSERT INTO accounts VALUES\
+    ('johndoe', 'johndoe'),\
+    ('janedoe', 'janedoe');\
+  INSERT INTO admins VALUES\
+    ('johndoe', 'johndoe');\
+  INSERT INTO nonadmins VALUES\
+    ('janedoe', 'janedoe');\
+  INSERT INTO profiles VALUES\
+    ('johndoe', 'John Doe', 'picture?', '10 john road'),\
+    ('janedoe', 'Jane Doe', 'picture?', '10 jane road');\
+  INSERT INTO stuff VALUES\
+    (1, 'picture?', 'book', 'johndoe', 'its a book'),\
+    (2, 'picture?', 'car', 'johndoe', 'its a car'),\
+    (3, 'picture?', 'car wash', 'janedoe', 'its a car wash'),\
+    (4, 'picture?', 'math notes', 'janedoe', 'its math notes');\
+  INSERT INTO deliverables VALUES\
+    (1, 1.00);\
+  INSERT INTO pickups VALUES\
+    (2, '10 john road');\
+  INSERT INTO intangibles VALUES\
+    (4);\
+  INSERT INTO services VALUES\
+    (3);\
+  INSERT INTO transactions VALUES\
+    (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '01-01-2019', '30-01-2019');\
+  INSERT INTO reviews VALUES\
+    (1, 1, 10, 'good');\
+"
+
+
 module.exports.migrate_database = migrate_database;
+module.exports.seed_database = seed_database;
+
