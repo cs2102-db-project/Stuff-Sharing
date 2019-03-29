@@ -23,8 +23,8 @@ h1 {
 
 #submitButton {
 	border-radius: 20px;
-	border: 1px solid #C1C8E4;
-	background-color: #5F7470;
+	border: 1px solid #164B77;
+	background-color: #164B77;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -35,8 +35,8 @@ h1 {
 }
 
 form {
-	background: -webkit-linear-gradient(to right, #0066ff, #00ccff);
-	background: linear-gradient(to right, #0066ff, #00ccff);
+	background: -webkit-linear-gradient(to right, #B7CCE5, #E0E0DF);
+	background: linear-gradient(to right, #B7CCE5, #E0E0DF);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -44,7 +44,8 @@ form {
 	padding: 0 50px;
 	height: 100%;
     text-align: center;
-    border-radius: 25px;
+	border-radius: 25px;
+	opacity: 0.96;
 }
 
 input, select {
