@@ -2,10 +2,17 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p> <% for (i = 0; i < value.length; i++) { %> </p>
+    <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= value[i] %></h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    <% } %>
   </body>
 </html>
