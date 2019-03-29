@@ -8,16 +8,21 @@ var migrate_database = "\
     primary key (username)\
   );\
   CREATE TABLE IF NOT EXISTS Admins(\
-    username TEXT references Accounts(username),\
+    username TEXT references Accounts(username)\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     primary key (username)\
   );\
   CREATE TABLE IF NOT EXISTS NonAdmins(\
-    username TEXT references Accounts(username),\
+    username TEXT references Accounts(username)\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     primary key (username)\
   );\
   CREATE TABLE IF NOT EXISTS Profiles(\
     username TEXT references Accounts(username)\
-      on delete CASCADE,\
+      on DELETE CASCADE\
+      ON UPDATE CASCADE,\
     name TEXT not null,\
     picture TEXT,\
     address VARCHAR(100),\
@@ -31,23 +36,33 @@ var migrate_database = "\
     description TEXT,\
     primary key (stuffId),\
     foreign key (owner) references Profiles(username)\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
   );\
   CREATE TABLE IF NOT EXISTS Deliverables(\
-    stuffId INTEGER references Stuff(stuffId),\
+    stuffId INTEGER references Stuff(stuffId)\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     deliveryCost FLOAT8 not null,\
     primary key (stuffId)\
   );\
   CREATE TABLE IF NOT EXISTS Pickups(\
-    stuffId INTEGER references Stuff(stuffId),\
+    stuffId INTEGER references Stuff(stuffId)\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     pickupAddress VARCHAR(100) not null,\
     primary key (StuffId)\
   );\
   CREATE TABLE IF NOT EXISTS Intangibles(\
     stuffId INTEGER references Stuff(stuffId),\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     primary key (stuffId)\
   );\
   CREATE TABLE IF NOT EXISTS Services(\
     stuffId INTEGER references Stuff(stuffId),\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     primary key (stuffId)\
   );\
   CREATE TABLE IF NOT EXISTS Transactions(\
@@ -63,6 +78,8 @@ var migrate_database = "\
   CREATE TABLE IF NOT EXISTS Reviews(\
     reviewId INTEGER,\
     transId INTEGER not null references Transactions(transId),\
+        ON DELETE CASCADE\
+        ON UPDATE CASCADE,\
     rating INTEGER not null,\
     details TEXT not null,\
     primary key (reviewId),\
