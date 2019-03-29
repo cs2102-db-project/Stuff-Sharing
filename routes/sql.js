@@ -89,9 +89,9 @@ var seed_database ="\
     ('johndoe', 'johndoe'),\
     ('janedoe', 'janedoe');\
   INSERT INTO admins VALUES\
-    ('johndoe', 'johndoe');\
+    ('johndoe');\
   INSERT INTO nonadmins VALUES\
-    ('janedoe', 'janedoe');\
+    ('janedoe');\
   INSERT INTO profiles VALUES\
     ('johndoe', 'John Doe', 'picture?', '10 john road'),\
     ('janedoe', 'Jane Doe', 'picture?', '10 jane road');\
@@ -109,7 +109,7 @@ var seed_database ="\
   INSERT INTO services VALUES\
     (3);\
   INSERT INTO transactions VALUES\
-    (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '01-01-2019', '30-01-2019');\
+    (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '01-01-2019', '01-20-2019');\
   INSERT INTO reviews VALUES\
     (1, 1, 10, 'good');\
 "
