@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Stuff(
     primary key (stuffId),
     foreign key (owner) references Profiles(username)
         ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Deliverables(
     stuffId INTEGER references Stuff(stuffId)
@@ -50,13 +50,13 @@ CREATE TABLE IF NOT EXISTS Pickups(
     primary key (StuffId)
 );
 CREATE TABLE IF NOT EXISTS Intangibles(
-    stuffId INTEGER references Stuff(stuffId),
+    stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Services(
-    stuffId INTEGER references Stuff(stuffId),
+    stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     primary key (stuffId)
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
-    transId INTEGER not null references Transactions(transId),
+    transId INTEGER not null references Transactions(transId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     rating INTEGER not null,
