@@ -109,7 +109,7 @@ var seed_database ="\
   INSERT INTO services VALUES\
     (3);\
   INSERT INTO transactions VALUES\
-    (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '01-01-2019', '01-20-2019');\
+    (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');\
   INSERT INTO reviews VALUES\
     (1, 1, 10, 'good');\
 "
