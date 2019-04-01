@@ -9,6 +9,7 @@ var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var transactionRouter = require('./routes/transaction');
 var addItemRouter = require('./routes/additem');
+var itemRouter = require('./routes/item');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
 app.use('/transaction', transactionRouter);
 app.use('/addItem', addItemRouter);
+app.use('/item', itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,4 +47,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-

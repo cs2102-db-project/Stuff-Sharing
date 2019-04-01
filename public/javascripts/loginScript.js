@@ -1,35 +1,38 @@
-const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
+const signUp = document.getElementById('signUp');
+const signIn = document.getElementById('signIn');
 const container = document.getElementById('container');
 
-signUpButton.addEventListener('click', () => {
+signUp.addEventListener('click', () => {
     container.classList.add('right-panel-active');
 });
 
-signInButton.addEventListener('click', () => {
+signIn.addEventListener('click', () => {
     container.classList.remove('right-panel-active');
 });
 
-/*
-var signUpName = document.getElementById('signUpName'),
-	signUpEmail = document.getElementById('signUpEmail'),
-	signUpPassword = document.getElementById('signUpPassword'),
+// const signUpUsername = document.getElementById('signUpUsername');
+// const signUpPassword = document.getElementById('signUpPassword');
 
-    signUpButton = document.getElementById('signUpButton').addEventListener('click', function(){
-      // Sanitize
-	  var clean = DOMPurify.sanitize(signUpName.value, {SAFE_FOR_TEMPLATES: true}) + DOMPurify.sanitize(signUpEmail.value, {SAFE_FOR_TEMPLATES: true}) 
-	  	+ DOMPurify.sanitize(signUpPassword.value, {SAFE_FOR_TEMPLATES: true});
-      result.innerHTML = clean;
-      console.log(clean);
-	});
+// const signUpButton = document.getElementById('signUpButton');
+
+// signUpButton.addEventListener('click', () => {
+// 	// Sanitize
+// 	var cleanSignUpUsername = DOMPurify.sanitize(signUpUsername.value, {SAFE_FOR_TEMPLATES: true})
+// 	var cleanSignUpPassword = DOMPurify.sanitize(signUpPassword.value, {SAFE_FOR_TEMPLATES: true});
+// });
 	
-var signInEmail = document.getElementById('signInEmail'),
-	signInPassword = document.getElementById('signInPassword'),
+// const signInUsername = document.getElementById('signInUsername');
+// const signInPassword = document.getElementById('signInPassword');
 
-	signInButton = document.getElementById('signInButton').addEventListener('click', function(){
-		// Sanitize
-		var clean = DOMPurify.sanitize(signInEmail.value, {SAFE_FOR_TEMPLATES: true}) + DOMPurify.sanitize(signInPassword.value, {SAFE_FOR_TEMPLATES: true});
-		result.innerHTML = clean;
-		console.log(clean);
-    });
-*/
+// const signInButton = document.getElementById('signInButton')
+
+// signInButton.addEventListener('click', () => {
+// 	// Sanitize
+// 	var cleanSignInUsername = DOMPurify.sanitize(signInUsername.value, {SAFE_FOR_TEMPLATES: true})
+// 	var cleanSignInPassword = DOMPurify.sanitize(signInPassword.value, {SAFE_FOR_TEMPLATES: true});
+// });
+	
+// module.exports.cleanSignUpUsername = cleanSignUpUsername;
+// module.exports.cleanSignUpPassword = cleanSignUpPassword;
+// module.exports.cleanSignInUsername = cleanSignInUsername;
+// module.exports.cleanSignInPassword = cleanSignInPassword;

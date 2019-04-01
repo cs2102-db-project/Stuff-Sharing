@@ -3,44 +3,101 @@
   <head>
 		<!-- Page Title -->
 		<title><%= title %></title>
-		
+
 		<!-- CSS for Styling -->
-        <link rel='stylesheet' href='/stylesheets/addItemStyle.css' />
-        
-        <style>
-        body {
-            background-image: url("https://i.pinimg.com/originals/1a/2c/33/1a2c33c72e0e953dc0842c198784a7ef.jpg");
-            background-size: 100%        
-        }
-        </style>
-		
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
   </head>
   <body>
-      <h1>Show your item to the world!</h1>
-        <div class="container">
+    <!-- Navbar Stuff -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+
+      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item dropdown text-white">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Browse
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Pick-up</a>
+              <a class="dropdown-item" href="#">Deliver</a>
+              <a class="dropdown-item" href="#">Service</a>
+              <a class="dropdown-item" href="#">Intangible</a>
+            </div>
+          </li>
+
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Actual page -->
+        <div class="container" style="background: -webkit-linear-gradient(to right, #0066ff, #00ccff);
+            background: #845EC2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 70%;
+            text-align: center;
+            border-radius: 25px;
+            bottom: 100px;
+            left: 100px;
+            top: 150px;
+            position: fixed;">
             <form action="#">
 
-                <label for="iname">Item's name</label>
-                <input type="text" id="iname" name="itemname" placeholder="Name">
-            
-                <label for="price">Price</label>
-                <input type="number" id="price" name="price" placeholder="Amount">
-            
-                <label for="type">Type</label>
-                <select id="type" name="type">
+                <label for="iname" class="text-white">Item's name</label>
+                <input type="text" id="iname" name="itemname" placeholder="Name"
+                       style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+
+                <label for="price" class="text-white">Price</label>
+                <input type="number" id="price" name="price" placeholder="Amount"
+                       style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+
+                <label for="type" class="text-white">Type</label>
+                <select id="type" name="type"
+                        style="font: #FFF; border: none; padding: 12px 15px;
+                        margin: 8px 0; width: 100%; border-radius: 25px;">
                 <option value="deliverables">Deliverables</option>
                 <option value="services">Services</option>
                 <option value="pickups">Pickups</option>
                 <option value="intangibles">Intangibles</option>
                 </select>
-            
-                <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Write something..." 
-                    style="	font-family: 'Montserrat', sans-serif; height:200px; width:600px;"></textarea>
-            
-                <input id="submitButton" type="submit" value="Submit">
-            
+
+                <label for="description" class="text-white">Description</label>
+                <textarea id="description" name="description" placeholder="Write something..."
+                        style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+                </textarea>
+
+                <input id="submitButton" type="submit" value="Submit"
+                       style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+
             </form>
-        </div>   
+        </div>
   </body>
 </html>
