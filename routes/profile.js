@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   if (currentUser == null) {
     res.redirect('/login');
   } else {
-    res.render('profile', { title: currentUser });
+    res.render('profile', { user: currentUser });
   }
 });
 
