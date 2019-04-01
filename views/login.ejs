@@ -11,19 +11,19 @@
   <body>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
-				<form action="#">
+				<form method="post" action="/login">
 					<h1>Create Account</h1>
 					<input type="text" id="signUpUsername" placeholder="Username" />
 					<input type="password" id="signUpPassword" placeholder="Password">
-					<button id="signUpButton">Sign Up</button>
+					<button id="signUpButton" type="submit">Sign Up</button>
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
-				<form action="#">
+				<form method="post" action="/login">
 					<h1>Sign in</h1>
-					<input type="text" id="signInUsername" placeholder="Username" />
-					<input type="password" id="signInPassword" placeholder="Password" />
-					<button id="signInButton">Sign In</button>
+					<input type="text" name="signInUsername" id="signInUsername" placeholder="Username" />
+					<input type="password" name="signInPassword" id="signInPassword" placeholder="Password" />
+					<button id="signInButton" type="submit">Sign In</button>
 				</form>
 			</div>
 			<div class="overlay-container">
@@ -43,7 +43,7 @@
 		</div>
 
 		<!-- ADDED JavaScript -->
-		<script src="../public/javascripts/loginScript.js"></script>
+		<script src="../publics/javascripts/loginScript.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/0.8.4/purify.min.js"></script>
   </body>
 </html>

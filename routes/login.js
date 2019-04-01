@@ -2,10 +2,23 @@ var express = require('express');
 var router = express.Router();
 // var loginScript = require('../public/javascripts/loginScript');
 
+var bodyParser = require('body-parser');
+
+// middleware for bodyParser
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended: true}));
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login' });
+
+});
+
+router.post('/', function(req, res) {
+  var item = req.body.signInUsername;
+  // console.log("hello");
+  console.log(item);
 });
 
 // const { Pool } = require('pg')
