@@ -35,7 +35,8 @@ router.post('/', function(req, res) {
       if (data.rows.length == 0) {
         res.send("Username or password is invalid");
       } else {
-         res.redirect('/profile');
+        req.app.set('current user', signInUsername);
+        res.redirect('/profile');
       }
   });
 });

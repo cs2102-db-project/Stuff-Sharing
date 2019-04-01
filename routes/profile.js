@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('profile', { title: 'Profile' });
+  var currentUser = req.app.get('current user');
+  if (currentUser == null) {
+    res.redirect('/login');
+  } else {
+    res.render('profile', { title: currentUser });
+  }
 });
 
 module.exports = router;
