@@ -8,6 +8,14 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
+const { Pool } = require('pg')
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'stuffsharing',
+  password: 'postgres',
+  port: 5432,
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,25 +24,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
-  var item = req.body.signInUsername;
-  // console.log("hello");
-  console.log(item);
+  var signInUsername = req.body.signInUsername;
+  var signInPassword = req.body.signInPassword;
+  console.log(signInUsername);
+  console.log(signInPassword);
+  pool.query('SELECT 1 FROM accounts WHERE accounts.username = $1::text AND accounts.password = $2::text', [signInUsername, signInPassword], function (err, data) {
+    if (err) {
+      console.log('error');
+    }
+    if (data.rows.length == 0) {
+      console.log('hello');
+      res.send("Username or password is invalid");
+    } else {
+       res.redirect('/profile');
+    }
+  });
 });
-
-// const { Pool } = require('pg')
-// const pool = new Pool({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'stuffsharing',
-//   password: 'postgres',
-//   port: 5432,
-// })
-
-// pool.query('SELECT * FROM accounts WHERE accounts.username = $1::text AND accounts.password = $2::text', [loginScript.cleanSignInUsername, loginScript.cleanSignInPassword]),
-//   (err, data) => {
-//     if (data == null) {
-//       send(alert('Username or password is invalid'));
-//     }
-//   };
 
 module.exports = router;
