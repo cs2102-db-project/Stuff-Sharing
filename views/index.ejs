@@ -42,11 +42,23 @@
 
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form id="search_form" action="/search" method="POST" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
+      <!-- <script>
+        (function() {
+            window.addEventListener('load', function() {
+                var forms = [document.getElementById('search_form')];
+                console.log("a");
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', check, false);
+                });
+                console.log("b");
+            }, false);
+        })();
+      </script> -->
     </nav>
 
     <!-- Cards for the Items fetched -->
