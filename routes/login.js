@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var loginScript = require('../public/javascripts/loginScript');
 
 var bodyParser = require('body-parser');
 
@@ -28,16 +27,16 @@ router.post('/', function(req, res) {
   var signInPassword = req.body.signInPassword;
   console.log(signInUsername);
   console.log(signInPassword);
-  pool.query('SELECT 1 FROM accounts WHERE accounts.username = $1::text AND accounts.password = $2::text', [signInUsername, signInPassword], function (err, data) {
-    if (err) {
-      console.log('error');
-    }
-    if (data.rows.length == 0) {
-      console.log('hello');
-      res.send("Username or password is invalid");
-    } else {
-       res.redirect('/profile');
-    }
+  pool.query('SELECT 1 FROM accounts WHERE accounts.username = $1::text AND accounts.password = $2::text', [signInUsername, signInPassword],
+    function (err, data) {
+      if (err) {
+        res.send(err);
+      }
+      if (data.rows.length == 0) {
+        res.send("Username or password is invalid");
+      } else {
+         res.redirect('/profile');
+      }
   });
 });
 
