@@ -47,60 +47,50 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
-      <!-- <script>
-        (function() {
-            window.addEventListener('load', function() {
-                var forms = [document.getElementById('search_form')];
-                console.log("a");
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', check, false);
-                });
-                console.log("b");
-            }, false);
-        })();
-      </script> -->
     </nav>
 
-    <!-- Cards for the Items fetched 
-    <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-      <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-        <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
-            <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
-                <div class="card-body">
-                    <h5 class="card-title"><%= value[i + k].name %></h5>
-                    <p class="card-text"><%= value[i + k].description %></p>
-                </div>
-            </a>
-        <% } %>   
-         
-      </div>
-    <% } %> -->
-
-        <!-- Cards for the Items fetched -->
-        <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-            <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= value[i] %></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </a>
-              <% if( i + 1 < value.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= value[i + 1] %></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </a>
-              <% } if ( i + 2 < value.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= value[i + 2] %></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </a>
+     <!-- Cards for the Items fetched -->
+     <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= value[i].name %></h5>
+              <p class="card-text"><%= value[i].description%></p>
             </div>
-          <% }} %>
+          </a>
+          <% if( i + 1 < value.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= value[i + 1].name %></h5>
+              <p class="card-text"><%= value[i + 1].description%></p>
+            </div>
+          </a>
+          <% } if ( i + 2 < value.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= value[i + 2].name %></h5>
+              <p class="card-text"><%= value[i + 2].description%></p>
+            </div>
+          </a>
+        </div>
+      <% }} %>
+
+    <!-- Cards for the Items fetched
+    <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+          <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
+              <p><% if (i + k < value.length) { %></p>
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
+                  <div class="card-body">
+                          <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
+                          <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
+                      <p><% } %></p>
+                  </div>
+              </a>
+          <% } %>   
+           
+        </div>
+    <% } %> -->
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">

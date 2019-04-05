@@ -38,8 +38,8 @@ router.post('/search', function(req, res, next) {
         }
         res.render('index',
             {title: 'Stuff Sharing',
-             value: result});
-        return console.log(result.rows[0]);
+             value: result.rows});
+        return console.log(result.rows);
     });
 });
 
