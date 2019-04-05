@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
     pool.query('INSERT INTO accounts (username, password) VALUES ($1::text, $2::text);', [signUpUsername, signUpPassword], function(err, data) {
       if(err) console.log('error2');
       if (!data) {
-        console.log("already exists")
+        console.log("already exist")
         res.send('This user already exists');
       }
       pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1::text, $2::text, $3::text, $4::text)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
