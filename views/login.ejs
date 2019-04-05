@@ -11,10 +11,13 @@
   <body>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
-				<form method="post" action="/login">
+				<form method="post" action="/signup">
 					<h1>Create Account</h1>
-					<input type="text" id="signUpUsername" placeholder="Username" />
-					<input type="password" id="signUpPassword" placeholder="Password">
+					<input type="text" name="signUpUsername" id="signUpUsername" placeholder="Username" />
+					<input type="text" name="signUpName" id="signUpName" placeholder="Name">
+					<input type="password" name="signUpPassword" id="signUpPassword" placeholder="Password">
+					<input type="text" name="signUpPicture" id="signUpPicture" placeholder="Picture">
+					<input type="text" name="signUpAddress" id="signUpAddress" placeholder="Address">
 					<button id="signUpButton" type="submit">Sign Up</button>
 				</form>
 			</div>
