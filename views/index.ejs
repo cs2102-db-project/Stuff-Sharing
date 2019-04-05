@@ -4,7 +4,7 @@
     <title><%= title %></title>
   </head>
   <body>
-
+    
     <!-- Don't remove the links please -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -42,11 +42,23 @@
 
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form id="search_form" action="/search" method="POST" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
+      <!-- <script>
+        (function() {
+            window.addEventListener('load', function() {
+                var forms = [document.getElementById('search_form')];
+                console.log("a");
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', check, false);
+                });
+                console.log("b");
+            }, false);
+        })();
+      </script> -->
     </nav>
 
     <!-- Cards for the Items fetched -->
@@ -74,6 +86,8 @@
         </a>
       </div>
     <% }} %>
+
+    %= test%
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">
