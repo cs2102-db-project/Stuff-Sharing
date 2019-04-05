@@ -7,7 +7,13 @@ router.get('/', function(req, res, next) {
   if (currentUser == null) {
     res.redirect('/login');
   } else {
-    res.render('profile', { user: currentUser });
+  	var pool = req.app.get('pool');
+  	pool.query("SELECT * FROM stuff WHERE stuff.owner = $1::text", [currentUser.username],
+      function(err, data) {
+        var items = data.rows;
+        res.render('profile', { user: currentUser, myItems: items });
+      }
+    );
   }
 });
 

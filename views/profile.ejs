@@ -49,10 +49,37 @@
       </div>
     </nav>
 
-    <h1><%= user.username %></h1>
-    <p>Name: <%= user.name %></p>
-    <p>Address: <%= user.address %></p>
+    <h1 style="margin-left: 2rem;"><%= user.username %></h1>
+    <p style="margin-left: 2rem;">Name: <%= user.name %></p>
+    <p style="margin-left: 2rem;">Address: <%= user.address %></p>
+    <h2 style="margin-left: 2rem;">My items:</h2>
 
-    <h2>My items:</h2>
+    <!-- Cards for the Items fetched -->
+    <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
+      <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+          <div class="card-body">
+            <h5 class="card-title"><%= myItems[i].name %></h5>
+            <p class="card-text"><%= myItems[i].description %></p>
+          </div>
+        </a>
+        <% if( i + 1 < myItems.length ) {%>
+        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+          <div class="card-body">
+            <h5 class="card-title"><%= myItems[i + 1].name %></h5>
+            <p class="card-text"><%= myItems[i + 1].description %></p>
+          </div>
+        </a>
+        <% } if ( i + 2 < myItems.length ) {%>
+        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+          <div class="card-body">
+            <h5 class="card-title"><%= myItems[i + 2].name %></h5>
+            <p class="card-text"><%= myItems[i + 2].description %></p>
+          </div>
+        </a>
+      </div>
+    <% }} %>
+
+
   </body>
 </html>
