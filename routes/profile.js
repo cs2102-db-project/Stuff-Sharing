@@ -3,7 +3,18 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('profile', { title: 'Profile' });
+  var currentUser = req.app.get('current user');
+  if (currentUser == null) {
+    res.redirect('/login');
+  } else {
+  	var pool = req.app.get('pool');
+  	pool.query("SELECT * FROM stuff WHERE stuff.owner = $1::text", [currentUser.username],
+      function(err, data) {
+        var items = data.rows;
+        res.render('profile', { user: currentUser, myItems: items });
+      }
+    );
+  }
 });
 
 module.exports = router;

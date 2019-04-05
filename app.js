@@ -17,6 +17,20 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// initialise current user to null
+app.set('current user', null);
+
+// Connect to database and create query pool
+const { Pool } = require('pg')
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'stuffsharing',
+  password: 'postgres',
+  port: 5432,
+})
+app.set('pool', pool);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
