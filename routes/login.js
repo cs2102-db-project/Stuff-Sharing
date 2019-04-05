@@ -38,8 +38,6 @@ router.post('/', function(req, res) {
         pool.query('SELECT * FROM profiles WHERE profiles.username = $1::text', [signInUsername],
           function (err, data2) {
             req.app.set('current user', data2.rows[0]);
-            console.log(data2.rows[0]);
-            console.log(data2.rows[0].username);
             res.redirect('/profile');
           }
         );
