@@ -11,6 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Profile sidebar -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/profile.css' />
+
 
     <!-- Navbar Stuff -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
@@ -49,36 +55,74 @@
       </div>
     </nav>
 
-    <h1 style="margin-left: 2rem;"><%= user.username %></h1>
-    <p style="margin-left: 2rem;">Name: <%= user.name %></p>
-    <p style="margin-left: 2rem;">Address: <%= user.address %></p>
-    <h2 style="margin-left: 2rem;">My items:</h2>
 
-    <!-- Cards for the Items fetched -->
-    <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
-      <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
-          <div class="card-body">
-            <h5 class="card-title"><%= myItems[i].name %></h5>
-            <p class="card-text"><%= myItems[i].description %></p>
+    <!-- Profile Page -->
+    <div class="row profile">
+      <div class="col-md-3">
+        <div class="profile-sidebar">
+          <!-- SIDEBAR USERPIC -->
+          <div class="profile-userpic">
+            <img src="../public/images/default_profile.png" alt="">
           </div>
-        </a>
-        <% if( i + 1 < myItems.length ) {%>
-        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
-          <div class="card-body">
-            <h5 class="card-title"><%= myItems[i + 1].name %></h5>
-            <p class="card-text"><%= myItems[i + 1].description %></p>
+          <!-- SIDEBAR USER TITLE -->
+          <div class="profile-usertitle">
+            <div class="profile-usertitle-name"><%= user.username %></div>
+            <div class="profile-usertitle-job"><%= user.name %></div>
           </div>
-        </a>
-        <% } if ( i + 2 < myItems.length ) {%>
-        <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
-          <div class="card-body">
-            <h5 class="card-title"><%= myItems[i + 2].name %></h5>
-            <p class="card-text"><%= myItems[i + 2].description %></p>
+          <!-- SIDEBAR MENU -->
+          <div class="profile-usermenu">
+            <ul class="nav">
+              <li class="active">
+                <a href="#">
+                <i class="glyphicon glyphicon-home"></i>My items
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                <i class="glyphicon glyphicon-user"></i>My transaction history
+                </a>
+              </li>
+            </ul>
           </div>
-        </a>
+        </div>
       </div>
-    <% }} %>
+      <div class="col-md-9">
+        <div class="profile-content">
+          <h1 style="margin-left: 2rem;"><%= user.username %></h1>
+          <p style="margin-left: 2rem;">Name: <%= user.name %></p>
+          <p style="margin-left: 2rem;">Address: <%= user.address %></p>
+          <h2 style="margin-left: 2rem;">My items:</h2>
+
+          <!-- Cards for the Items fetched -->
+          <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
+            <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= myItems[i].name %></h5>
+                  <p class="card-text"><%= myItems[i].description %></p>
+                </div>
+              </a>
+              <% if( i + 1 < myItems.length ) {%>
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= myItems[i + 1].name %></h5>
+                  <p class="card-text"><%= myItems[i + 1].description %></p>
+                </div>
+              </a>
+              <% } if ( i + 2 < myItems.length ) {%>
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= myItems[i + 2].name %></h5>
+                  <p class="card-text"><%= myItems[i + 2].description %></p>
+                </div>
+              </a>
+            </div>
+          <% }} %>
+
+        </div>
+      </div>
+    </div>
+
 
 
   </body>
