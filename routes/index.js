@@ -31,6 +31,7 @@ router.post('/search', function(req, res, next) {
         if (err) {
           return console.error('Error executing query', err.stack)
         }
+        res.render('index', {title: 'Stuff Sharing', value: indexController.random('Ayush'), test: '<p>hi</p>'});
         return console.log(result.rows[0]);
     });
 });
