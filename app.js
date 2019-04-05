@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var signupRouter = require('./routes/signup')
 var profileRouter = require('./routes/profile');
 var transactionRouter = require('./routes/transaction');
 var addItemRouter = require('./routes/additem');
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 app.use('/profile', profileRouter);
 app.use('/transaction', transactionRouter);
 app.use('/addItem', addItemRouter);
