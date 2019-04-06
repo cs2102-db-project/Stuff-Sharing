@@ -58,43 +58,58 @@
             justify-content: center;
             flex-direction: column;
             padding: 0 50px;
-            height: 70%;
+            height: 80%;
             text-align: center;
             border-radius: 25px;
             bottom: 100px;
-            left: 100px;
-            top: 150px;
+            left: 200px;
+            top: 100px;
             position: fixed;">
             <form method="post" action="/additem">
 
-                <label for="iname" class="text-white">Item's name</label>
-                <input type="text" id="iname" name="itemName" placeholder="Name"
+                <label for="itemName" class="text-white">Item's Name</label>
+                <input type="text" id="itemName" name="itemName" placeholder="Name"
                        style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
 
-                <label for="price" class="text-white">Price</label>
-                <input type="number" id="price" name="itemPrice" placeholder="Amount"
+                <label for="itemPrice" class="text-white">Price</label>
+                <input type="number" step="0.01" min="0" id="itemPrice" name="itemPrice" placeholder="Amount"
                        style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
 
-                <label for="picture" class="text-white">Picture</label>
-                <input type="text" id="picture" name="itemPicture" placeholder="Picture"
+                <label for="itemPicture" class="text-white">Picture</label>
+                <input type="text" id="itemPicture" name="itemPicture" placeholder="Picture"
                        style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
 
-                <label for="type" class="text-white">Type</label>
-                <select id="type" name="itemType"
+                <label for="itemType" class="text-white">Type</label>
+                <select id="itemType" name="itemType"
                         style="font: #FFF; border: none; padding: 12px 15px;
                         margin: 8px 0; width: 100%; border-radius: 25px;">
+                <option value="null"></option>
                 <option value="deliverables">Deliverables</option>
                 <option value="services">Services</option>
                 <option value="pickups">Pickups</option>
                 <option value="intangibles">Intangibles</option>
                 </select>
 
-                <label for="description" class="text-white">Description</label>
-                <textarea id="description" name="itemDescription" placeholder="Write something..."
-                        style="font: #FFF; border: none; padding: 12px 15px;
+                <div id="showDeliveryCost">
+                <label for="itemDeliveryCost" class="text-white">Delivery Cost</label>
+                <input type="number" step="0.01" min="0" id="itemDeliveryCost" name="itemDeliveryCost" placeholder="Delivery Cost"
+                       style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+                </div>
+
+                <div id="showPickupAddress">
+                <label for="itemPickupAddress" class="text-white">Pickup Address</label>
+                <input type="text" id="itemPickupAddress" name="itemPickupAddress" placeholder="Pickup Address"
+                       style="font: #FFF; border: none; padding: 12px 15px;
+                       margin: 8px 0; width: 100%; border-radius: 25px;">
+                </div>
+
+                <label for="itemDescription" class="text-white">Description</label>
+                <textarea id="itemDescription" name="itemDescription" placeholder="Write something..."
+                       style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
                 </textarea>
 
@@ -104,5 +119,8 @@
 
             </form>
         </div>
+
+    <!-- ADDED JavaScript -->
+		<script src="javascripts/addItemScript.js"></script>
   </body>
 </html>
