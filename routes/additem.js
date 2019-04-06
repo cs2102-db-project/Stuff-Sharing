@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
         }
 
       } else if (itemType == "services") {
-        pool.query('INSERT INTO services (stuffId, price) VALUES ($7::integer, $8::float);',
+        pool.query('INSERT INTO services (stuffId, price) VALUES ($10::integer, $11::float);',
           [itemId, itemPrice], function(err, data) {
             if (err) console.log('error3');
           });
@@ -65,14 +65,14 @@ router.post('/', function(req, res) {
         } else {
           var itemPickupAddress = req.body.itemPickupAddress;
           console.log(itemPickupAddress);
-          pool.query('INSERT INTO pickups (stuffId, price, pickupAddress) VALUES ($7::integer, $8::float, $9::text);',
+          pool.query('INSERT INTO pickups (stuffId, price, pickupAddress) VALUES ($12::integer, $13::float, $14::text);',
           [itemId, itemPrice, itemPickupAddress], function(err, data) {
             if (err) console.log('error4');
           });
         }
 
       } else {
-        pool.query('INSERT INTO intangibles (stuffId, price) VALUES ($7::integer, $8::float);',
+        pool.query('INSERT INTO intangibles (stuffId, price) VALUES ($15::integer, $16::float);',
         [itemId, itemPrice], function(err, data) {
           if (err) console.log('error5');
         });
