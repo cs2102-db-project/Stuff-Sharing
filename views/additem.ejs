@@ -65,20 +65,20 @@
             left: 100px;
             top: 150px;
             position: fixed;">
-            <form action="#">
+            <form method="post" action="/additem">
 
                 <label for="iname" class="text-white">Item's name</label>
-                <input type="text" id="iname" name="itemname" placeholder="Name"
+                <input type="text" id="iname" name="itemName" placeholder="Name"
                        style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
 
                 <label for="price" class="text-white">Price</label>
-                <input type="number" id="price" name="price" placeholder="Amount"
+                <input type="number" id="price" name="itemPrice" placeholder="Amount"
                        style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
 
                 <label for="type" class="text-white">Type</label>
-                <select id="type" name="type"
+                <select id="type" name="itemType"
                         style="font: #FFF; border: none; padding: 12px 15px;
                         margin: 8px 0; width: 100%; border-radius: 25px;">
                 <option value="deliverables">Deliverables</option>
@@ -88,7 +88,7 @@
                 </select>
 
                 <label for="description" class="text-white">Description</label>
-                <textarea id="description" name="description" placeholder="Write something..."
+                <textarea id="description" name="itemDescription" placeholder="Write something..."
                         style="font: #FFF; border: none; padding: 12px 15px;
                        margin: 8px 0; width: 100%; border-radius: 25px;">
                 </textarea>

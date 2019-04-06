@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Stuff(
     picture TEXT,
     name VARCHAR(100) not null,
     owner TEXT not null,
+    price FLOAT8 not null, 
     description TEXT,
     primary key (stuffId),
     foreign key (owner) references Profiles(username)
@@ -39,6 +40,9 @@ CREATE TABLE IF NOT EXISTS Deliverables(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
+    price FLOAT8 references Stuff(price)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     deliveryCost FLOAT8 not null,
     primary key (stuffId)
 );
@@ -46,19 +50,28 @@ CREATE TABLE IF NOT EXISTS Pickups(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
+    price FLOAT8 references Stuff(price)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     pickupAddress VARCHAR(100) not null,
-    primary key (StuffId)
+    primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Intangibles(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
+    price FLOAT8 references Stuff(price)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Services(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
+    price FLOAT8 references Stuff(price)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Transactions(
