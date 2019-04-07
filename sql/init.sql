@@ -40,9 +40,6 @@ CREATE TABLE IF NOT EXISTS Deliverables(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    price FLOAT8 references Stuff(price)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE, 
     deliveryCost FLOAT8 not null,
     primary key (stuffId)
 );
@@ -50,9 +47,6 @@ CREATE TABLE IF NOT EXISTS Pickups(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    price FLOAT8 references Stuff(price)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE, 
     pickupAddress VARCHAR(100) not null,
     primary key (stuffId)
 );
@@ -60,16 +54,10 @@ CREATE TABLE IF NOT EXISTS Intangibles(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    price FLOAT8 references Stuff(price)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE, 
     primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Services(
     stuffId INTEGER references Stuff(stuffId)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    price FLOAT8 references Stuff(price)
         ON DELETE CASCADE
         ON UPDATE CASCADE, 
     primary key (stuffId)
@@ -105,18 +93,18 @@ INSERT INTO profiles VALUES
     ('johndoe', 'John Doe', 'picture?', '10 john road'),
     ('janedoe', 'Jane Doe', 'picture?', '10 jane road');
 INSERT INTO stuff VALUES
-    (1, 'picture?', 'book', 'johndoe', 1.00, 'its a book'),
-    (2, 'picture?', 'car', 'johndoe', 2.00, 'its a car'),
-    (3, 'picture?', 'car wash', 'janedoe', 3.00, 'its a car wash'),
-    (4, 'picture?', 'math notes', 'janedoe', 4.00, 'its math notes');
+    (1, 'picture?', 'book', 'johndoe', 1.50, 'its a book'),
+    (2, 'picture?', 'car', 'johndoe', 2.50, 'its a car'),
+    (3, 'picture?', 'car wash', 'janedoe', 3.50, 'its a car wash'),
+    (4, 'picture?', 'math notes', 'janedoe', 4.50, 'its math notes');
 INSERT INTO deliverables VALUES
-    (1, 1.00, 1.00);
+    (1, 1.00);
 INSERT INTO pickups VALUES
-    (2, 2.00, '10 john road');
+    (2, '10 john road');
 INSERT INTO intangibles VALUES
-    (4, 4.00);
+    (4);
 INSERT INTO services VALUES
-    (3, 3.00);
+    (3);
 INSERT INTO transactions VALUES
     (1, 'johndoe', 'janedoe', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES

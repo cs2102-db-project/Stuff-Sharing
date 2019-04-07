@@ -28,13 +28,13 @@ router.post('/', function(req, res) {
   var pool = req.app.get('pool');
   pool.query('BEGIN', function(err, data) {
     if(err) console.log('error1');
-    pool.query('INSERT INTO accounts (username, password) VALUES ($1::text, $2::text);', [signUpUsername, signUpPassword], function(err, data) {
+    pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [signUpUsername, signUpPassword], function(err, data) {
       if(err) console.log('error2');
       if (!data) {
         console.log("already exist")
         res.send('This user already exists');
       }
-      pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1::text, $2::text, $3::text, $4::text)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
+      pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
         if(err) console.log('error3');
         //disconnect after successful commit
         pool.query('COMMIT', function(err, data) {
