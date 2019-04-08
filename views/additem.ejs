@@ -1,16 +1,26 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-		<!-- Page Title -->
-		<title><%= title %></title>
-
-		<!-- CSS for Styling -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+    <title>Contact V4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/util.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addItemStyle/vendor/main.css"> -->
+    
+    <!-- Don't remove the links please -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
   <body>
     <!-- Navbar Stuff -->
@@ -51,53 +61,76 @@
     </nav>
 
     <!-- Actual page -->
-        <div class="container" style="background: -webkit-linear-gradient(to right, #0066ff, #00ccff);
-            background: #845EC2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 0 50px;
-            height: 70%;
-            text-align: center;
-            border-radius: 25px;
-            bottom: 100px;
-            left: 100px;
-            top: 150px;
-            position: fixed;">
-            <form action="#">
+    <div class="container-contact100">
+      <div class="wrap-contact100">
+        <form class="contact100-form validate-form" method="post" action="/additem">
+          <span class="contact100-form-title">
+            Add Item!
+          </span>
 
-                <label for="iname" class="text-white">Item's name</label>
-                <input type="text" id="iname" name="itemname" placeholder="Name"
-                       style="font: #FFF; border: none; padding: 12px 15px;
-                       margin: 8px 0; width: 100%; border-radius: 25px;">
+          <div class="wrap-input100 validate-input" data-validate="Item name is required">
+            <span class="label-input100">Item Name</span>
+            <input class="input100" type="text" name="itemName" placeholder="Enter your name" required>
+            <span class="focus-input100"></span>
+          </div>
 
-                <label for="price" class="text-white">Price</label>
-                <input type="number" id="price" name="price" placeholder="Amount"
-                       style="font: #FFF; border: none; padding: 12px 15px;
-                       margin: 8px 0; width: 100%; border-radius: 25px;">
+          <div class="wrap-input100 validate-input" data-validate = "Valid price is required: x.xx">
+            <span class="label-input100"> Price</span>
+            <input class="input100" type="number" step="0.01" min="0" name="itemPrice" placeholder="Enter your price" required>
+            <span class="focus-input100"></span>
+          </div>
 
-                <label for="type" class="text-white">Type</label>
-                <select id="type" name="type"
-                        style="font: #FFF; border: none; padding: 12px 15px;
-                        margin: 8px 0; width: 100%; border-radius: 25px;">
+          <div class="wrap-input100 validate-input">
+              <span class="label-input100">Item Picture</span>
+              <input class="input100" type="text" name="itemPicture" placeholder="Enter your item picture" required>
+              <span class="focus-input100"></span>
+            </div>
+
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Type</span>
+            <div>
+              <select class="selection-2" name="itemType" required>
+                <option></option>
                 <option value="deliverables">Deliverables</option>
                 <option value="services">Services</option>
                 <option value="pickups">Pickups</option>
                 <option value="intangibles">Intangibles</option>
-                </select>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+          <div id="showDeliveryCost" class="wrap-input100 validate-input" data-validate = "Delivery cost is required">
+              <span class="label-input100">Delivery Cost</span>
+              <input type="number" step="0.01" min="0" name="itemDeliveryCost" placeholder="Enter here">
+              <span class="focus-input100"></span>
+          </div>
+          <div id="showPickupAddress" class="wrap-input100 validate-input" data-validate = "Pickup address is required">
+              <span class="label-input100">Pickup address</span>
+              <input type="text" name="itemPickupAddress" placeholder="Enter here">
+              <span class="focus-input100"></span>
+          </div>
 
-                <label for="description" class="text-white">Description</label>
-                <textarea id="description" name="description" placeholder="Write something..."
-                        style="font: #FFF; border: none; padding: 12px 15px;
-                       margin: 8px 0; width: 100%; border-radius: 25px;">
-                </textarea>
+          <div class="wrap-input100 validate-input" data-validate = "Description is required">
+            <span class="label-input100">Description</span>
+            <textarea class="input100" name="itemDescription" placeholder="Your description here..." required></textarea>
+            <span class="focus-input100"></span>
+          </div>
 
-                <input id="submitButton" type="submit" value="Submit"
-                       style="font: #FFF; border: none; padding: 12px 15px;
-                       margin: 8px 0; width: 100%; border-radius: 25px;">
-
-            </form>
-        </div>
+          <div class="container-contact100-form-btn">
+            <div class="wrap-contact100-form-btn">
+              <div class="contact100-form-bgbtn"></div>
+              <button class="contact100-form-btn" type="submit" value="Submit">
+                <span>
+                  Submit
+                  <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- ADDED JavaScript -->
+    <script src="javascripts/addItemScript.js"></script>
   </body>
 </html>

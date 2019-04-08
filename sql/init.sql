@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Stuff(
     picture TEXT,
     name VARCHAR(100) not null,
     owner TEXT not null,
+    price FLOAT8 not null, 
     description TEXT,
     primary key (stuffId),
     foreign key (owner) references Profiles(username)
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Pickups(
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     pickupAddress VARCHAR(100) not null,
-    primary key (StuffId)
+    primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Intangibles(
     stuffId INTEGER references Stuff(stuffId)
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS Intangibles(
 CREATE TABLE IF NOT EXISTS Services(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE, 
     primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Transactions(
@@ -93,10 +94,10 @@ INSERT INTO profiles VALUES
     ('johndoe', 'John Doe', 'picture?', '10 john road'),
     ('janedoe', 'Jane Doe', 'picture?', '10 jane road');
 INSERT INTO stuff VALUES
-    (1, 'picture?', 'book', 'johndoe', 'its a book'),
-    (2, 'picture?', 'car', 'johndoe', 'its a car'),
-    (3, 'picture?', 'car wash', 'janedoe', 'its a car wash'),
-    (4, 'picture?', 'math notes', 'janedoe', 'its math notes');
+    (1, 'picture?', 'book', 'johndoe', 1.50, 'its a book'),
+    (2, 'picture?', 'car', 'johndoe', 2.50, 'its a car'),
+    (3, 'picture?', 'car wash', 'janedoe', 3.50, 'its a car wash'),
+    (4, 'picture?', 'math notes', 'janedoe', 4.50, 'its math notes');
 INSERT INTO deliverables VALUES
     (1, 1.00);
 INSERT INTO pickups VALUES
