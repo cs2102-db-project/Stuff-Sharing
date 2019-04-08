@@ -16,7 +16,7 @@ exports.random = function(randomData) {
     return [1,2,3,4];
 };
 
-exports.renderAllSearch = function(res) {
+exports.renderAll = function(res) {
     console.log("Displaying all stuff...");
     pool.query(allQuery, (err, result) => {
         if (err) {

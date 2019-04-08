@@ -14,7 +14,7 @@ const pool = new Pool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    indexController.renderAllSearch(res);
+    indexController.renderAll(res);
 });
 
 /* Search */
