@@ -64,14 +64,15 @@ CREATE TABLE IF NOT EXISTS Services(
 );
 CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
-    loaner TEXT not null,
-    loanee TEXT not null,
-    item TEXT not null,
+    loaner TEXT not null references Profiles(username),
+    loanee TEXT not null references Profiles(username),
+    itemId INTEGER not null references Stuff(stuffId),
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
     endDate DATE,
-    primary key (transId)
+    primary key (transId),
+    check (loaner <> loanee)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
