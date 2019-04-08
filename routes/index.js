@@ -17,10 +17,17 @@ router.get('/', function(req, res, next) {
     indexController.renderAllSearch(res);
 });
 
-/* Search feature */
+/* Search */
 router.get('/search', function(req, res, next) {
     let keyword = req.query.keyword;
     indexController.renderSearch(res, keyword);
 });
+
+/* Browse category */
+router.get('/category', function(req, res, next) {
+    let keyword = req.query.keyword;
+    console.log(keyword);
+    indexController.renderCategory(res, keyword);
+})
 
 module.exports = router;

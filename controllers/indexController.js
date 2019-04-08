@@ -10,13 +10,14 @@ const pool = new Pool({
 /* SQL Query */
 var allQuery = 'SELECT * from Stuff';
 var searchQuery = 'SELECT * from Stuff where name=$1';
+var categoryQuery = (keyword) => `SELECT * from Stuff natural join ${keyword}`; // no sanitization here because pg doesn't allow placeholder for table identifiers
 
 exports.random = function(randomData) {
     return [1,2,3,4];
 };
 
 exports.renderAllSearch = function(res) {
-    console.log('hi')
+    console.log("Displaying all stuff...");
     pool.query(allQuery, (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
@@ -29,8 +30,21 @@ exports.renderAllSearch = function(res) {
 }
 
 exports.renderSearch = function(res, keyword) {
+    console.log("Displaying searched stuff...");
     pool.query(searchQuery, [keyword], (err, result) => {
-        console.log(keyword);
+        if (err) {
+          return console.error('Error executing query', err.stack)
+        }
+        res.render('index',
+            {title: 'Stuff Sharing',
+             value: result.rows});
+        return console.log(result.rows);
+    });
+}
+
+exports.renderCategory = function(res, keyword) {
+    console.log("Displaying category...");
+    pool.query(categoryQuery(keyword), (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
         }
