@@ -13,19 +13,19 @@
 			<div class="form-container sign-up-container">
 				<form method="post" action="/signup">
 					<h1>Create Account</h1>
-					<input type="text" name="signUpUsername" id="signUpUsername" placeholder="Username" />
-					<input type="text" name="signUpName" id="signUpName" placeholder="Name">
-					<input type="password" name="signUpPassword" id="signUpPassword" placeholder="Password">
-					<input type="text" name="signUpPicture" id="signUpPicture" placeholder="Picture">
-					<input type="text" name="signUpAddress" id="signUpAddress" placeholder="Address">
+					<input type="text" name="signUpUsername" id="signUpUsername" placeholder="Username" required/>
+					<input type="text" name="signUpName" id="signUpName" placeholder="Name" required>
+					<input type="password" name="signUpPassword" id="signUpPassword" placeholder="Password" required>
+					<input type="text" name="signUpPicture" id="signUpPicture" placeholder="Picture" required>
+					<input type="text" name="signUpAddress" id="signUpAddress" placeholder="Address" required>
 					<button id="signUpButton" type="submit">Sign Up</button>
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
 				<form method="post" action="/login">
 					<h1>Sign in</h1>
-					<input type="text" name="signInUsername" id="signInUsername" placeholder="Username" />
-					<input type="password" name="signInPassword" id="signInPassword" placeholder="Password" />
+					<input type="text" name="signInUsername" id="signInUsername" placeholder="Username" required/>
+					<input type="password" name="signInPassword" id="signInPassword" placeholder="Password" required/>
 					<button id="signInButton" type="submit">Sign In</button>
 				</form>
 			</div>

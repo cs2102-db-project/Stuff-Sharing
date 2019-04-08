@@ -19,10 +19,6 @@ router.post('/', function(req, res) {
   console.log(signInUsername);
   console.log(signInPassword);
 
-  if (signInUsername.length == 0 || signInPassword.length == 0) {
-    return res.status(400).send("Username or Password is missing");
-  }
-
   var pool = req.app.get('pool');
   pool.query('SELECT * FROM accounts WHERE accounts.username = $1 AND accounts.password = $2', [signInUsername, signInPassword],
     function (err, data) {

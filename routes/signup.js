@@ -21,10 +21,6 @@ router.post('/', function(req, res) {
   console.log(signUpPicture);
   console.log(signUpAddress);
 
-  if (signUpUsername.length == 0 || signUpPassword.length == 0 || signUpName.length == 0 || signUpPicture.length == 0 || signUpAddress.length == 0) {
-    return res.status(400).send("Please fill up all the fields");
-  }
-
   var pool = req.app.get('pool');
   pool.query('BEGIN', function(err, data) {
     if(err) console.log('error1');
