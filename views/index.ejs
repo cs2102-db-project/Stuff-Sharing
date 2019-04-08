@@ -61,41 +61,74 @@
       </script> -->
     </nav>
 
-     <!-- Cards for the Items fetched -->
-     <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+    <div>
+      <h2>Featured</h2>
+      <p> <% for (i = 0; i < ads.length; i += 3) { %> </p>
         <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i%>">
             <div class="card-body">
-              <h5 class="card-title"><%= value[i].name %></h5>
-              <p class="card-text"><%= value[i].description%></p>
+              <h5 class="card-title"><%= ads[i].name %></h5>
+              <p class="card-text"><%= ads[i].description%></p>
             </div>
           </a>
-          <% if( i + 1 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+          <% if( i + 1 < ads.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i + 1%>">
             <div class="card-body">
-              <h5 class="card-title"><%= value[i + 1].name %></h5>
-              <p class="card-text"><%= value[i + 1].description%></p>
+              <h5 class="card-title"><%= ads[i + 1].name %></h5>
+              <p class="card-text"><%= ads[i + 1].description%></p>
             </div>
           </a>
-          <% } if ( i + 2 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+          <% } if ( i + 2 < ads.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i + 2%>">
             <div class="card-body">
-              <h5 class="card-title"><%= value[i + 2].name %></h5>
-              <p class="card-text"><%= value[i + 2].description%></p>
+              <h5 class="card-title"><%= ads[i + 2].name %></h5>
+              <p class="card-text"><%= ads[i + 2].description%></p>
             </div>
           </a>
         </div>
       <% }} %>
+    </div>
+
+    <hr>
+
+    <div>
+      <h2>Browse all items</h2>
+      <!-- Cards for the Items fetched -->
+      <p> <% for (i = 0; i < stuff.length; i += 3) { %> </p>
+        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= stuff[i].name %></h5>
+              <p class="card-text"><%= stuff[i].description%></p>
+            </div>
+          </a>
+          <% if( i + 1 < stuff.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i + 1%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= stuff[i + 1].name %></h5>
+              <p class="card-text"><%= stuff[i + 1].description%></p>
+            </div>
+          </a>
+          <% } if ( i + 2 < stuff.length ) {%>
+          <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=i + 2%>">
+            <div class="card-body">
+              <h5 class="card-title"><%= stuff[i + 2].name %></h5>
+              <p class="card-text"><%= stuff[i + 2].description%></p>
+            </div>
+          </a>
+        </div>
+      <% }} %>
+    </div>
 
     <!-- Cards for the Items fetched
-    <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+    <p> <% for (i = 0; i < stuff.length; i += 3) { %> </p>
         <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
-              <p><% if (i + k < value.length) { %></p>
+          <p> <% for (k = 0; k < Math.min(3, stuff.length); k += 1) { %> </p>
+              <p><% if (i + k < stuff.length) { %></p>
               <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
                   <div class="card-body">
-                          <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
-                          <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
+                          <h5 class="card-title"><%= stuff[Math.min(stuff.length - 1, i + k)].name %></h5>
+                          <p class="card-text"><%= stuff[Math.min(stuff.length - 1, i + k)].description %></p>
                       <p><% } %></p>
                   </div>
               </a>
@@ -103,8 +136,6 @@
            
         </div>
     <% } %> -->
-
-    %= test%
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">
