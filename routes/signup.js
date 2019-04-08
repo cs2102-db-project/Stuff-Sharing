@@ -8,15 +8,6 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-const { Pool } = require('pg')
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'stuffsharing',
-  password: 'postgres',
-  port: 5432,
-})
-
 router.post('/', function(req, res) {
   var signUpUsername = req.body.signUpUsername;
   var signUpName = req.body.signUpName;
@@ -34,15 +25,16 @@ router.post('/', function(req, res) {
     return res.status(400).send("Please fill up all the fields");
   }
 
+  var pool = req.app.get('pool');
   pool.query('BEGIN', function(err, data) {
     if(err) console.log('error1');
-    pool.query('INSERT INTO accounts (username, password) VALUES ($1::text, $2::text);', [signUpUsername, signUpPassword], function(err, data) {
+    pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [signUpUsername, signUpPassword], function(err, data) {
       if(err) console.log('error2');
       if (!data) {
         console.log("already exist")
         res.send('This user already exists');
       }
-      pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1::text, $2::text, $3::text, $4::text)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
+      pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
         if(err) console.log('error3');
         //disconnect after successful commit
         pool.query('COMMIT', function(err, data) {
@@ -52,23 +44,6 @@ router.post('/', function(req, res) {
       });
     });
   });
-  // pool.query(
-  //   'BEGIN; ' +  
-  //   'INSERT INTO accounts (username, password) VALUES ($1::text, $2::text); ' +
-  //   'INSERT INTO profiles (username, name, picture, address) VALUES ($3::text, $4::text, $5::text, $6::text); ' +
-  //   'COMMIT;', 
-  //   [signUpUsername, signUpPassword, signUpUsername, signUpName, signUpPicture, signUpAddress], function (err, data) {
-  //   console.log("here");
-  //   if (err) {
-  //     console.log('error');
-  //   }
-  //   if (!data) {
-  //     console.log("already exists")
-  //     res.send('This user already exists');
-  //   } else {
-  //      res.redirect('/login');
-  //   }
-  // });
 });
 
 module.exports = router;

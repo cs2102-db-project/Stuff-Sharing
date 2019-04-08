@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
   }
 
   var pool = req.app.get('pool');
-  pool.query('SELECT * FROM accounts WHERE accounts.username = $1::text AND accounts.password = $2::text', [signInUsername, signInPassword],
+  pool.query('SELECT * FROM accounts WHERE accounts.username = $1 AND accounts.password = $2', [signInUsername, signInPassword],
     function (err, data) {
       if (err) {
         res.send(err);
@@ -32,7 +32,7 @@ router.post('/', function(req, res) {
       if (data.rows.length == 0) {
         res.send("Username or password is invalid");
       } else {
-        pool.query('SELECT * FROM profiles WHERE profiles.username = $1::text', [signInUsername],
+        pool.query('SELECT * FROM profiles WHERE profiles.username = $1', [signInUsername],
           function (err, data2) {
             req.app.set('current user', data2.rows[0]);
             res.redirect('/profile');
