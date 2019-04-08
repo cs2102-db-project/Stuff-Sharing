@@ -99,27 +99,29 @@
             <span class="label-input100">Type</span>
             <div>
               <select class="selection-2" name="itemType" required>
-                <option>Choose Type</option>
+                <option></option>
                 <option value="deliverables">Deliverables</option>
                 <option value="services">Services</option>
                 <option value="pickups">Pickups</option>
                 <option value="intangibles">Intangibles</option>
               </select>
             </div>
-            <div id="showDeliveryCost">
-              <span class="label-input100">Delivery Cost</span>
-              <input type="number" step="0.01" min="0" name="itemDeliveryCost" placeholder="Enter here">
-            </div>
-            <div id="showPickupAddress">
-              <span class="label-input100">Pickup Address</span>
-              <input type="text" name="itemPickupAddress" placeholder="Enter here">
-            </div>
             <span class="focus-input100"></span>
           </div>
+          <div id="showDeliveryCost" class="wrap-input100 validate-input" data-validate = "Delivery cost is required">
+              <span class="label-input100">Delivery Cost</span>
+              <input type="number" step="0.01" min="0" name="itemDeliveryCost" placeholder="Enter here">
+              <span class="focus-input100"></span>
+          </div>
+          <div id="showPickupAddress" class="wrap-input100 validate-input" data-validate = "Pickup address is required">
+              <span class="label-input100">Pickup address</span>
+              <input type="text" name="itemPickupAddress" placeholder="Enter here">
+              <span class="focus-input100"></span>
+          </div>
 
-          <div class="wrap-input100 validate-input" data-validate = "Description is required" required>
+          <div class="wrap-input100 validate-input" data-validate = "Description is required">
             <span class="label-input100">Description</span>
-            <textarea class="input100" name="itemDescription" placeholder="Your description here..."></textarea>
+            <textarea class="input100" name="itemDescription" placeholder="Your description here..." required></textarea>
             <span class="focus-input100"></span>
           </div>
 
