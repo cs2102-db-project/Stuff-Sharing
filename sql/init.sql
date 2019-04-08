@@ -70,8 +70,9 @@ CREATE TABLE IF NOT EXISTS Transactions(
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
-    endDate DATE,
+    endDate DATE not null,
     primary key (transId)
+    check(startDate <= endDate)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
@@ -111,9 +112,47 @@ INSERT INTO transactions VALUES
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
 
-CREATE OR REPLACE FUNCTION isOngoing(startDate date, endDate date)
+-- Check if a time period is ongoing (used for checking ongoing transactions)
+CREATE OR REPLACE FUNCTION is_ongoing(startDate date, endDate date)
 RETURNS boolean AS $$
 BEGIN
     RETURN current_date BETWEEN startDate AND endDate;
 END;$$
 LANGUAGE plpgsql
+
+-- Prevent insertion if there are more than X overdue items
+CREATE OR REPLACE FUNCTION check_overdue()
+RETURNS trigger AS $$
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee) > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % items overdue', overdue_threshold;
+        RETURN NULL;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql
+
+CREATE TRIGGER check_overdue
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue();
+
+-- Prevent insertion if there are more than X overdue items to the same loaner
+CREATE OR REPLACE FUNCTION check_overdue_loaner()
+RETURNS trigger AS $$
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner) > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % items overdue to %', overdue_threshold, NEW.loaner;
+        RETURN NULL;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql
+
+CREATE TRIGGER check_overdue_loaner
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue_loaner();
+
