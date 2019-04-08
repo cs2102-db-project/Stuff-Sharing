@@ -113,8 +113,8 @@ INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
 
 -- Check if a time period is ongoing (used for checking ongoing transactions)
-CREATE OR REPLACE FUNCTION is_ongoing(startDate date, endDate date)
-RETURNS boolean AS $$
+CREATE OR REPLACE FUNCTION is_ongoing(startDate DATE, endDate DATE)
+RETURNS BOOLEAN AS $$
 BEGIN
     RETURN current_date BETWEEN startDate AND endDate;
 END;$$
@@ -156,3 +156,12 @@ BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue_loaner();
 
+-- Function create both Account and Profile at the same time
+CREATE OR REPLACE FUNCTION update_profile(signUpUsername TEXT, signUpPassword TEXT, signUpName TEXT, signUpPicture TEXT, signUpAddress VARCHAR(100))
+RETURNS VOID as $$
+BEGIN
+    INSERT INTO accounts (username, password) VALUES (signUpUsername, signUpPassword);
+    INSERT INTO profiles (username, name, picture, address) VALUES (signUpUsername, signUpName, signUpPicture, signUpAddress);
+END;
+$$
+LANGUAGE plpgsql
