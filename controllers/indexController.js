@@ -15,7 +15,8 @@ exports.random = function(randomData) {
     return [1,2,3,4];
 };
 
-exports.renderSearch = function(res) {
+exports.renderAllSearch = function(res) {
+    console.log('hi')
     pool.query(allQuery, (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
@@ -29,6 +30,7 @@ exports.renderSearch = function(res) {
 
 exports.renderSearch = function(res, keyword) {
     pool.query(searchQuery, [keyword], (err, result) => {
+        console.log(keyword);
         if (err) {
           return console.error('Error executing query', err.stack)
         }

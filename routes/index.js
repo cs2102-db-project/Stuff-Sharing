@@ -14,12 +14,12 @@ const pool = new Pool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    indexController.renderSearch(res);
+    indexController.renderAllSearch(res);
 });
 
 /* Search feature */
-router.post('/search', function(req, res, next) {
-    let keyword = req.body.keyword;
+router.get('/search', function(req, res, next) {
+    let keyword = req.query.keyword;
     indexController.renderSearch(res, keyword);
 });
 

@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');  
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -61,5 +62,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// parse GET requests
+app.use(bodyParser.urlencoded({ extended: false }));  
+app.use(bodyParser.json());
 
 module.exports = app;
