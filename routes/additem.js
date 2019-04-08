@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('addItem', { title: 'addItem' });
+  res.render('additem', { title: 'additem' });
 });
 
 router.post('/', function(req, res) {
