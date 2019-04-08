@@ -109,3 +109,10 @@ INSERT INTO transactions VALUES
     (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
+
+CREATE OR REPLACE FUNCTION isOngoing(startDate date, endDate date)
+RETURNS boolean AS $$
+BEGIN
+    RETURN current_date BETWEEN startDate AND endDate;
+END;$$
+LANGUAGE plpgsql
