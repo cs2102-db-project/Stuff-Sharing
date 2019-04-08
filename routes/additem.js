@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
 
   var pool = req.app.get('pool');
   pool.query('BEGIN', function(err, data) {
-    pool.query('SELECT MAX(stuffid) as stuffid FROM stuff', function(err, data) {
+    pool.query('SELECT MAX(stuffid) as stuffid FROM stuff;', function(err, data) {
       var itemId = data.rows[0].stuffid + 1;
       console.log("itemId = " + itemId);
       pool.query('INSERT INTO stuff (stuffid, picture, name, owner, price, description) VALUES ($1, $2, $3, $4, $5, $6);', 
@@ -89,7 +89,6 @@ router.post('/', function(req, res) {
         }
 
       });
-      console.log(data);
       res.redirect('/');
     });
   });
