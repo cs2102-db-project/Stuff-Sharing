@@ -55,6 +55,7 @@
       </div>
     </nav>
 
+
     <!-- Profile Page -->
     <div class="row profile">
       <div class="col-md-3">
@@ -71,13 +72,13 @@
           <!-- SIDEBAR MENU -->
           <div class="profile-usermenu">
             <ul class="nav">
-              <li class="active">
-                <a href="#">
+              <li>
+                <a href="/profile">
                 <i class="glyphicon glyphicon-home"></i>My items
                 </a>
               </li>
-              <li>
-                <a href="/profile_transactions">
+              <li class="active">
+                <a href="#">
                 <i class="glyphicon glyphicon-user"></i>My transaction history
                 </a>
               </li>
@@ -87,41 +88,46 @@
       </div>
       <div class="col-md-9">
         <div class="profile-content">
-          <h1 style="margin-left: 2rem;"><%= user.username %></h1>
-          <p style="margin-left: 2rem;">Name: <%= user.name %></p>
-          <p style="margin-left: 2rem;">Address: <%= user.address %></p>
-          <h2 style="margin-left: 2rem;">My items:</h2>
 
-          <!-- Cards for the Items fetched -->
-          <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
-            <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+          <h1 style="margin-left: 2rem;">Items loaned out history</h1>
+          <!-- My loaned items transations -->
+          <div class="column">
+            <% for (i = 0; i < loanedOut.length; i ++) { %>
+              <a class="card" style="background-color: #e9e9e9;">
                 <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i].name %></h5>
-                  <p class="card-text"><%= myItems[i].description %></p>
+                  <h3 style="color: #FF9671"><%= loanedOut[i].item %></h5>
+                  <p>Loaned to: <%= loanedOut[i].loanee %></p>
+                  <p>Status: <%= loanedOut[i].status %></p>
+                  <p>Cost: <%= loanedOut[i].cost %></p>
+                  <p>Start date: <%= loanedOut[i].startDate %></p>
+                  <p>End date: <%= loanedOut[i].endDate %></p>
                 </div>
               </a>
-              <% if( i + 1 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+            <% } %>
+            <hr>
+          </div>
+
+          <h1 style="margin-left: 2rem;">Items I loaned history</h1>
+          <!-- My loaned items transations -->
+          <div class="column">
+            <% for (i = 0; i < loaned.length; i ++) { %>
+              <a class="card" style="background-color: #e9e9e9;">
                 <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i + 1].name %></h5>
-                  <p class="card-text"><%= myItems[i + 1].description %></p>
+                  <h3 style="color: #FF9671"><%= loaned[i].item %></h5>
+                  <p>Loaned to: <%= loaned[i].loanee %></p>
+                  <p>Status: <%= loaned[i].status %></p>
+                  <p>Cost: <%= loaned[i].cost %></p>
+                  <p>Start date: <%= loaned[i].startDate %></p>
+                  <p>End date: <%= loaned[i].endDate %></p>
                 </div>
               </a>
-              <% } if ( i + 2 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i + 2].name %></h5>
-                  <p class="card-text"><%= myItems[i + 2].description %></p>
-                </div>
-              </a>
-            </div>
-          <% }} %>
+            <% } %>
+            <hr>
+          </div>
 
         </div>
       </div>
     </div>
-
 
   </body>
 </html>
