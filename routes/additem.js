@@ -24,10 +24,6 @@ router.post('/', function(req, res) {
   console.log(itemType);
   console.log(itemDescription);
 
-  if (itemName.length == 0 || itemPrice.length == 0 || itemType.length == 0 || itemDescription.length == 0) {
-    return res.status(400).send("Please fill up all the fields");
-  }
-
   var currentUser = req.app.get('current user');
   if (currentUser == null) {
     res.redirect('/login');
@@ -89,8 +85,8 @@ router.post('/', function(req, res) {
         }
 
       });
-      res.redirect('/');
     });
+    res.redirect('/');
   });
 });
 

@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
         pool.query('SELECT * FROM profiles WHERE profiles.username = $1', [signInUsername],
           function (err, data2) {
             req.app.set('current user', data2.rows[0]);
-            res.redirect('/');
+            res.redirect('/profile');
           }
         );
       }
