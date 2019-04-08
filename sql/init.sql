@@ -82,6 +82,12 @@ CREATE TABLE IF NOT EXISTS Reviews(
     primary key (reviewId),
     check (rating >= 0 and rating <= 10)
 );
+CREATE TABLE IF NOT EXISTS ads(
+    stuffId INTEGER,
+    owner TEXT references Accounts(username),
+    primary key (owner)
+);
+
 INSERT INTO accounts VALUES
     ('johndoe', 'johndoe'),
     ('janedoe', 'janedoe');
@@ -109,3 +115,5 @@ INSERT INTO transactions VALUES
     (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
+INSERT INTO ads VALUES
+    (2, 'johndoe');
