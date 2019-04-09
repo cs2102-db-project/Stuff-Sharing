@@ -104,11 +104,16 @@
                   </a>
                   <div class="collapse" id="collapseExample<%= i %>">
                     <div class="card card-body">
-                      <form id="review_form" action="/review" method="GET">
+                      <form id="review_form" method="POST">
+                        <div class="form-group">
+                          <label for="rating<%= i %>">Your rating:</label>
+                          <input type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-10">
+                        </div>
                         <div class="form-group">
                           <label for="review<%= i %>">Your review:</label>
-                          <input type="review" id="review" name="review" class="form-control" id="review<%= i %>" aria-describedby="reviewHelp" placeholder="Type your review here!">
+                          <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
                         </div>
+                        <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
                     </div>
@@ -147,10 +152,10 @@
                   </a>
                   <div class="collapse" id="collapseExample<%= i %>">
                     <div class="card card-body">
-                      <form>
+                      <form id="review_form" action="/addReview" method="GET">
                         <div class="form-group">
                           <label for="review<%= i %>">Your review:</label>
-                          <input type="text" class="form-control" id="review<%= i %>" aria-describedby="reviewHelp" placeholder="Type your review here!">
+                          <input type="review" id="review" name="review" class="form-control" id="review<%= i %>" aria-describedby="reviewHelp" placeholder="Type your review here!">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
