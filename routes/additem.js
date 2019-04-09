@@ -8,6 +8,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
+
   res.render('additem', { title: 'additem' });
 });
 
