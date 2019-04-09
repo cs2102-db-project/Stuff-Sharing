@@ -74,4 +74,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// parse GET requests
+app.use(bodyParser.urlencoded({ extended: false }));  
+app.use(bodyParser.json());
+
 module.exports = app;
