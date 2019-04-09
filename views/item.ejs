@@ -54,8 +54,9 @@
     <h5 style="margin-left: 8rem;"> Description: <%= value.description %></h5>
     <h5 style="margin-left: 8rem;"> Owned by: <%= value.owner %> </h5>
     <br>
-    <p style="margin-left: 8.5rem;"> Wanna borrow it? <%= user == null ? 'Login, f' : 'F'%>ill out the form and click 'Borrow Now'!</p>
+    <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
     <!-- Borrow item forms and button -->
+    <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST" class="form-inline my-2 my-lg-0">
       <h5 style="margin-left: 14rem;"> Contact Number </h5>
       <input style="margin-left: 10px;" class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
@@ -65,9 +66,10 @@
       <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
       <h5 style="margin-left: 13rem; margin-top: 20px;  "> Loan End Date </h5>
       <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="endDate" name="endDate" aria-label="End Date" required>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
               style="position: fixed; z-index: 10; bottom: 100px; right: 120px;
               width: 200px; height: 70px;"> Borrow now! </button>
     </form>
+    <% } %>
   </body>
 </html>

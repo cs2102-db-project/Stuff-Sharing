@@ -13,15 +13,39 @@ const pool = new Pool({
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
 const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, itemId, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+
+let displayMsg = "";
+let isBorrowed = false;
+
 router.get('/', function(req, res) {
     const id = req.query.stuffId;
     const user = req.app.get('current user');
+
+    if (!user) {
+        this.displayMsg = "Wanna borrow it? Login, fill out our form, and click borrow now!"
+        this.isBorrowed = false;
+    } else {
+        pool.query('SELECT * from Transactions WHERE $1 = itemId AND $2 = status;', [id, 'ONGOING'], (err, datum) => {
+            if (err) {
+                console.error("Error executing query", err.stack);
+            }
+
+            if(datum.rowCount == 0) {
+                this.displayMsg = "Wanna borrow it? Fill out our form and click borrow now!";
+                this.isBorrowed = false;
+            } else {
+                this.displayMsg = "Sorry, this item is currently borrowed";
+                this.isBorrowed = true;
+            }
+        });
+    }
 
     pool.query(sqlQuery, [id], (err, result) => {
         if (err) {
             console.error("Error executing query", err.stack);
         }
-        res.render('item', { title: 'Item', user: user, value: result.rows[0]});
+
+        res.render('item', { title: 'Item', user: user, value: result.rows[0], displayMsg: this.displayMsg, isBorrowed: this.isBorrowed});
         console.log(result.rows[0]);
     });
 });
