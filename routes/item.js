@@ -12,10 +12,9 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = '';
-
+const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, itemId, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 router.get('/', function(req, res) {
-    let id = req.query.stuffId;
+    const id = req.query.stuffId;
     const user = req.app.get('current user');
 
     pool.query(sqlQuery, [id], (err, result) => {
@@ -28,23 +27,39 @@ router.get('/', function(req, res) {
 });
 
 router.post('/borrow', function(req, res) {
-    const id = req.query.stuffId;
+    const stuffId = req.query.stuffId;
     const num = req.body.number;
     const email = req.body.email;
-    const user = req.app.get('current user');
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const user = req.app.get('current user').username;
 
-    pool.query(borrowQuery, [id, num, email], (err, result) => {
-        if (err) {
-            return console.error("Error executing query", err.stack);
-        }
 
-        if (!user) {
-            res.redirect('/login');
-        }
+    if (!user) {
+        res.redirect('/login');
+    }
+    pool.query('BEGIN', function(err, data1) {
+        pool.query('SELECT MAX(transId) as transId FROM Transactions;', (err, data2) => {
+            var transId = data2.rows[0].transid + 1;
+            console.log("transId = " + transId);
+            pool.query('SELECT * FROM Stuff WHERE stuffId = $1;',  [stuffId], (err, data3) => {
+                console.log(user + " this is the current user");
+                const loaner = data3.rows[0].owner;
+                const cost = data3.rows[0].price;
+                console.log("Loaner: " + loaner);
+                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost], (err, result) => {
+                    if (err) {
+                        return console.error("Error executing query", err.stack);
+                    }
+                    pool.query('COMMIT', function(err, data4) {
+                        if(err) console.log('error1');
+                    });
 
-        res.render('item',
-                {});
-        return console.log(result.rows);
+                    res.redirect('/');
+                    return console.log(result.rows);
+                });
+            });
+        });
     });
 });
 

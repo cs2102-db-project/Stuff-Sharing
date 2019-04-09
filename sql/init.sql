@@ -67,10 +67,12 @@ CREATE TABLE IF NOT EXISTS Transactions(
     loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
     itemId INTEGER not null references Stuff(stuffId),
+    loanerNum TEXT not null,
+    loanerEmail TEXT not null,
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
-    endDate DATE,
+    endDate DATE not null,
     primary key (transId),
     check (loaner <> loanee)
 );
@@ -108,6 +110,6 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
