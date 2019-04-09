@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
     pool.query('SELECT MAX(stuffid) as stuffid FROM stuff;', function(err, data) {
       if (err) {
         console.log('select stuffid error');
-        // return done(err);
+        return done(err);
       }
       var itemId = data.rows[0].stuffid + 1;
       console.log("itemId = " + itemId);
@@ -121,7 +121,6 @@ router.post('/', function(req, res) {
             });
           });
         }
-
       });
     });
   });
