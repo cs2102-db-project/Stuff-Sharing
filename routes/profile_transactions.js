@@ -8,12 +8,13 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   } else {
   	var pool = req.app.get('pool');
-  	pool.query("SELECT * FROM transactions WHERE transactions.loaner = $1::text", [currentUser.username],
-      function(err, data) {
+  	pool.query("SELECT * FROM transactions WHERE transactions.loaner = $1::text", [currentUser.username], (err, data) => {
+      pool.query("SELECT * FROM transactions WHERE transactions.loanee = $1::text", [currentUser.username], (err, data2) => {
         var loanedOut = data.rows;
-        res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loanedOut });
-      }
-    );
+        var loaned = data2.rows;
+        res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
+      });
+    });
   }
 });
 
