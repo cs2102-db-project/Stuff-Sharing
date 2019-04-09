@@ -92,13 +92,21 @@
       </div>
       <div class="col-md-9">
         <div class="profile-content">
-          <h1 style="margin-left: 2rem;"><%= user.username %></h1>
-          <p style="margin-left: 2rem;">Name: <%= user.name %></p>
-          <p style="margin-left: 2rem;">Address: <%= user.address %></p>
-          <h2 style="margin-left: 2rem;">My items:</h2>
-
           <!-- profile form, filled with current attributes -->
-
+          <div class="form-container sign-up-container">
+            <form method="post" action="/profile_edit">
+              <h1>Edit profile details</h1>
+              <h3>Username</h3>
+              <input type="text" name="username" id="username" placeholder="Username" value="<%= user.username %>">
+              <h3>Name</h3>
+              <input type="text" name="name" id="name" placeholder="Name" value="<%= user.name %>">
+               <h3>Password</h3>
+             <input type="password" name="password" id="password" placeholder="Password">
+              <h3>Address</h3>
+              <input type="text" name="address" id="address" placeholder="Address" value="<%= user.address %>">
+              <button id="editButton" type="submit">Submit</button>
+            </form>
+          </div>
 
         </div>
       </div>
