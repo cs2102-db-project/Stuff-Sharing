@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 /* GET home page. */
 router.get('/', function(req, res) {
     // render the page and pass in any flash data if it exists
-    res.render('login', { title: 'Login'});
+    res.render('login', { title: 'Login', loginMessage: req.flash('loginMessage'), signUpMessage: req.flash('signUpMessage')});
 });
 
 // process the signup form

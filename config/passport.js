@@ -41,10 +41,6 @@ module.exports = function(passport) {
 
         var pool = req.app.get('pool');
         pool.query('SELECT * FROM accounts WHERE accounts.username = $1 AND accounts.password = $2', [username, password], function (err, user) {
-            if(err) {
-                console.log('selection from accounts error');
-                return done(err);
-            }
             // if no user is found, return the message
             if (user.rows[0] == undefined) {
                 console.log("no user is found");
@@ -93,10 +89,6 @@ module.exports = function(passport) {
             // find a user whose username is the same as the forms username
             // we are checking to see if the user trying to login already exists
             pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [username, password], function(err, user) {
-                if(err) {
-                    console.log('insertion into accounts error');
-                    return done(err);
-                }
                 // check to see if theres already a user with that username
                 if (!user) {
                     console.log("This username is already taken")
@@ -112,7 +104,9 @@ module.exports = function(passport) {
                             pool.query('COMMIT', function(err) {
                                 if(err) {
                                     console.log('commit error');
-                                    return done(null, error);
+                                    return done(error);
+                                } else {
+                                    return done(null);
                                 }
                             });
                         }

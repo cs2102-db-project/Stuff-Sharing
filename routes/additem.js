@@ -23,9 +23,9 @@ router.post('/', function(req, res) {
   console.log(itemPrice);
   console.log(itemType);
   console.log(itemDescription);
-  console.log("req.user.rows[0].username = " + req.user.rows[0].username);
 
   var pool = req.app.get('pool');
+  var currentUser = req.user.rows[0];
   pool.query('BEGIN', function(err) {
     if (err) {
       console.log('begin error');
@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
       var itemId = data.rows[0].stuffid + 1;
       console.log("itemId = " + itemId);
       pool.query('INSERT INTO stuff (stuffid, picture, name, owner, price, description) VALUES ($1, $2, $3, $4, $5, $6);', 
-        [itemId, itemPicture, itemName, req.user.rows[0].username, itemPrice, itemDescription], function(err) {
+        [itemId, itemPicture, itemName, currentUser.username, itemPrice, itemDescription], function(err) {
         if (err) {
           console.log('insertion into stuff error');
           return done(err);
