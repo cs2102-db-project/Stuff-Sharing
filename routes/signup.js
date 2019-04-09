@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// var loginScript = require('../public/javascripts/loginScript');
+var passport = require('passport');
 
 var bodyParser = require('body-parser');
 
@@ -8,9 +8,14 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
+router.get('/', function(req, res) {
+    // render the page and pass in any flash data if it exists
+    res.render('login', { message: req.flash('signupMessage') });
+});
+
 // process the signup form
-app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
+router.post('/', passport.authenticate('local-signup', {
+    successRedirect : '/login', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the login page if there is an error
     failureFlash : true // allow flash messages
 }));
