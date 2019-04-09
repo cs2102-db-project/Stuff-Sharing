@@ -13,12 +13,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <!-- Profile sidebar -->
-  <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/profile.css' /> -->
-
 
   <!-- Navbar Stuff -->
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
@@ -45,17 +39,17 @@
             Browse
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Pick-up</a>
-            <a class="dropdown-item" href="#">Deliver</a>
-            <a class="dropdown-item" href="#">Service</a>
-            <a class="dropdown-item" href="#">Intangible</a>
-          </div>
+              <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
+              <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
+              <a class="dropdown-item" href="../category?keyword=services">Services</a>
+              <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
+            </div>
         </li>
 
       </ul>
 
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
