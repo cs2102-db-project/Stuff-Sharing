@@ -8,10 +8,17 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   } else {
   	var pool = req.app.get('pool');
-  	pool.query("SELECT * FROM transactions WHERE transactions.loaner = $1::text", [currentUser.username],
-      function(err, data) {
-        var loanedOut = data.rows;
-        res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loanedOut });
+  	pool.query("SELECT * FROM transactions WHERE transactions.loaner = $1", [currentUser.username],
+      function(err1, data1) {
+        pool.query("SELECT * FROM transactions WHERE transactions.loanee = $1", [currentUser.username],
+          function(err2, data2) {
+            var loanedOut = data1.rows;
+            var loaned = data2.rows;
+            console.log(loanedOut);
+            console.log(loaned);
+            res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
+          }
+        );
       }
     );
   }
