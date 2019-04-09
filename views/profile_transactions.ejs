@@ -104,10 +104,10 @@
                   </a>
                   <div class="collapse" id="collapseExample<%= i %>">
                     <div class="card card-body">
-                      <form>
+                      <form id="review_form" action="/review" method="GET">
                         <div class="form-group">
                           <label for="review<%= i %>">Your review:</label>
-                          <input type="text" class="form-control" id="review<%= i %>" aria-describedby="reviewHelp" placeholder="Type your review here!">
+                          <input type="review" id="review" name="review" class="form-control" id="review<%= i %>" aria-describedby="reviewHelp" placeholder="Type your review here!">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
