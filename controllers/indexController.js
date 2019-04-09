@@ -1,12 +1,3 @@
-const { Pool } = require('pg')
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'stuffsharing',
-    password: 'postgres',
-    port: 5432,
-  })
-  
 /* SQL Query */
 var allQuery = 'SELECT * from Stuff';
 var searchQuery = 'SELECT * from Stuff where name=$1';
