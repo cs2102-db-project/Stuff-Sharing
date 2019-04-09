@@ -8,50 +8,17 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
+/* GET home page. */
 router.get('/', function(req, res) {
     // render the page and pass in any flash data if it exists
-    res.render('login', { message: req.flash('signupMessage') });
+    res.render('login', { title: 'Login'});
 });
 
 // process the signup form
 router.post('/', passport.authenticate('local-signup', {
-    successRedirect : '/login', // redirect to the secure profile section
+    successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the login page if there is an error
     failureFlash : true // allow flash messages
 }));
-
-// router.post('/', function(req, res) {
-//   var signUpUsername = req.body.signUpUsername;
-//   var signUpName = req.body.signUpName;
-//   var signUpPassword = req.body.signUpPassword;
-//   var signUpPicture = req.body.signUpPicture;
-//   var signUpAddress = req.body.signUpAddress;
-
-//   console.log(signUpUsername);
-//   console.log(signUpName);
-//   console.log(signUpPassword);
-//   console.log(signUpPicture);
-//   console.log(signUpAddress);
-
-//   var pool = req.app.get('pool');
-//   pool.query('BEGIN', function(err, data) {
-//     if(err) console.log('error1');
-//     pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [signUpUsername, signUpPassword], function(err, data) {
-//       if(err) console.log('error2');
-//       if (!data) {
-//         console.log("already exist")
-//         res.send('This user already exists');
-//       }
-//       pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
-//         if(err) console.log('error3');
-//         //disconnect after successful commit
-//         pool.query('COMMIT', function(err, data) {
-//           if(err) console.log('error4');
-//         });
-//         res.redirect('/login');
-//       });
-//     });
-//   });
-// });
 
 module.exports = router;

@@ -6,7 +6,7 @@ var logger = require('morgan');
 var bodyParser   = require('body-parser');
 var passport = require('passport');
 var flash    = require('connect-flash');
-var session = require('express-session');
+var session = require('express-session'); // Each browser gets one session, if client A and B logs in on the same browser, data is overwritten by the later login
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -28,11 +28,8 @@ app.set('view engine', 'ejs');
 // required for passport
 app.use(session({ secret: 'stuffsharing' })); // session secret
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session()); // persistent login sessions 
 app.use(flash()); // use connect-flash for flash messages stored in session
-
-// initialise current user to null
-app.set('current user', null);
 
 // Connect to database and create query pool
 const { Pool } = require('pg')
@@ -58,7 +55,7 @@ app.use('/signup', signupRouter);
 app.use('/profile', profileRouter);
 app.use('/profile_transactions', profileTransactionsRouter);
 app.use('/transaction', transactionRouter);
-app.use('/addItem', addItemRouter);
+app.use('/additem', addItemRouter);
 app.use('/item', itemRouter);
 
 // catch 404 and forward to error handler

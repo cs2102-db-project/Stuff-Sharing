@@ -11,49 +11,48 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        // console.log("serialize user: " + JSON.stringify(user));
+        // console.log("serialize user.rows[0]: " + JSON.stringify(user.rows[0]));
+        done(null, user);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
+    passport.deserializeUser(function(user, done) {
+        // console.log("deserialize user.username: " + user.username);
+        // console.log("deserialize user.password: " + user.password);
+        done(null, user);
     });
 
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
     passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password
-        usernameField : 'username',
-        passwordField : 'password',
+        // these fields are to validate the user - local strategy only uses username and password
+        // the 'strings' are the names of the fields from login.ejs where form is submitted
+        usernameField : 'signInUsername',
+        passwordField : 'signInPassword',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, username, password, done) {
-        if (username)
-            username = username.toLowerCase(); // Use lower-case username to avoid case-sensitive username matching
+        if (username) username = username.toLowerCase(); // Use lower-case username to avoid case-sensitive username matching
 
-        // asynchronous
-        process.nextTick(function() {
-            User.findOne({ 'local.username' :  username }, function(err, user) {
-                // if there are any errors, return the error
-                if (err)
-                    return done(err);
+        console.log("username: " + username);
+        console.log("password: " + password);
 
-                // if no user is found, return the message
-                if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
-                // all is well, return user
-                else
-                    return done(null, user);
-            });
+        var pool = req.app.get('pool');
+        pool.query('SELECT * FROM accounts WHERE accounts.username = $1 AND accounts.password = $2', [username, password], function (err, user) {
+            if(err) {
+                console.log('selection from accounts error');
+                return done(err);
+            }
+            // if no user is found, return the message
+            if (user.rows[0] == undefined) {
+                console.log("no user is found");
+                return done(null, false, req.flash('loginMessage', 'No such user or wrong password found.'));
+            } else {
+                return done(null, user);
+            }
         });
-
     }));
 
     // =========================================================================
@@ -70,6 +69,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) {
+        if (username) username = username.toLowerCase(); // Use lower-case username to avoid case-sensitive username matching
 
         console.log("username: " + username);
         console.log("password: " + password);
@@ -86,32 +86,39 @@ module.exports = function(passport) {
 
         // begin transaction, don't commit unless all makes it through
         pool.query('BEGIN', function(err) {
-
-            // find a user whose email is the same as the forms email
+            if(err) {
+                console.log('begin error');
+                return done(err);
+            }
+            // find a user whose username is the same as the forms username
             // we are checking to see if the user trying to login already exists
             pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [username, password], function(err, user) {
-            
-                // if there are any errors
-                if(err) console.log('insertion into accounts error');
-
+                if(err) {
+                    console.log('insertion into accounts error');
+                    return done(err);
+                }
                 // check to see if theres already a user with that username
                 if (!user) {
                     console.log("This username is already taken")
-                    // res.send('This username is already taken');
-                    // req.flash('signupMessage', 'That username is already taken.');
                     return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
                 } else {
-                    // also insert into profiles
+                    // insert into profiles
                     pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [username, signUpName, signUpPicture, signUpAddress], function(err) {
-                        if(err) console.log('insertion into profile error');
-                        // end transaction after successful commit
-                        pool.query('COMMIT', function(err) {
-                            if(err) console.log('commit error');
-                        });
+                        if(err) {
+                            console.log('insertion into profile error');
+                            return done(err);
+                        } else {
+                            // end transaction after successful commit
+                            pool.query('COMMIT', function(err) {
+                                if(err) {
+                                    console.log('commit error');
+                                    return done(null, error);
+                                }
+                            });
+                        }
                     });
                 }
             });    
-        return done(null);
         });
     }));
 };

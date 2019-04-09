@@ -9,6 +9,13 @@
 		
   </head>
   <body>
+		<!-- show any messages that come back with authentication -->
+		<% if (loginMessage.length > 0) { %>
+			<div class="alert alert-danger"><%= loginMessage %></div>
+		<% } %>
+		<% if (signUpMessage.length > 0) { %>
+			<div class="alert alert-danger"><%= signUpMessage %></div>
+		<% } %>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
 				<form method="post" action="/signup">
