@@ -16,8 +16,9 @@ exports.random = function(randomData) {
     return [1,2,3,4];
 };
 
-exports.renderAll = function(res) {
+exports.renderAll = function(req, res) {
     console.log("Displaying all stuff...");
+    var pool = req.app.get('pool');
     pool.query(allQuery, (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
@@ -29,8 +30,10 @@ exports.renderAll = function(res) {
     });
 }
 
-exports.renderSearch = function(res, keyword) {
+exports.renderSearch = function(req, res) {
     console.log("Displaying searched stuff...");
+    var pool = req.app.get('pool');
+    var keyword = req.query.keyword;
     pool.query(searchQuery, [keyword], (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
@@ -42,8 +45,10 @@ exports.renderSearch = function(res, keyword) {
     });
 }
 
-exports.renderCategory = function(res, keyword) {
+exports.renderCategory = function(req, res) {
     console.log("Displaying category...");
+    var pool = req.app.get('pool');
+    var keyword = req.query.keyword;
     pool.query(categoryQuery(keyword), (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
