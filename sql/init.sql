@@ -112,14 +112,6 @@ INSERT INTO transactions VALUES
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
 
--- Check if a time period is ongoing (used for checking ongoing transactions)
-CREATE OR REPLACE FUNCTION is_ongoing(startDate DATE, endDate DATE)
-RETURNS BOOLEAN AS $$
-BEGIN
-    RETURN current_date BETWEEN startDate AND endDate;
-END;$$
-LANGUAGE plpgsql
-
 -- Prevent insertion if there are more than X overdue items
 CREATE OR REPLACE FUNCTION check_overdue()
 RETURNS trigger AS $$
