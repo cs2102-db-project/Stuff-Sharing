@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS Transactions(
     loaner TEXT not null,
     loanee TEXT not null,
     item TEXT not null,
-    cost DECIMAL(10, 2) not null,
     status TEXT not null,
+    cost DECIMAL(10, 2) not null,
     startDate DATE not null,
     endDate DATE not null,
     primary key (transId)
@@ -108,7 +108,7 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 'book', 10.00, '2019-01-01', '2019-01-20');
+    (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
 
