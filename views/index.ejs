@@ -64,21 +64,21 @@
      <!-- Cards for the Items fetched -->
      <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
         <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
             <div class="card-body">
               <h5 class="card-title"><%= value[i].name %></h5>
               <p class="card-text"><%= value[i].description%></p>
             </div>
           </a>
           <% if( i + 1 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
             <div class="card-body">
               <h5 class="card-title"><%= value[i + 1].name %></h5>
               <p class="card-text"><%= value[i + 1].description%></p>
             </div>
           </a>
           <% } if ( i + 2 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 3%>">
             <div class="card-body">
               <h5 class="card-title"><%= value[i + 2].name %></h5>
               <p class="card-text"><%= value[i + 2].description%></p>
@@ -86,7 +86,8 @@
           </a>
         </div>
       <% }} %>
-
+    
+    <% /* %>
     <!-- Cards for the Items fetched
     <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
         <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
@@ -103,6 +104,7 @@
            
         </div>
     <% } %> -->
+    <% */ %>
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">
