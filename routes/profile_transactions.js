@@ -21,8 +21,13 @@ router.get('/', function (req, res, next) {
   );
 });
 
+/* End Transaction */
+router.post('/endtrans', function (req, res, next) {
+  transactionsController.endTransaction(req, res);
+});
+
 /* Add review */
-router.post('/', function (req, res, next) {
+router.post('/addReview', function (req, res, next) {
   transactionsController.addReview(req, res);
 });
 
