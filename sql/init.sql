@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
     loanee TEXT not null,
     item TEXT not null,
     cost DECIMAL(10, 2) not null,
+    status TEXT not null,
     startDate DATE not null,
     endDate DATE not null,
     primary key (transId)
@@ -124,8 +125,8 @@ CREATE OR REPLACE FUNCTION check_overdue()
 RETURNS trigger AS $$
 BEGIN
     overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee) > overdue_threshold THEN
-        RAISE NOTICE 'You cannot borrow anymore items as you have more than % items overdue', overdue_threshold;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status="ONGOING") > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
         RETURN NULL;
     END IF;
 END;
@@ -142,8 +143,8 @@ CREATE OR REPLACE FUNCTION check_overdue_loaner()
 RETURNS trigger AS $$
 BEGIN
     overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner) > overdue_threshold THEN
-        RAISE NOTICE 'You cannot borrow anymore items as you have more than % items overdue to %', overdue_threshold, NEW.loaner;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status="ONGOING") > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
         RETURN NULL;
     END IF;
 END;
