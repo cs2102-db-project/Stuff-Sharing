@@ -35,20 +35,32 @@ router.get('/', isLoggedIn, function(req, res) {
             isBorrowed = true;
         }
 
-        pool.query(sqlQuery, [id], (err, result) => {
+        pool.query('SELECT * FROM Stuff WHERE $1 = stuffId;', [id], (err, ownerRes) => {
             if (err) {
-                console.error("Error executing query", err.stack);
+                console.log("Error executing query", err.stack);
                 return 0;
             }
+            console.log(ownerRes);
+            const loaner = ownerRes.rows[0].owner;
+            if (loaner == req.user.rows[0].username) {
+                displayMsg = "This item belongs to you";
+                isBorrowed = true;
+            }
+            pool.query(sqlQuery, [id], (err, result) => {
+                if (err) {
+                    console.error("Error executing query", err.stack);
+                    return 0;
+                }
 
-            res.render('item', {
-                title: 'Item',
-                value: result.rows[0],
-                displayMsg: displayMsg,
-                isBorrowed: isBorrowed
+                res.render('item', {
+                    title: 'Item',
+                    value: result.rows[0],
+                    displayMsg: displayMsg,
+                    isBorrowed: isBorrowed
+                });
+                console.log(result.rows[0]);
+                return 0;
             });
-            console.log(result.rows[0]);
-            return 0;
         });
     });
 });
