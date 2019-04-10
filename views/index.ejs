@@ -33,63 +33,17 @@
 
     <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-
         <li class="nav-item dropdown text-white">
           <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Browse
-     <!-- Cards for the Items fetched -->
-     <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i].name %></h5>
-              <p class="card-text"><%= value[i].description%></p>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/category?keyword=pickups">Pick-ups</a>
+              <a class="dropdown-item" href="/category?keyword=deliverables">Deliverables</a>
+              <a class="dropdown-item" href="/category?keyword=services">Services</a>
+              <a class="dropdown-item" href="/category?keyword=intangibles">Intangibles</a>
             </div>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
-            <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
-            <a class="dropdown-item" href="../category?keyword=services">Services</a>
-            <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
-          </div>
         </li>
-
       </ul>
-          <% if( i + 1 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i + 1].name %></h5>
-              <p class="card-text"><%= value[i + 1].description%></p>
-            </div>
-          </a>
-          <% } if ( i + 2 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 3%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i + 2].name %></h5>
-              <p class="card-text"><%= value[i + 2].description%></p>
-            </div>
-          </a>
-        </div>
-      <% }} %>
-    
-    <% /* %>
-    <!-- Cards for the Items fetched
-    <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
-              <p><% if (i + k < value.length) { %></p>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
-                  <div class="card-body">
-                          <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
-                          <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
-                      <p><% } %></p>
-                  </div>
-              </a>
-          <% } %>   
-           
-        </div>
-    <% } %> -->
-    <% */ %>
 
       <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
@@ -101,21 +55,21 @@
   <!-- Cards for the Items fetched -->
   <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
   <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i].stuffid%>">
       <div class="card-body">
         <h5 class="card-title"><%= value[i].name %></h5>
         <p class="card-text"><%= value[i].description%></p>
       </div>
     </a>
     <% if( i + 1 < value.length ) {%>
-    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i + 1].stuffid%>">
       <div class="card-body">
         <h5 class="card-title"><%= value[i + 1].name %></h5>
         <p class="card-text"><%= value[i + 1].description%></p>
       </div>
     </a>
     <% } if ( i + 2 < value.length ) {%>
-    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i + 2].stuffid%>">
       <div class="card-body">
         <h5 class="card-title"><%= value[i + 2].name %></h5>
         <p class="card-text"><%= value[i + 2].description%></p>
@@ -123,6 +77,25 @@
     </a>
   </div>
   <% }} %>
+
+  <% /* %>
+  <!-- Cards for the Items fetched
+  <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+      <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+        <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
+            <p><% if (i + k < value.length) { %></p>
+            <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
+                <div class="card-body">
+                        <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
+                        <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
+                    <p><% } %></p>
+                </div>
+            </a>
+        <% } %>   
+         
+      </div>
+  <% } %> -->
+  <% */ %>
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">
