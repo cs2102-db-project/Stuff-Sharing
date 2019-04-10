@@ -14,46 +14,43 @@ const pool = new Pool({
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
 const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, itemId, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 
-router.get('/', function(req, res) {
+router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
     const user = req.app.get('current user');
     let displayMsg = "";
     let isBorrowed = false;
 
-    if (!user) {
-        res.redirect('/login');
-        console.log("Login first");
-    } else {
-        pool.query('SELECT itemId FROM Transactions WHERE $1 = itemId AND $2 = status EXCEPT (SELECT ' +
-                'stuffId FROM Services WHERE $1 = stuffId UNION SELECT stuffId FROM Intangibles WHERE ' +
-                '$1 = stuffId);', [id, 'ONGOING'], (err, datum) => {
+    pool.query('SELECT itemId FROM Transactions WHERE $1 = itemId AND $2 = status EXCEPT (SELECT ' +
+            'stuffId FROM Services WHERE $1 = stuffId UNION SELECT stuffId FROM Intangibles WHERE ' +
+            '$1 = stuffId);', [id, 'ONGOING'], (err, datum) => {
+        if (err) {
+            console.error("Error executing query", err.stack);
+            return 0;
+        }
+
+        if(datum.rowCount == 0) {
+            displayMsg = "Wanna borrow it? Fill out our form and click borrow now!";
+        } else {
+            displayMsg = "Sorry, this item is currently borrowed";
+            isBorrowed = true;
+        }
+
+        pool.query(sqlQuery, [id], (err, result) => {
             if (err) {
                 console.error("Error executing query", err.stack);
+                return 0;
             }
 
-            if(datum.rowCount == 0) {
-                displayMsg = "Wanna borrow it? Fill out our form and click borrow now!";
-            } else {
-                displayMsg = "Sorry, this item is currently borrowed";
-                isBorrowed = true;
-            }
-
-            pool.query(sqlQuery, [id], (err, result) => {
-                if (err) {
-                    console.error("Error executing query", err.stack);
-                }
-
-                res.render('item', {
-                    title: 'Item',
-                    user: user,
-                    value: result.rows[0],
-                    displayMsg: displayMsg,
-                    isBorrowed: isBorrowed
-                });
-                console.log(result.rows[0]);
+            res.render('item', {
+                title: 'Item',
+                value: result.rows[0],
+                displayMsg: displayMsg,
+                isBorrowed: isBorrowed
             });
+            console.log(result.rows[0]);
+            return 0;
         });
-    }
+    });
 });
 
 router.post('/borrow', function(req, res) {
@@ -62,12 +59,8 @@ router.post('/borrow', function(req, res) {
     const email = req.body.email;
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
-    const user = req.app.get('current user').username;
+    const user = req.user.rows[0].username;
 
-
-    if (!user) {
-        res.redirect('/login');
-    }
     pool.query('BEGIN', function(err, data1) {
         pool.query('SELECT MAX(transId) as transId FROM Transactions;', (err, data2) => {
             var transId = data2.rows[0].transid + 1;
@@ -92,5 +85,16 @@ router.post('/borrow', function(req, res) {
         });
     });
 });
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}
 
 module.exports = router;
