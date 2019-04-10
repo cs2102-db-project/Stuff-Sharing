@@ -1,108 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= user.username %></title>
 
-  </head>
-  <body>
-      <!-- Don't remove the links please -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- Profile sidebar -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/profile.css' />
+<head>
+  <title><%= user.username %></title>
 
+</head>
 
-    <!-- Navbar Stuff -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+<body>
+  <!-- Don't remove the links please -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Navbar Stuff -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
 
-      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <a class="navbar-brand text-white" href="../">
+      <p class="fas fa-home"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand text-white" href="../profile">
+      <p class="fas fa-user"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <li class="nav-item dropdown text-white">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Browse
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Pick-up</a>
-              <a class="dropdown-item" href="#">Deliver</a>
-              <a class="dropdown-item" href="#">Service</a>
-              <a class="dropdown-item" href="#">Intangible</a>
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item dropdown text-white">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browse
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
+              <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
+              <a class="dropdown-item" href="../category?keyword=services">Services</a>
+              <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
             </div>
-          </li>
+        </li>
 
-        </ul>
+      </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-    </nav>
+      <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </nav>
 
-
-    <!-- Profile Page -->
-    <div class="row profile">
-      <div class="col-md-3">
-        <div class="profile-sidebar">
-          <!-- SIDEBAR USERPIC -->
-          <div class="profile-userpic">
-            <img src="../public/images/default_profile.png" alt="">
-          </div>
-          <!-- SIDEBAR USER TITLE -->
-          <div class="profile-usertitle">
-            <div class="profile-usertitle-name"><%= user.username %></div>
-            <div class="profile-usertitle-job"><%= user.name %></div>
-          </div>
-          <!-- SIDEBAR MENU -->
-          <div class="profile-usermenu">
-            <ul class="nav">
-              <li>
-                <a href="/profile">
-                <i class="glyphicon glyphicon-home"></i>My items
-                </a>
-              </li>
-              <li class="active">
-                <a href="#">
-                <i class="glyphicon glyphicon-user"></i>My transaction history
-                </a>
-              </li>
-            </ul>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
+        <img class="card-img-top" src="/images/default_profile2.png" alt="Card image cap" />
+        <div class="card-body">
+          <a href="/profile">
+            <h5 class="card-title"><%= user.username %></h5>
+          </a>
+          <p class="card-text"><%= user.name %></p>
         </div>
+        <ul class="list-group list-group-flush">
+          <a href="/profile">
+            <li class="list-group-item">My items</li>
+          </a>
+          <a href="#">
+            <li class="list-group-item">Transaction history</li>
+          </a>
+        </ul>
       </div>
-      <div class="col-md-9">
+
+
+
+      <div class="col-md-9 col-sm-6">
         <div class="profile-content">
 
           <h1 style="margin-left: 2rem;">Items loaned out history</h1>
-          <!-- My loaned items transations -->
+          <!-- My loaned out items transations -->
           <div class="column">
-            <% for (i = 0; i < loanedOut.length; i ++) { %>
-              <a class="card" style="background-color: #e9e9e9;">
-                <div class="card-body">
-                  <h3 style="color: #FF9671"><%= loanedOut[i].item %></h5>
+            <% for (i = 0; i < loanedOut.length; i++) { %>
+            <a class="card" style="background-color: #e9e9e9;">
+              <div class="card-body">
+                <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].item %></h5>
                   <p>Loaned to: <%= loanedOut[i].loanee %></p>
                   <p>Status: <%= loanedOut[i].status %></p>
                   <p>Cost: <%= loanedOut[i].cost %></p>
-                  <p>Start date: <%= loanedOut[i].startDate %></p>
-                  <p>End date: <%= loanedOut[i].endDate %></p>
-                </div>
-              </a>
+                  <p>Start date: <%= loanedOut[i].startdate.toLocaleDateString() %></p>
+                  <p>End date: <%= loanedOut[i].enddate.toLocaleDateString() %></p>
+                  <% if (loanedOut[i].reviewid) {%>
+                  <p>
+                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Review</strong></a>
+                    <% for (star = 0; star < loanedOut[i].rating; star++) { %>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                    <% } %>
+                  </p>
+                  <div class="clearfix"></div>
+                  <p><%= `${loanedOut[i].details}` %></p>
+                  <% } %>
+              </div>
+            </a>
             <% } %>
             <hr>
           </div>
@@ -111,16 +112,54 @@
           <!-- My loaned items transations -->
           <div class="column">
             <% for (i = 0; i < loaned.length; i ++) { %>
-              <a class="card" style="background-color: #e9e9e9;">
-                <div class="card-body">
-                  <h3 style="color: #FF9671"><%= loaned[i].item %></h5>
-                  <p>Loaned to: <%= loaned[i].loanee %></p>
+            <a class="card" style="background-color: #e9e9e9;">
+              <div class="card-body">
+                <h3 style="color: #FF9671"><%= loaned[i].item %></h5>
+                  <p>Loaned from: <%= loaned[i].loaner %></p>
                   <p>Status: <%= loaned[i].status %></p>
                   <p>Cost: <%= loaned[i].cost %></p>
-                  <p>Start date: <%= loaned[i].startDate %></p>
-                  <p>End date: <%= loaned[i].endDate %></p>
-                </div>
-              </a>
+                  <p>Start date: <%= loaned[i].startdate.toLocaleDateString() %></p>
+                  <p>End date: <%= loaned[i].enddate.toLocaleDateString() %></p>
+                  <% if (loaned[i].status === "ONGOING") {%>
+                    <form id="endTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/endtrans" class="btn btn-warning">End Transaction</button>
+                    </form>
+                  <% } %>
+                  <%if (loaned[i].status === "FINISHED") { %>
+                    <% if (!loaned[i].reviewid) {%>
+                      <a data-toggle="collapse" href="#collapseExample<%= i %>" aria-expanded="false" aria-controls="collapseExample">
+                        Add Review
+                      </a>
+                      <div class="collapse" id="collapseExample<%= i %>">
+                        <div class="card card-body">
+                          <form id="review_form" action="/profile_transactions/addReview" method="POST">
+                            <div class="form-group">
+                              <label for="rating<%= i %>">Your rating:</label>
+                              <input type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-10">
+                            </div>
+                            <div class="form-group">
+                              <label for="review<%= i %>">Your review:</label>
+                              <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
+                            </div>
+                            <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                        </div>
+                      </div>
+                    <% } else { %>
+                      <p>
+                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Review</strong></a>
+                        <% for (star = 0; star < loaned[i].rating; star++) { %>
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <% } %>
+                      </p>
+                      <div class="clearfix"></div>
+                      <p><%= `${loaned[i].details}` %></p>
+                    <% } %>
+                  <% } %>
+              </div>
+            </a>
             <% } %>
             <hr>
           </div>
@@ -128,6 +167,9 @@
         </div>
       </div>
     </div>
+  </div>
+  </div>
 
-  </body>
+</body>
+
 </html>

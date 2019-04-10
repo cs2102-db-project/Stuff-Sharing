@@ -1,110 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-  </head>
-  <body>
-    
-    <!-- Don't remove the links please -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <!-- Navbar Stuff -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+<head>
+  <title><%= title %></title>
+</head>
 
-      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body>
 
-      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Don't remove the links please -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+  <!-- Navbar Stuff -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
 
-          <li class="nav-item dropdown text-white">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Browse
-            </a>
+    <a class="navbar-brand text-white" href="../">
+      <p class="fas fa-home"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand text-white" href="../profile">
+      <p class="fas fa-user"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown text-white">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browse
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
-              <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
-              <a class="dropdown-item" href="../category?keyword=services">Services</a>
-              <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
+              <a class="dropdown-item" href="/category?keyword=pickups">Pick-ups</a>
+              <a class="dropdown-item" href="/category?keyword=deliverables">Deliverables</a>
+              <a class="dropdown-item" href="/category?keyword=services">Services</a>
+              <a class="dropdown-item" href="/category?keyword=intangibles">Intangibles</a>
             </div>
-          </li>
+        </li>
+      </ul>
 
-        </ul>
+      <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </nav>
 
-        <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+  <!-- Cards for the Items fetched -->
+  <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+  <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i].stuffid%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= value[i].name %></h5>
+        <p class="card-text"><%= value[i].description%></p>
       </div>
-      <!-- <script>
-        (function() {
-            window.addEventListener('load', function() {
-                var forms = [document.getElementById('search_form')];
-                console.log("a");
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', check, false);
-                });
-                console.log("b");
-            }, false);
-        })();
-      </script> -->
-    </nav>
+    </a>
+    <% if( i + 1 < value.length ) {%>
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i + 1].stuffid%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= value[i + 1].name %></h5>
+        <p class="card-text"><%= value[i + 1].description%></p>
+      </div>
+    </a>
+    <% } if ( i + 2 < value.length ) {%>
+    <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=value[i + 2].stuffid%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= value[i + 2].name %></h5>
+        <p class="card-text"><%= value[i + 2].description%></p>
+      </div>
+    </a>
+  </div>
+  <% }} %>
 
-     <!-- Cards for the Items fetched -->
-     <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i].name %></h5>
-              <p class="card-text"><%= value[i].description%></p>
-            </div>
-          </a>
-          <% if( i + 1 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i + 1].name %></h5>
-              <p class="card-text"><%= value[i + 1].description%></p>
-            </div>
-          </a>
-          <% } if ( i + 2 < value.length ) {%>
-          <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 3%>">
-            <div class="card-body">
-              <h5 class="card-title"><%= value[i + 2].name %></h5>
-              <p class="card-text"><%= value[i + 2].description%></p>
-            </div>
-          </a>
-        </div>
-      <% }} %>
-    
-    <% /* %>
-    <!-- Cards for the Items fetched
-    <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
-        <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-          <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
-              <p><% if (i + k < value.length) { %></p>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
-                  <div class="card-body">
-                          <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
-                          <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
-                      <p><% } %></p>
-                  </div>
-              </a>
-          <% } %>   
-           
-        </div>
-    <% } %> -->
-    <% */ %>
+  <% /* %>
+  <!-- Cards for the Items fetched
+  <p> <% for (i = 0; i < value.length; i += 3) { %> </p>
+      <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
+        <p> <% for (k = 0; k < Math.min(3, value.length); k += 1) { %> </p>
+            <p><% if (i + k < value.length) { %></p>
+            <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + k%>">
+                <div class="card-body">
+                        <h5 class="card-title"><%= value[Math.min(value.length - 1, i + k)].name %></h5>
+                        <p class="card-text"><%= value[Math.min(value.length - 1, i + k)].description %></p>
+                    <p><% } %></p>
+                </div>
+            </a>
+        <% } %>   
+         
+      </div>
+  <% } %> -->
+  <% */ %>
 
   <div style="position: fixed; z-index: 10; bottom: 100px; right: 120px;">
     <a href="../addItem">
@@ -113,5 +104,6 @@
       </button>
     </a>
   </div>
-  </body>
+</body>
+
 </html>

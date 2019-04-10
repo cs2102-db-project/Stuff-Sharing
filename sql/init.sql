@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
     loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
-    stuffid INTEGER not null references Stuff(stuffId),
+    stuffId INTEGER not null references Stuff(stuffId),
     loanerNum TEXT not null,
     loanerEmail TEXT not null,
     status TEXT not null,

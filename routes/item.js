@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, itemId, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
@@ -20,7 +20,7 @@ router.get('/', isLoggedIn, function(req, res) {
     let displayMsg = "";
     let isBorrowed = false;
 
-    pool.query('SELECT itemId FROM Transactions WHERE $1 = itemId AND $2 = status EXCEPT (SELECT ' +
+    pool.query('SELECT stuffid FROM Transactions WHERE $1 = stuffid AND $2 = status EXCEPT (SELECT ' +
             'stuffId FROM Services WHERE $1 = stuffId UNION SELECT stuffId FROM Intangibles WHERE ' +
             '$1 = stuffId);', [id, 'ONGOING'], (err, datum) => {
         if (err) {
