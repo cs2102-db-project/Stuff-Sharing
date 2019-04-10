@@ -62,19 +62,20 @@ CREATE TABLE IF NOT EXISTS Services(
         ON UPDATE CASCADE,
     primary key (stuffId)
 );
+CREATE TYPE STATUS AS ENUM('ONGOING', 'PENDING', 'FINISHED', 'CANCELLED');
 CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
     loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
-    itemId INTEGER not null references Stuff(stuffId),
+    stuffid INTEGER not null references Stuff(stuffId),
     loanerNum TEXT not null,
     loanerEmail TEXT not null,
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
     endDate DATE not null,
-    primary key (transId)
-    check(startDate <= endDate)
+    primary key (transId),
+    check (startDate <= endDate),
     check (loaner <> loanee)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
@@ -118,15 +119,17 @@ INSERT INTO reviews VALUES
 -- Prevent insertion if there are more than X overdue items
 CREATE OR REPLACE FUNCTION check_overdue()
 RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
 BEGIN
     overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status="ONGOING") > overdue_threshold THEN
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status='ONGOING') > overdue_threshold THEN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
         RETURN NULL;
     END IF;
 END;
 $$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 
 CREATE TRIGGER check_overdue
 BEFORE INSERT ON Transactions
@@ -136,15 +139,17 @@ EXECUTE PROCEDURE check_overdue();
 -- Prevent insertion if there are more than X overdue items to the same loaner
 CREATE OR REPLACE FUNCTION check_overdue_loaner()
 RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
 BEGIN
     overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status="ONGOING") > overdue_threshold THEN
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status='ONGOING') > overdue_threshold THEN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
         RETURN NULL;
     END IF;
 END;
 $$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 
 CREATE TRIGGER check_overdue_loaner
 BEFORE INSERT ON Transactions
@@ -159,4 +164,4 @@ BEGIN
     INSERT INTO profiles (username, name, picture, address) VALUES (signUpUsername, signUpName, signUpPicture, signUpAddress);
 END;
 $$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
