@@ -1,6 +1,8 @@
 /* SQL Query */
 var insertReviewQuery = 'INSERT INTO REVIEWS VALUES((SELECT max(reviewid) from REVIEWS) + 1, $1, $2, $3)';
-var endTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'FINISHED' WHERE transid=$1"
+var endTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'FINISHED' WHERE transid=$1";
+var approveTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'ONGOING' WHERE transid=$1";
+var cancelTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'CANCELLED' WHERE transid=$1";
 
 exports.getTransactions = function(req, res) {
   if (req.user == null) {
@@ -37,7 +39,7 @@ exports.addReview = function(req, res) {
         }
         return console.log(result.rows);
     });
-    res.redirect('/profile_transactions');
+    res.redirect('back');
 }
 
 exports.endTransaction = function(req, res) {
@@ -51,5 +53,34 @@ exports.endTransaction = function(req, res) {
       }
       return console.log(result.rows);
   });
-  res.redirect('/profile_transactions');
+  res.redirect('back');
 }
+
+exports.approveTransaction = function(req, res) {
+  console.log("Approving transaction...");
+  console.log(req.body);
+  var pool = req.app.get('pool');
+  var transid = req.body.transid;
+  pool.query(approveTransactionQuery, [transid], (err, result) => {
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      return console.log(result.rows);
+  });
+  res.redirect('back');
+}
+
+exports.cancelTransaction = function(req, res) {
+  console.log("Cancelling transaction...");
+  console.log(req.body);
+  var pool = req.app.get('pool');
+  var transid = req.body.transid;
+  pool.query(cancelTransactionQuery, [transid], (err, result) => {
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+      return console.log(result.rows);
+  });
+  res.redirect('back');
+}
+

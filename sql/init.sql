@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
     rating INTEGER not null,
     details TEXT not null,
     primary key (reviewId),
-    check (rating >= 0 and rating <= 10)
+    check (rating >= 0 and rating <= 5)
 );
 INSERT INTO accounts VALUES
     ('johndoe', 'johndoe'),
@@ -114,7 +114,7 @@ INSERT INTO services VALUES
 INSERT INTO transactions VALUES
     (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
-    (1, 1, 10, 'good');
+    (1, 1, 5, 'good');
 
 -- Prevent insertion if there are more than X overdue items
 CREATE OR REPLACE FUNCTION check_overdue()
@@ -127,6 +127,7 @@ BEGIN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
         RETURN NULL;
     END IF;
+    RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
@@ -147,6 +148,7 @@ BEGIN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
         RETURN NULL;
     END IF;
+    RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
