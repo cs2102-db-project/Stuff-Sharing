@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
     endDate DATE not null,
+    bid DECIMAL(10, 2) not null,
     primary key (transId),
     check (startDate <= endDate),
     check (loaner <> loanee)
@@ -112,7 +113,7 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
     (1, 1, 5, 'good');
 
