@@ -63,7 +63,9 @@
       <% if (isAdvertised) {%>
       <button disabled style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #808080" >Advertise</button>
       <% } else { %>
-        <button style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #FF9671" >Advertise</button>
+        <form id="advertiseForm" method="post" action="/item/advertise?stuffId=<%=value.stuffid%>">
+          <button id="advertiseButton" type="submit" style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #FF9671">Advertise</button>
+        </form>
       <% } %>
     <% } %>
 

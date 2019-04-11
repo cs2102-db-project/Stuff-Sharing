@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
     check (rating >= 0 and rating <= 5)
 );
 CREATE TABLE IF NOT EXISTS ads(
-    stuffId INTEGER,
+    stuffId INTEGER references Stuff(stuffId),
     owner TEXT references Accounts(username),
     primary key (owner)
 );

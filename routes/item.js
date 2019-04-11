@@ -13,7 +13,8 @@ const pool = new Pool({
 
 const sqlQuery = 'SELECT * from Stuff where stuffid = $1';
 const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
-const adsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
+const getAdsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
+const advertiseQuery = 'INSERT INTO ads (stuffId, owner) VALUES ($1, $2) ON DUPLICATE KEY UPDATE stuffId = $1';
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
@@ -55,7 +56,7 @@ router.get('/', isLoggedIn, function(req, res) {
                 }
                 var item = result.rows[0];
 
-                pool.query(adsQuery, [id], (err, result) => {
+                pool.query(getAdsQuery, [id], (err, result) => {
                     if (err) {
                         console.error("Error executing query", err.stack);
                         return 0;
@@ -111,6 +112,29 @@ router.post('/borrow', function(req, res) {
         });
     });
 });
+
+router.post('/advertise', function(req, res) {
+    console.log("updating advertisements table");
+    const stuffId = req.query.stuffId;
+    const currentUser = req.user.rows[0];
+
+    pool.query(advertiseQuery, [stuffId, currentUser.username], (err, result) => {
+        if (err) {
+            return console.error("Error executing query", err.stack);
+        }
+    });
+    return 0;
+});
+
+// function advertise(item) {
+//     console.log("updating advertisements table");
+//     pool.query(advertiseQuery, [item.stuffId, item.owner], (err, result) => {
+//         if (err) {
+//             return console.error("Error executing query", err.stack);
+//         }
+//     });
+//     return 0;
+// }
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
