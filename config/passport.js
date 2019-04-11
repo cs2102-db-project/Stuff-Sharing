@@ -92,7 +92,7 @@ module.exports = function(passport) {
                 // check to see if theres already a user with that username
                 if (!user) {
                     console.log("This username is already taken")
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, req.flash('signUpMessage', 'That username is already taken.'));
                 } else {
                     // insert into profiles
                     pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [username, signUpName, signUpPicture, signUpAddress], function(err) {
