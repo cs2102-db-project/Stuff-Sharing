@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var transactionsController = require('../controllers/transactionsController');
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
   transactionsController.getTransactions(req, res);
 });

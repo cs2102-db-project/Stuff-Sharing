@@ -16,6 +16,7 @@ var signupRouter = require('./routes/signup')
 var profileRouter = require('./routes/profile');
 var profileTransactionsRouter = require('./routes/profile_transactions');
 var transactionRouter = require('./routes/transaction');
+var profileEditRouter = require('./routes/profile_edit');
 var addItemRouter = require('./routes/additem');
 var itemRouter = require('./routes/item');
 
@@ -55,6 +56,7 @@ app.use('/signup', signupRouter);
 app.use('/profile', profileRouter);
 app.use('/profile_transactions', profileTransactionsRouter);
 app.use('/transaction', transactionRouter);
+app.use('/profile_edit', profileEditRouter);
 app.use('/additem', addItemRouter);
 app.use('/item', itemRouter);
 
