@@ -5,21 +5,25 @@ var approveTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'ONGOING' WHERE 
 var cancelTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'CANCELLED' WHERE transid=$1";
 
 exports.getTransactions = function(req, res) {
-  var currentUser = req.user.rows[0];
-  var pool = req.app.get('pool');
-  pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loaner = $1", [currentUser.username],
-    function (err1, data1) {
-      pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loanee = $1", [currentUser.username],
-        function (err2, data2) {
-          var loanedOut = data1.rows;
-          var loaned = data2.rows;
-          console.log(loanedOut);
-          console.log(loaned);
-          res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
-        }
-      );
-    }
-  );
+  if (req.user == null) {
+    res.redirect('/login');
+  } else {
+    var currentUser = req.user.rows[0];
+    var pool = req.app.get('pool');
+    pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loaner = $1", [currentUser.username],
+      function (err1, data1) {
+        pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loanee = $1", [currentUser.username],
+          function (err2, data2) {
+            var loanedOut = data1.rows;
+            var loaned = data2.rows;
+            console.log(loanedOut);
+            console.log(loaned);
+            res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
+          }
+        );
+      }
+    );
+  }
 }
 
 exports.addReview = function(req, res) {
