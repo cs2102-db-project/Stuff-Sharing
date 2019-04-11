@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
 
-  </head>
-  <body>
-      <!-- Don't remove the links please -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<head>
+  <title><%= title %></title>
 
-    <!-- Navbar Stuff -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+</head>
 
-      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body>
+  <!-- Don't remove the links please -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Navbar Stuff -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
 
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand text-white" href="../">
+      <p class="fas fa-home"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <li class="nav-item dropdown text-white">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Browse
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/category?keyword=pickups">Pick-ups</a>
-                <a class="dropdown-item" href="/category?keyword=deliverables">Deliverables</a>
-                <a class="dropdown-item" href="/category?keyword=services">Services</a>
-                <a class="dropdown-item" href="/category?keyword=intangibles">Intangibles</a>
-            </div>
-          </li>
+    <a class="navbar-brand text-white" href="../profile">
+      <p class="fas fa-user"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        </ul>
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-        <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-    </nav>
+        <li class="nav-item dropdown text-white">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browse
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/category?keyword=pickups">Pick-ups</a>
+            <a class="dropdown-item" href="/category?keyword=deliverables">Deliverables</a>
+            <a class="dropdown-item" href="/category?keyword=services">Services</a>
+            <a class="dropdown-item" href="/category?keyword=intangibles">Intangibles</a>
+          </div>
+        </li>
 
-    <!-- Item description -->
-    <h1 style="margin-left: 8rem; margin-top: 4rem;"> <%= value.name %></h1>
-    <h5 style="margin-left: 8rem;"> Description: <%= value.description %></h5>
-    <img src= /images/itemPictures/<%= value.picture %>
-    <h5 style="margin-left: 8rem;"> Owned by: <%= value.owner %> </h5>
+      </ul>
+
+      <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Item description -->
+  <div align="center">
+    <h1> <%= value.name %></h1>
+    <h5> Description: <%= value.description %></h5>
+    <img src="/images/itemPictures/<%= value.picture %>" alt="<%= value.picture %>" class="img-thumbnail rounded" style="width:20em">
+    <h5> Owned by: <%= value.owner %> </h5>
     <br>
-    <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
+    <p> <%= displayMsg %></p>
     <!-- Borrow item forms and button -->
     <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST" class="form-inline my-2 my-lg-0">
-      <h5 style="margin-left: 14rem; margin-top: 2rem;"> How much do you bid? </h5>
-      <input style="margin-left: 10px; margin-top: 2rem;" class="form-control mr-sm-2" type="number" id="bid" name="bid" placeholder="10.00" aria-label="Bid placed" required>
+      <h5> How much do you bid? </h5>
+      <input class="form-control mr-sm-2" type="number" id="bid" name="bid" placeholder="10.00" aria-label="Bid placed" required>
       <hr style="display: block; position: relative; padding: 0; margin: 3rem auto; height: 0; width: 90%; max-height: 0; font-size: 1px;
-        line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
-      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Contact Number </h5>
-      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
-      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Email Address </h5>
-      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="email" id="email" name="email" placeholder="example@email.com" aria-label="Email Address" required>
-      <h5 style="margin-left: 14rem; margin-top: 20px;  "> Loan Start Date </h5>
-      <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
-      <h5 style="margin-left: 13rem; margin-top: 20px;  "> Loan End Date </h5>
-      <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="endDate" name="endDate" aria-label="End Date" required>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
-              style="position: fixed; z-index: 10; bottom: 100px; right: 120px;
-              width: 200px; height: 70px;"> Borrow now! </button>
+            line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
+      <h5> Contact Number </h5>
+      <input class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
+      <h5> Email Address </h5>
+      <input class="form-control mr-sm-2" type="email" id="email" name="email" placeholder="example@email.com" aria-label="Email Address" required>
+      <h5> Loan Start Date </h5>
+      <input class="form-control mr-sm-2" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
+      <h5> Loan End Date </h5>
+      <input class="form-control mr-sm-2" type="date" id="endDate" name="endDate" aria-label="End Date" required>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Borrow now! </button>
     </form>
     <% } %>
-  </body>
+  </div>
+</body>
+
 </html>

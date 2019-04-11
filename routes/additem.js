@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
+var fs = require('fs');
+
+// Create directory for item pictures if doesn't yet exist
+var itemPicturesDir = "public/images/itemPictures";
+if (!fs.existsSync(itemPicturesDir)) {
+  fs.mkdirSync(itemPicturesDir);
+}
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "public/images/itemPictures/");
+    cb(null, itemPicturesDir);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
