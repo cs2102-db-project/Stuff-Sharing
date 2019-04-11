@@ -90,21 +90,21 @@
             <!-- Cards for the Items fetched -->
             <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
             <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i].name %></h5>
                   <p class="card-text"><%= myItems[i].description %></p>
                 </div>
               </a>
               <% if( i + 1 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 1].name %></h5>
                   <p class="card-text"><%= myItems[i + 1].description %></p>
                 </div>
               </a>
               <% } if ( i + 2 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 3%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 2].name %></h5>
                   <p class="card-text"><%= myItems[i + 2].description %></p>
