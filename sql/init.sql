@@ -113,7 +113,7 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20', 12.42);
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'FINISHED', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
     (1, 1, 5, 'good');
 
@@ -123,9 +123,9 @@ RETURNS trigger AS $$
 DECLARE
   overdue_threshold NUMERIC;
 BEGIN
-    overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status='ONGOING') > overdue_threshold THEN
-        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
+    overdue_threshold := 0;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS T where loanee=NEW.loanee and status='ONGOING' and now()::date > T.endDate) > overdue_threshold THEN
+        RAISE EXCEPTION 'You have at least 1 overdue item. Please return that first if you wish to continue using the website.';
         RETURN NULL;
     END IF;
     RETURN NEW;
