@@ -92,9 +92,21 @@
                   <p>Cost: <%= loanedOut[i].cost %></p>
                   <p>Start date: <%= loanedOut[i].startdate.toLocaleDateString() %></p>
                   <p>End date: <%= loanedOut[i].enddate.toLocaleDateString() %></p>
+
+                  <% if (loanedOut[i].status === "PENDING") {%>
+                    <form id="approveTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/approvetrans" class="btn btn-warning">Approve Transaction</button>
+                    </form>
+                    <form id="cancelTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/canceltrans" class="btn btn-warning">Cancel Transaction</button>
+                    </form>
+                  <% } %>
+
                   <% if (loanedOut[i].reviewid) {%>
                   <p>
-                    <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Review</strong></a>
+                    <a class="float-left"><strong>Review</strong></a>
                     <% for (star = 0; star < loanedOut[i].rating; star++) { %>
                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                     <% } %>
@@ -149,7 +161,7 @@
                       </div>
                     <% } else { %>
                       <p>
-                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Review</strong></a>
+                        <a class="float-left text-primary"><strong>Review</strong></a>
                         <% for (star = 0; star < loaned[i].rating; star++) { %>
                         <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                         <% } %>

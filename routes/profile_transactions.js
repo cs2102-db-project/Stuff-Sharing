@@ -7,6 +7,16 @@ router.get('/', function (req, res, next) {
   transactionsController.getTransactions(req, res);
 });
 
+/* Approve Transaction */
+router.post('/approvetrans', function (req, res, next) {
+  transactionsController.approveTransaction(req, res);
+});
+
+/* Cancel Transaction */
+router.post('/canceltrans', function (req, res, next) {
+  transactionsController.cancelTransaction(req, res);
+});
+
 /* End Transaction */
 router.post('/endtrans', function (req, res, next) {
   transactionsController.endTransaction(req, res);

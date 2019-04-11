@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
     rating INTEGER not null,
     details TEXT not null,
     primary key (reviewId),
-    check (rating >= 0 and rating <= 10)
+    check (rating >= 0 and rating <= 5)
 );
 INSERT INTO accounts VALUES
     ('johndoe', 'johndoe'),
@@ -127,6 +127,7 @@ BEGIN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
         RETURN NULL;
     END IF;
+    RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
@@ -147,6 +148,7 @@ BEGIN
         RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
         RETURN NULL;
     END IF;
+    RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
