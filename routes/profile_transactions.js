@@ -1,21 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var transactionsController = require('../controllers/transactionsController');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  var currentUser = req.app.get('current user');
-  if (currentUser == null) {
-    res.redirect('/login');
-  } else {
-  	var pool = req.app.get('pool');
-  	pool.query("SELECT * FROM transactions WHERE transactions.loaner = $1::text", [currentUser.username], (err, data) => {
-      pool.query("SELECT * FROM transactions WHERE transactions.loanee = $1::text", [currentUser.username], (err, data2) => {
-        var loanedOut = data.rows;
-        var loaned = data2.rows;
-        res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
-      });
-    });
-  }
+router.get('/', function (req, res, next) {
+  transactionsController.getTransactions(req, res);
+});
+
+/* End Transaction */
+router.post('/endtrans', function (req, res, next) {
+  transactionsController.endTransaction(req, res);
+});
+
+/* Add review */
+router.post('/addReview', function (req, res, next) {
+  transactionsController.addReview(req, res);
 });
 
 module.exports = router;

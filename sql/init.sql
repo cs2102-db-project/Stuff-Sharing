@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Stuff(
     picture TEXT,
     name VARCHAR(100) not null,
     owner TEXT not null,
-    price FLOAT8 not null, 
+    price FLOAT8 not null,
     description TEXT,
     primary key (stuffId),
     foreign key (owner) references Profiles(username)
@@ -59,19 +59,24 @@ CREATE TABLE IF NOT EXISTS Intangibles(
 CREATE TABLE IF NOT EXISTS Services(
     stuffId INTEGER references Stuff(stuffId)
         ON DELETE CASCADE
-        ON UPDATE CASCADE, 
+        ON UPDATE CASCADE,
     primary key (stuffId)
 );
+CREATE TYPE STATUS AS ENUM('ONGOING', 'PENDING', 'FINISHED', 'CANCELLED');
 CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
-    loaner TEXT not null,
-    loanee TEXT not null,
-    item TEXT not null,
+    loaner TEXT not null references Profiles(username),
+    loanee TEXT not null references Profiles(username),
+    stuffId INTEGER not null references Stuff(stuffId),
+    loanerNum TEXT not null,
+    loanerEmail TEXT not null,
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
-    endDate DATE,
-    primary key (transId)
+    endDate DATE not null,
+    primary key (transId),
+    check (startDate <= endDate),
+    check (loaner <> loanee)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
@@ -107,6 +112,56 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
 INSERT INTO reviews VALUES
     (1, 1, 10, 'good');
+
+-- Prevent insertion if there are more than X overdue items
+CREATE OR REPLACE FUNCTION check_overdue()
+RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status='ONGOING') > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
+        RETURN NULL;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_overdue
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue();
+
+-- Prevent insertion if there are more than X overdue items to the same loaner
+CREATE OR REPLACE FUNCTION check_overdue_loaner()
+RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status='ONGOING') > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
+        RETURN NULL;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_overdue_loaner
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue_loaner();
+
+-- Function create both Account and Profile at the same time
+CREATE OR REPLACE FUNCTION update_profile(signUpUsername TEXT, signUpPassword TEXT, signUpName TEXT, signUpPicture TEXT, signUpAddress VARCHAR(100))
+RETURNS VOID as $$
+BEGIN
+    INSERT INTO accounts (username, password) VALUES (signUpUsername, signUpPassword);
+    INSERT INTO profiles (username, name, picture, address) VALUES (signUpUsername, signUpName, signUpPicture, signUpAddress);
+END;
+$$
+LANGUAGE plpgsql;
