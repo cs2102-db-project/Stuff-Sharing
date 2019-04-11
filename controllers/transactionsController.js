@@ -39,7 +39,7 @@ exports.addReview = function(req, res) {
         }
         return console.log(result.rows);
     });
-    res.redirect('/profile_transactions');
+    res.redirect('back');
 }
 
 exports.endTransaction = function(req, res) {
@@ -53,7 +53,7 @@ exports.endTransaction = function(req, res) {
       }
       return console.log(result.rows);
   });
-  res.redirect('/profile_transactions');
+  res.redirect('back');
 }
 
 exports.approveTransaction = function(req, res) {
@@ -67,7 +67,7 @@ exports.approveTransaction = function(req, res) {
       }
       return console.log(result.rows);
   });
-  res.redirect('/profile_transactions');
+  res.redirect('back');
 }
 
 exports.cancelTransaction = function(req, res) {
@@ -81,6 +81,6 @@ exports.cancelTransaction = function(req, res) {
       }
       return console.log(result.rows);
   });
-  res.redirect('/profile_transactions');
+  res.redirect('back');
 }
 
