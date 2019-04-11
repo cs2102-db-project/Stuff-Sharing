@@ -94,6 +94,7 @@
                   <p class="card-text">
                     Loaned to: <%= loanedOut[i].loanee %><br/>
                     Status: <%= loanedOut[i].status %><br/>
+                    Bid: <%= loanedOut[i].bid %><br/>
                     Cost: <%= loanedOut[i].cost %><br/>
                     Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br/>
                     End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br/>
@@ -107,7 +108,7 @@
                         <button type="submit" formaction="/profile_transactions/canceltrans" class="btn btn-warning">Cancel Transaction</button>
                       </form>
                     <% } %>
-  
+
                     <% if (loanedOut[i].reviewid) {%>
                     <p>
                       <a class="float-left text-primary"><strong>Review</strong></a>

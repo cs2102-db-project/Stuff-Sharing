@@ -58,10 +58,14 @@
     <!-- Borrow item forms and button -->
     <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST" class="form-inline my-2 my-lg-0">
-      <h5 style="margin-left: 14rem;"> Contact Number </h5>
-      <input style="margin-left: 10px;" class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
-      <h5 style="margin-left: 14rem;"> Email Address </h5>
-      <input style="margin-left: 10px;" class="form-control mr-sm-2" type="email" id="email" name="email" placeholder="example@email.com" aria-label="Email Address" required>
+      <h5 style="margin-left: 14rem; margin-top: 2rem;"> How much do you bid? </h5>
+      <input style="margin-left: 10px; margin-top: 2rem;" class="form-control mr-sm-2" type="number" id="bid" name="bid" placeholder="10.00" aria-label="Bid placed" required>
+      <hr style="display: block; position: relative; padding: 0; margin: 3rem auto; height: 0; width: 90%; max-height: 0; font-size: 1px;
+        line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
+      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Contact Number </h5>
+      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
+      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Email Address </h5>
+      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="email" id="email" name="email" placeholder="example@email.com" aria-label="Email Address" required>
       <h5 style="margin-left: 14rem; margin-top: 20px;  "> Loan Start Date </h5>
       <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
       <h5 style="margin-left: 13rem; margin-top: 20px;  "> Loan End Date </h5>
