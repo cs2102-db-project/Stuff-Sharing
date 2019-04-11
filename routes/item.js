@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
@@ -71,8 +71,9 @@ router.post('/borrow', function(req, res) {
     const email = req.body.email;
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
+    const bid = req.body.bid;
     const user = req.user.rows[0].username;
-
+    console.log(bid + " this is the bid");
     pool.query('BEGIN', function(err, data1) {
         pool.query('SELECT MAX(transId) as transId FROM Transactions;', (err, data2) => {
             var transId = data2.rows[0].transid + 1;
@@ -82,7 +83,7 @@ router.post('/borrow', function(req, res) {
                 const loaner = data3.rows[0].owner;
                 const cost = data3.rows[0].price;
                 console.log("Loaner: " + loaner);
-                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost], (err, result) => {
+                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, result) => {
                     if (err) {
                         return console.error("Error executing query", err.stack);
                     }
