@@ -1,8 +1,8 @@
 /* SQL Query */
 var getUserProfileQuery = 'SELECT * FROM profiles WHERE username = $1';
 var getUserStuffQuery = 'SELECT * FROM stuff WHERE stuff.owner = $1';
-var editProfileAllQuery = 'UPDATE profiles SET name = $1::text, password = $2::text, address = $3::text WHERE username = $4::text';
-var editProfileKeepPwdQuery = 'UPDATE profiles SET name = $1::text, address = $2::text WHERE username = $3::text';
+var editPasswordQuery = 'UPDATE accounts SET password = $1::text WHERE username = $2::text';
+var editProfileQuery = 'UPDATE profiles SET name = $1::text, address = $2::text WHERE username = $3::text';
 var getItemNumLoansQuery = '\
 with itemCount as (\
   SELECT transactions.stuffId as stuffId, count(*) as numLoans\
@@ -95,36 +95,26 @@ exports.editProfile = function(req, res) {
   var pool = req.app.get('pool');
 
   if (password.length != 0) {
-    pool.query(editProfileAllQuery, [name, password, address, currentUser.username], (err, result) => {
+    pool.query(editPasswordQuery, [password, currentUser.username], (err, result) => {
         if (err) {
           return console.error('Error executing query', err.stack)
         }
-        pool.query(getUserProfileQuery, [currentUser.username], (err, result) => {
-            if (err) {
-              return console.error('Error executing query', err.stack)
-            } else {
-              console.log(result.rows[0]);
-              req.app.set('current user', result.rows[0]);
-              res.redirect('/profile');
-            }
-        });
-    });
-  } else {
-    pool.query(editProfileKeepPwdQuery, [name, address, currentUser.username], (err, result) => {
-        if (err) {
-          return console.error('Error executing query', err.stack)
-        }
-        pool.query(getUserProfileQuery, [currentUser.username], (err, result) => {
-            if (err) {
-              return console.error('Error executing query', err.stack)
-            } else {
-              console.log(result.rows[0]);
-              req.app.set('current user', result.rows[0]);
-              res.redirect('/profile');
-            }
-        });
     });
   }
+  pool.query(editProfileQuery, [name, address, currentUser.username], (err, result) => {
+    if (err) {
+      return console.error('Error executing query', err.stack)
+    }
+    pool.query(getUserProfileQuery, [currentUser.username], (err, result) => {
+        if (err) {
+          return console.error('Error executing query', err.stack)
+        } else {
+          console.log(result.rows[0]);
+          req.app.set('current user', result.rows[0]);
+          res.redirect('/profile');
+        }
+    });
+  });
 }
 
 /* Display profile stats */
