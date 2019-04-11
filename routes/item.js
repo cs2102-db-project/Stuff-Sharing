@@ -16,9 +16,58 @@ const pool = new Pool({
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
 const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
 
+router.get('/delete', isLoggedIn, function(req, res) {
+    const stuffId = req.query.stuffId;
+    const currentUser = req.user.rows[0].username;
+    console.log(currentUser + " is current user");
+    pool.query('SELECT * FROM Stuff WHERE stuffId=$1', [stuffId], (err, data3) => {
+        if (err) {
+            console.log(err + " weird error");
+            return 0;
+        }
+        const owner = data3.rows[0].owner;
+        console.log(owner + " is owner");
+        pool.query('SELECT Count(*) as numAdmin from Admins where username=$1', [currentUser], (err, adminStatus) => {
+            if (err) {
+                return console.log("Some weird error " + err);
+            }
+            const numAdmin = adminStatus.rows[0].numadmin;
+            console.log(numAdmin + " numAdmin");
+            console.log(owner != currentUser);
+            console.log(numAdmin == 0 + " !numAdmin");
+            console.log(!numAdmin && owner != currentUser);
+            if (numAdmin == 0 && owner != currentUser) {
+                res.render('item', {
+                    title: 'Item',
+                    value: data3.rows[0],
+                    displayMsg: "You do not have the permission to delete the item",
+                    isBorrowed: true,
+                    displayDelete: false
+                });
+                return 0;
+            } else {
+                pool.query('DELETE FROM Stuff WHERE stuffId=$1', [stuffId], (err, response) => {
+                    if (err) {
+                        res.render('item', {
+                            title: 'Item',
+                            value: data3.rows[0],
+                            displayMsg: err,
+                            isBorrowed: true,
+                            displayDelete: true
+                        });
+                        return 0;
+                    } else {
+                        res.redirect('/');
+                        return 0;
+                    }
+                });
+            }
+        });
+    });
+});
+
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
-    const user = req.app.get('current user');
     let displayMsg = "";
     let isBorrowed = false;
 
@@ -58,7 +107,8 @@ router.get('/', isLoggedIn, function(req, res) {
                     title: 'Item',
                     value: result.rows[0],
                     displayMsg: displayMsg,
-                    isBorrowed: isBorrowed
+                    isBorrowed: isBorrowed,
+                    displayDelete: true
                 });
                 console.log(result.rows[0]);
                 return 0;
@@ -100,7 +150,8 @@ router.post('/borrow', function(req, res) {
                             title: 'Item',
                             value: data3.rows[0],
                             displayMsg: err,
-                            isBorrowed: true
+                            isBorrowed: true,
+                            displayDelete: true
                         });
                         return 0;
                     }
