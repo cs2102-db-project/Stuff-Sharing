@@ -56,40 +56,29 @@
     </nav>
 
     <!-- Profile Page -->
-    <div class="row profile">
-      <div class="col-md-3">
-        <div class="profile-sidebar">
-          <!-- SIDEBAR USERPIC -->
-          <div class="profile-userpic">
-            <img src="../public/images/default_profile.png" alt="">
-          </div>
-          <!-- SIDEBAR USER TITLE -->
-          <div class="profile-usertitle">
-            <div class="profile-usertitle-name"><%= user.username %></div>
-            <div class="profile-usertitle-job"><%= user.name %></div>
-          </div>
-          <!-- SIDEBAR MENU -->
-          <div class="profile-usermenu">
-            <ul class="nav">
-              <li>
-                <a href="/profile">
-                <i class="glyphicon glyphicon-home"></i>My items
-                </a>
-              </li>
-              <li>
-                <a href="/profile_transactions">
-                <i class="glyphicon glyphicon-user"></i>My transaction history
-                </a>
-              </li>
-              <li class="active">
-                <a href="#">
-                <i class="glyphicon glyphicon-user"></i>Edit profile
-                </a>
-              </li>
-            </ul>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
+        <img class="card-img-top" src="/images/default_profile2.png" alt="Card image cap" />
+        <div class="card-body">
+          <a href="/profile">
+            <h5 class="card-title"><%= user.username %></h5>
+          </a>
+          <p class="card-text"><%= user.name %></p>
         </div>
+        <ul class="list-group list-group-flush">
+          <a href="#">
+            <li class="list-group-item">My items</li>
+          </a>
+          <a href="profile_transactions">
+            <li class="list-group-item">Transaction history</li>
+          </a>
+          <a href="profile_edit">
+            <li class="list-group-item">Edit my profile</li>
+          </a>
+        </ul>
       </div>
+
       <div class="col-md-9">
         <div class="profile-content">
           <!-- profile form, filled with current attributes -->
@@ -102,7 +91,8 @@
              <input type="password" name="password" id="password" placeholder="Password">
               <h3>Address</h3>
               <input type="text" name="address" id="address" placeholder="Address" value="<%= user.address %>">
-              <button id="editButton" type="submit">Submit</button>
+              <br>
+              <button style="box-shadow: 3px 4px 0px 0px #8a2a21; background-color:#FF9671; color:#ffffff; border-radius:18px;" id="editButton" type="submit">Submit</button>
             </form>
           </div>
 
