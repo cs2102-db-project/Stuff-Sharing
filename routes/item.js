@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var EventEmitter = require('events');
+var util = require('util');
 var itemController = require('../controllers/itemController');
 
 const { Pool } = require('pg')
@@ -73,26 +75,43 @@ router.post('/borrow', function(req, res) {
     const endDate = req.body.endDate;
     const bid = req.body.bid;
     const user = req.user.rows[0].username;
-    console.log(bid + " this is the bid");
+
     pool.query('BEGIN', function(err, data1) {
         pool.query('SELECT MAX(transId) as transId FROM Transactions;', (err, data2) => {
+            if (err) {
+                return console.log(err);
+            }
             var transId = data2.rows[0].transid + 1;
             console.log("transId = " + transId);
             pool.query('SELECT * FROM Stuff WHERE stuffId = $1;',  [stuffId], (err, data3) => {
+                if (err) {
+                    return console.log(err);
+                }
                 console.log(user + " this is the current user");
                 const loaner = data3.rows[0].owner;
                 const cost = data3.rows[0].price;
                 console.log("Loaner: " + loaner);
-                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, result) => {
+                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, borrowResult) => {
+                    console.log(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid]);
                     if (err) {
-                        return console.error("Error executing query", err.stack);
+                        console.log("There's an error matey" + err);
+
+                        res.render('item', {
+                            title: 'Item',
+                            value: data3.rows[0],
+                            displayMsg: err,
+                            isBorrowed: true
+                        });
+                        return 0;
                     }
+                    console.log("No error, this is the result " + borrowResult.rows);
+                    console.log("And this is what the error is " + err)
                     pool.query('COMMIT', function(err, data4) {
                         if(err) console.log('error1');
                     });
 
                     res.redirect('/');
-                    return console.log(result.rows);
+                    return console.log(borrowResult.rows);
                 });
             });
         });

@@ -84,7 +84,7 @@
       <div class="col-md-9 col-sm-6">
         <div class="profile-content">
 
-          <h1 style="margin-left: 2rem;">Items loaned out history</h1>
+          <h1 style="margin-left: 2rem;">My items transactions history</h1>
           <!-- My loaned out items transations -->
           <div class="column">
             <% for (i = 0; i < loanedOut.length; i++) { %>
@@ -92,12 +92,12 @@
               <div class="card-body">
                 <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].item %></h5>
                   <p class="card-text">
-                    Loaned to: <%= loanedOut[i].loanee %><br/>
-                    Status: <%= loanedOut[i].status %><br/>
-                    Bid: <%= loanedOut[i].bid %><br/>
-                    Cost: <%= loanedOut[i].cost %><br/>
+                    Item: <%= loanedOut[i].name %><br/>
+                    Borrower: <%= loanedOut[i].loanee %><br/>
+                    Cost: $<%= loanedOut[i].cost %><br/>
                     Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br/>
                     End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br/>
+                    Status: <%= loanedOut[i].status %><br/>
                     <% if (loanedOut[i].status === "PENDING") {%>
                       <form id="approveTransaction" method="POST">
                         <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
@@ -127,7 +127,7 @@
             <hr>
           </div>
 
-          <h1 style="margin-left: 2rem;">Items I loaned history</h1>
+          <h1 style="margin-left: 2rem;">Items I borrowed transactions history</h1>
           <!-- My loaned items transations -->
           <div class="column">
             <% for (i = 0; i < loaned.length; i ++) { %>
@@ -135,11 +135,12 @@
               <div class="card-body">
                 <h3 style="color: #FF9671"><%= loaned[i].item %></h5>
                   <p class="card-text">
-                      Loaned to: <%= loanedOut[i].loanee %><br/>
-                      Status: <%= loanedOut[i].status %><br/>
-                      Cost: <%= loanedOut[i].cost %><br/>
-                      Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br/>
-                      End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br/>
+                      Item: <%= loaned[i].name %><br/>
+                      Lender: <%= loaned[i].loaner %><br/>
+                      Cost: $<%= loaned[i].cost %><br/>
+                      Start date: <%= loaned[i].startdate.toLocaleDateString() %><br/>
+                      End date: <%= loaned[i].enddate.toLocaleDateString() %><br/>
+                      Status: <%= loaned[i].status %><br/>
                     <% if (loaned[i].status === "ONGOING") {%>
                       <form id="endTransaction" method="POST">
                         <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
