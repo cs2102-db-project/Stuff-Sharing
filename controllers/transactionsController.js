@@ -1,4 +1,5 @@
 /* SQL Query */
+var getUserProfileQuery = 'SELECT * FROM profiles WHERE username = $1';
 var insertReviewQuery = 'INSERT INTO REVIEWS VALUES((SELECT max(reviewid) from REVIEWS) + 1, $1, $2, $3)';
 var endTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'FINISHED' WHERE transid=$1"
 
@@ -16,7 +17,10 @@ exports.getTransactions = function(req, res) {
             var loaned = data2.rows;
             console.log(loanedOut);
             console.log(loaned);
-            res.render('profile_transactions', { user: currentUser, loanedOut: loanedOut, loaned: loaned });
+            pool.query(getUserProfileQuery, [currentUser.username], (err, result) => {
+              var profile = result.rows[0];
+              res.render('profile_transactions', { user: profile, loanedOut: loanedOut, loaned: loaned });
+            });
           }
         );
       }
