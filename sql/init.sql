@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Stuff(
     picture TEXT,
     name VARCHAR(100) not null,
     owner TEXT not null,
+    price FLOAT8 not null,
     description TEXT,
     primary key (stuffId),
     foreign key (owner) references Profiles(username)
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Pickups(
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     pickupAddress VARCHAR(100) not null,
-    primary key (StuffId)
+    primary key (stuffId)
 );
 CREATE TABLE IF NOT EXISTS Intangibles(
     stuffId INTEGER references Stuff(stuffId)
@@ -61,16 +62,22 @@ CREATE TABLE IF NOT EXISTS Services(
         ON UPDATE CASCADE,
     primary key (stuffId)
 );
+CREATE TYPE STATUS AS ENUM('ONGOING', 'PENDING', 'FINISHED', 'CANCELLED');
 CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
-    loaner TEXT not null,
-    loanee TEXT not null,
-    item TEXT not null,
+    loaner TEXT not null references Profiles(username),
+    loanee TEXT not null references Profiles(username),
+    stuffId INTEGER not null references Stuff(stuffId),
+    loanerNum TEXT not null,
+    loanerEmail TEXT not null,
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
-    endDate DATE,
-    primary key (transId)
+    endDate DATE not null,
+    bid DECIMAL(10, 2) not null,
+    primary key (transId),
+    check (startDate <= endDate),
+    check (loaner <> loanee)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
@@ -80,7 +87,7 @@ CREATE TABLE IF NOT EXISTS Reviews(
     rating INTEGER not null,
     details TEXT not null,
     primary key (reviewId),
-    check (rating >= 0 and rating <= 10)
+    check (rating >= 0 and rating <= 5)
 );
 CREATE TABLE IF NOT EXISTS ads(
     stuffId INTEGER,
@@ -99,10 +106,10 @@ INSERT INTO profiles VALUES
     ('johndoe', 'John Doe', 'picture?', '10 john road'),
     ('janedoe', 'Jane Doe', 'picture?', '10 jane road');
 INSERT INTO stuff VALUES
-    (1, 'picture?', 'book', 'johndoe', 'its a book'),
-    (2, 'picture?', 'car', 'johndoe', 'its a car'),
-    (3, 'picture?', 'car wash', 'janedoe', 'its a car wash'),
-    (4, 'picture?', 'math notes', 'janedoe', 'its math notes');
+    (1, 'picture?', 'book', 'johndoe', 1.50, 'its a book'),
+    (2, 'picture?', 'car', 'johndoe', 2.50, 'its a car'),
+    (3, 'picture?', 'car wash', 'janedoe', 3.50, 'its a car wash'),
+    (4, 'picture?', 'math notes', 'janedoe', 4.50, 'its math notes');
 INSERT INTO deliverables VALUES
     (1, 1.00);
 INSERT INTO pickups VALUES
@@ -112,8 +119,60 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 'book', 'ONGOING', 10.00, '2019-01-01', '2019-01-20');
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
-    (1, 1, 10, 'good');
+    (1, 1, 5, 'good');
 INSERT INTO ads VALUES
     (2, 'johndoe');
+
+-- Prevent insertion if there are more than X overdue items
+CREATE OR REPLACE FUNCTION check_overdue()
+RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status='ONGOING') > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_overdue
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue();
+
+-- Prevent insertion if there are more than X overdue items to the same loaner
+CREATE OR REPLACE FUNCTION check_overdue_loaner()
+RETURNS trigger AS $$
+DECLARE
+  overdue_threshold NUMERIC;
+BEGIN
+    overdue_threshold := 5;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status='ONGOING') > overdue_threshold THEN
+        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_overdue_loaner
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+EXECUTE PROCEDURE check_overdue_loaner();
+
+-- Function create both Account and Profile at the same time
+CREATE OR REPLACE FUNCTION update_profile(signUpUsername TEXT, signUpPassword TEXT, signUpName TEXT, signUpPicture TEXT, signUpAddress VARCHAR(100))
+RETURNS VOID as $$
+BEGIN
+    INSERT INTO accounts (username, password) VALUES (signUpUsername, signUpPassword);
+    INSERT INTO profiles (username, name, picture, address) VALUES (signUpUsername, signUpName, signUpPicture, signUpAddress);
+END;
+$$
+LANGUAGE plpgsql;

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// var loginScript = require('../public/javascripts/loginScript');
+var passport = require('passport');
 
 var bodyParser = require('body-parser');
 
@@ -8,67 +8,22 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-const { Pool } = require('pg')
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'stuffsharing',
-  password: 'postgres',
-  port: 5432,
-})
-
-router.post('/', function(req, res) {
-  var signUpUsername = req.body.signUpUsername;
-  var signUpName = req.body.signUpName;
-  var signUpPassword = req.body.signUpPassword;
-  var signUpPicture = req.body.signUpPicture;
-  var signUpAddress = req.body.signUpAddress;
-
-  console.log(signUpUsername);
-  console.log(signUpName);
-  console.log(signUpPassword);
-  console.log(signUpPicture);
-  console.log(signUpAddress);
-
-  if (signUpUsername.length == 0 || signUpPassword.length == 0 || signUpName.length == 0 || signUpPicture.length == 0 || signUpAddress.length == 0) {
-    return res.status(400).send("Please fill up all the fields");
-  }
-
-  pool.query('BEGIN', function(err, data) {
-    if(err) console.log('error1');
-    pool.query('INSERT INTO accounts (username, password) VALUES ($1::text, $2::text);', [signUpUsername, signUpPassword], function(err, data) {
-      if(err) console.log('error2');
-      if (!data) {
-        console.log("already exist")
-        res.send('This user already exists');
-      }
-      pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1::text, $2::text, $3::text, $4::text)', [signUpUsername, signUpName, signUpPicture, signUpAddress], function(err, data) {
-        if(err) console.log('error3');
-        //disconnect after successful commit
-        pool.query('COMMIT', function(err, data) {
-          if(err) console.log('error4');
-        });
-        res.redirect('/login');
-      });
-    });
-  });
-  // pool.query(
-  //   'BEGIN; ' +  
-  //   'INSERT INTO accounts (username, password) VALUES ($1::text, $2::text); ' +
-  //   'INSERT INTO profiles (username, name, picture, address) VALUES ($3::text, $4::text, $5::text, $6::text); ' +
-  //   'COMMIT;', 
-  //   [signUpUsername, signUpPassword, signUpUsername, signUpName, signUpPicture, signUpAddress], function (err, data) {
-  //   console.log("here");
-  //   if (err) {
-  //     console.log('error');
-  //   }
-  //   if (!data) {
-  //     console.log("already exists")
-  //     res.send('This user already exists');
-  //   } else {
-  //      res.redirect('/login');
-  //   }
-  // });
+/* GET home page. */
+router.get('/', function(req, res) {
+    if (req.user) {
+        // if already logged in, redirect to profile page
+        res.redirect('/profile');
+    } else {
+        // render the page and pass in any flash data if it exists
+        res.render('login', { title: 'Login', loginMessage: req.flash('loginMessage'), signUpMessage: req.flash('signUpMessage')});
+    }
 });
+
+// process the signup form
+router.post('/', passport.authenticate('local-signup', {
+    successRedirect : '/profile', // redirect to the secure profile section
+    failureRedirect : '/login', // redirect back to the login page if there is an error
+    failureFlash : true // allow flash messages
+}));
 
 module.exports = router;

@@ -33,23 +33,47 @@
               Browse
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Pick-up</a>
-              <a class="dropdown-item" href="#">Deliver</a>
-              <a class="dropdown-item" href="#">Service</a>
-              <a class="dropdown-item" href="#">Intangible</a>
+                <a class="dropdown-item" href="/category?keyword=pickups">Pick-ups</a>
+                <a class="dropdown-item" href="/category?keyword=deliverables">Deliverables</a>
+                <a class="dropdown-item" href="/category?keyword=services">Services</a>
+                <a class="dropdown-item" href="/category?keyword=intangibles">Intangibles</a>
             </div>
           </li>
 
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
     </nav>
 
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <!-- Item description -->
+    <h1 style="margin-left: 8rem; margin-top: 4rem;"> <%= value.name %></h1>
+    <h5 style="margin-left: 8rem;"> Description: <%= value.description %></h5>
+    <h5 style="margin-left: 8rem;"> Owned by: <%= value.owner %> </h5>
+    <br>
+    <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
+    <!-- Borrow item forms and button -->
+    <% if (!isBorrowed) {%>
+    <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST" class="form-inline my-2 my-lg-0">
+      <h5 style="margin-left: 14rem; margin-top: 2rem;"> How much do you bid? </h5>
+      <input style="margin-left: 10px; margin-top: 2rem;" class="form-control mr-sm-2" type="number" id="bid" name="bid" placeholder="10.00" aria-label="Bid placed" required>
+      <hr style="display: block; position: relative; padding: 0; margin: 3rem auto; height: 0; width: 90%; max-height: 0; font-size: 1px;
+        line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
+      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Contact Number </h5>
+      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
+      <h5 style="margin-left: 14rem; margin-top: 1rem;"> Email Address </h5>
+      <input style="margin-left: 10px; margin-top: 1rem;" class="form-control mr-sm-2" type="email" id="email" name="email" placeholder="example@email.com" aria-label="Email Address" required>
+      <h5 style="margin-left: 14rem; margin-top: 20px;  "> Loan Start Date </h5>
+      <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
+      <h5 style="margin-left: 13rem; margin-top: 20px;  "> Loan End Date </h5>
+      <input style="margin-left: 20px; margin-top: 20px;" class="form-control mr-sm-2" type="date" id="endDate" name="endDate" aria-label="End Date" required>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+              style="position: fixed; z-index: 10; bottom: 100px; right: 120px;
+              width: 200px; height: 70px;"> Borrow now! </button>
+    </form>
+    <% } %>
   </body>
 </html>

@@ -1,127 +1,125 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= user.username %></title>
+<head>
+  <title><%= user.username %></title>
 
-  </head>
-  <body>
-      <!-- Don't remove the links please -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- Profile sidebar -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel='stylesheet' href='/stylesheets/profile.css' />
+</head>
 
+<body>
+  <!-- Don't remove the links please -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <!-- Navbar Stuff -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+  <!-- Navbar Stuff -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
 
-      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <a class="navbar-brand text-white" href="../">
+      <p class="fas fa-home"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <a class="navbar-brand text-white" href="../profile">
+      <p class="fas fa-user"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item dropdown text-white">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Browse
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Pick-up</a>
-              <a class="dropdown-item" href="#">Deliver</a>
-              <a class="dropdown-item" href="#">Service</a>
-              <a class="dropdown-item" href="#">Intangible</a>
-            </div>
-          </li>
-
-        </ul>
-
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-    </nav>
-
-    <!-- Profile Page -->
-    <div class="row profile">
-      <div class="col-md-3">
-        <div class="profile-sidebar">
-          <!-- SIDEBAR USERPIC -->
-          <div class="profile-userpic">
-            <img src="../public/images/default_profile.png" alt="">
+        <li class="nav-item dropdown text-white">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browse
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
+            <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
+            <a class="dropdown-item" href="../category?keyword=services">Services</a>
+            <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
           </div>
-          <!-- SIDEBAR USER TITLE -->
-          <div class="profile-usertitle">
-            <div class="profile-usertitle-name"><%= user.username %></div>
-            <div class="profile-usertitle-job"><%= user.name %></div>
-          </div>
-          <!-- SIDEBAR MENU -->
-          <div class="profile-usermenu">
-            <ul class="nav">
-              <li class="active">
-                <a href="#">
-                <i class="glyphicon glyphicon-home"></i>My items
-                </a>
-              </li>
-              <li>
-                <a href="/profile_transactions">
-                <i class="glyphicon glyphicon-user"></i>My transaction history
-                </a>
-              </li>
-            </ul>
-          </div>
+        </li>
+
+      </ul>
+
+
+      <form id="search_form" action="/search" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+    
+    <form id="logout_form" method="get" action="/logout">
+      <input class="form-control mr-sm-2" name="submit2" type="submit" id="submit2" value="Logout">
+      </label>
+    </form>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
+        <img class="card-img-top" src="/images/default_profile2.png" alt="Card image cap" />
+        <div class="card-body">
+          <a href="/profile">
+            <h5 class="card-title"><%= user.username %></h5>
+          </a>
+          <p class="card-text"><%= user.name %></p>
         </div>
+        <ul class="list-group list-group-flush">
+          <a href="#">
+            <li class="list-group-item">My items</li>
+          </a>
+          <a href="profile_transactions">
+            <li class="list-group-item">Transaction history</li>
+          </a>
+          <a href="profile_edit">
+            <li class="list-group-item">Edit my profile</li>
+          </a>
+        </ul>
       </div>
-      <div class="col-md-9">
-        <div class="profile-content">
-          <h1 style="margin-left: 2rem;"><%= user.username %></h1>
-          <p style="margin-left: 2rem;">Name: <%= user.name %></p>
-          <p style="margin-left: 2rem;">Address: <%= user.address %></p>
-          <h2 style="margin-left: 2rem;">My items:</h2>
 
-          <!-- Cards for the Items fetched -->
-          <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
+      <div class="col-md-9 col-sm-6">
+        <div class="col-md-9">
+          <div class="profile-content">
+            <h1 style="margin-left: 2rem;"><%= user.username %></h1>
+            <p style="margin-left: 2rem;">Name: <%= user.name %></p>
+            <p style="margin-left: 2rem;">Address: <%= user.address %></p>
+            <h2 style="margin-left: 2rem;">My items:</h2>
+
+            <!-- Cards for the Items fetched -->
+            <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
             <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i].name %></h5>
                   <p class="card-text"><%= myItems[i].description %></p>
                 </div>
               </a>
               <% if( i + 1 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 1].name %></h5>
                   <p class="card-text"><%= myItems[i + 1].description %></p>
                 </div>
               </a>
               <% } if ( i + 2 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 2].name %></h5>
                   <p class="card-text"><%= myItems[i + 2].description %></p>
                 </div>
               </a>
             </div>
-          <% }} %>
+            <% }} %>
 
+          </div>
         </div>
       </div>
-    </div>
+</body>
 
-
-  </body>
 </html>
