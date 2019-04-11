@@ -56,21 +56,21 @@
     <h2 style="margin-left: 2rem;">Featured</h2>
     <p> <% for (i = 0; i < ads.length; i += 3) { %> </p>
       <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=value[i].stuffid%>">
+        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=ads[i].stuffid%>">
           <div class="card-body">
             <h5 class="card-title"><%= ads[i].name %></h5>
             <p class="card-text"><%= ads[i].description%></p>
           </div>
         </a>
         <% if( i + 1 < ads.length ) {%>
-        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=value[i + 1].stuffid%>">
+        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=ads[i + 1].stuffid%>">
           <div class="card-body">
             <h5 class="card-title"><%= ads[i + 1].name %></h5>
             <p class="card-text"><%= ads[i + 1].description%></p>
           </div>
         </a>
         <% } if ( i + 2 < ads.length ) {%>
-        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=value[i + 2].stuffid%>">
+        <a class="card text-white" style="width: 20rem; background-color: #FF9671;" href="../item/?stuffId=<%=ads[i + 2].stuffid%>">
           <div class="card-body">
             <h5 class="card-title"><%= ads[i + 2].name %></h5>
             <p class="card-text"><%= ads[i + 2].description%></p>

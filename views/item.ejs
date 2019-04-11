@@ -55,6 +55,18 @@
     <h5 style="margin-left: 8rem;"> Owned by: <%= value.owner %> </h5>
     <br>
     <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
+    <% if (isOwner) { %>
+      <br>
+      <hr>
+      <h5 style="margin-left: 8.5rem;"> Want to advertise this item? </h5>
+      <p style="margin-left: 8.5rem;"> Note that you can only advertise one item at any time</p>
+      <% if (isAdvertised) {%>
+      <button disabled style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #808080" >Advertise</button>
+      <% } else { %>
+        <button style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #FF9671" >Advertise</button>
+      <% } %>
+    <% } %>
+
     <!-- Borrow item forms and button -->
     <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST" class="form-inline my-2 my-lg-0">

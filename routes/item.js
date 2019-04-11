@@ -11,12 +11,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
+const sqlQuery = 'SELECT * from Stuff where stuffid = $1';
 const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+const adsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
-    const user = req.app.get('current user');
+    const user = req.user.rows[0];
     let displayMsg = "";
     let isBorrowed = false;
 
@@ -42,7 +43,8 @@ router.get('/', isLoggedIn, function(req, res) {
             }
             console.log(ownerRes);
             const loaner = ownerRes.rows[0].owner;
-            if (loaner == req.user.rows[0].username) {
+            const isOwner = (loaner == user.username);
+            if (isOwner) {
                 displayMsg = "This item belongs to you";
                 isBorrowed = true;
             }
@@ -51,15 +53,26 @@ router.get('/', isLoggedIn, function(req, res) {
                     console.error("Error executing query", err.stack);
                     return 0;
                 }
+                var item = result.rows[0];
 
-                res.render('item', {
-                    title: 'Item',
-                    value: result.rows[0],
-                    displayMsg: displayMsg,
-                    isBorrowed: isBorrowed
+                pool.query(adsQuery, [id], (err, result) => {
+                    if (err) {
+                        console.error("Error executing query", err.stack);
+                        return 0;
+                    }
+
+                    var isAdvertised = (result.rows.length != 0);
+                    res.render('item', {
+                        title: 'Item',
+                        value: item,
+                        displayMsg: displayMsg,
+                        isBorrowed: isBorrowed,
+                        isOwner: isOwner,
+                        isAdvertised: isAdvertised
+                    });
+                    return 0;
                 });
-                console.log(result.rows[0]);
-                return 0;
+
             });
         });
     });
