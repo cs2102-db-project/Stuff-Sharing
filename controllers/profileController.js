@@ -115,8 +115,11 @@ exports.editProfile = function(req, res) {
   var name = req.body.name;
   var password = req.body.password;
   var address = req.body.address;
+  var picture = null;
 
-  var picture = encodeURI(req.file.originalname);
+  if (req.file) {
+    picture = encodeURI(req.file.originalname);
+  }
 
   var currentUser = req.user.rows[0];
   var pool = req.app.get('pool');
