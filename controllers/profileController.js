@@ -50,7 +50,6 @@ var getReviewRatings = 'with avgVoteItem as ( ' +
         'select avgRating ' +
         'from avgVoteItem)';
 
-
 /* Gets current user's profile (which includes username, picture name, address) */
 function getCurrentUserProfile(req, res) {
   var currentUser = req.user.rows[0];
@@ -218,4 +217,3 @@ exports.displayProfileStats = function(req, res) {
     });
   });
 };
-
