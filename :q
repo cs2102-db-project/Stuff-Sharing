@@ -1,0 +1,6 @@
+ transid | loaner  | loanee  | stuffid | loanernum |     loaneremail     |  status  |  cost  | startdate  |  enddate   |  bid  
+---------+---------+---------+---------+-----------+---------------------+----------+--------+------------+------------+-------
+       1 | johndoe | janedoe |       1 | 83365620  | johndoe@joe.com     | FINISHED |  10.00 | 2019-01-01 | 2019-01-20 | 12.42
+       2 | qwq     | ada     |       6 | 12345678  | adamwth@hotmail.com | ONGOING  | 100.00 | 2019-04-01 | 2019-04-11 | 55.00
+(2 rows)
+
