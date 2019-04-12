@@ -1,5 +1,7 @@
 /* SQL Query */
-var allQuery = 'SELECT * from Stuff WHERE not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\')';
+var allQuery = 'SELECT * from Stuff WHERE not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\') UNION ' +
+        'SELECT * FROM Services NATURAL JOIN Stuff UNION ' +
+        'SELECT * FROM Intangibles NATURAL JOIN Stuff';
 var searchQuery = 'SELECT * from Stuff where name=$1';
 var categoryQuery = (keyword) => `SELECT * from Stuff natural join ${keyword}`; // no sanitization here because pg doesn't allow placeholder for table identifiers
 var adsQuery = '\
@@ -16,7 +18,6 @@ exports.renderAll = function(req, res) {
     console.log("Displaying all stuff...");
     var pool = req.app.get('pool');
     pool.query(allQuery, (err, result) => {
-        console.log(result.rows);
         if (err) {
           return console.error('Error executing query', err.stack)
         }
