@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title><%= user.username %></title>
 
@@ -64,9 +65,9 @@
     <div class="row">
       <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
         <% if (user.picture) { %>
-          <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
+        <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
         <% } else {%>
-          <img class="card-img-top" src="/images/default_profile2.png" alt="default user profile pic" />
+        <img class="card-img-top" src="/images/default_profile2.png" alt="default user profile pic" />
         <% } %>
         <div class="card-body">
           <a href="/profile">
@@ -91,39 +92,35 @@
       </div>
 
       <div class="col-md-9 col-sm-6">
-        <div class="col-md-9">
+        <div>
           <div class="profile-content">
             <h1 style="margin-left: 2rem;"><%= user.username %></h1>
             <p style="margin-left: 2rem;">Name: <%= user.name %></p>
             <p style="margin-left: 2rem;">Address: <%= user.address %></p>
             <h2 style="margin-left: 2rem;">My items:</h2>
 
-            <!-- Cards for the Items fetched -->
-            <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
-            <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i].name %></h5>
-                  <p class="card-text"><%= myItems[i].description %></p>
-                </div>
-              </a>
-              <% if( i + 1 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i + 1].name %></h5>
-                  <p class="card-text"><%= myItems[i + 1].description %></p>
-                </div>
-              </a>
-              <% } if ( i + 2 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= myItems[i + 2].name %></h5>
-                  <p class="card-text"><%= myItems[i + 2].description %></p>
-                </div>
-              </a>
+            <div>
+              <!-- Cards for the Items fetched -->
+              <% for (i = 0; i < myItems.length; i += 2) { %>
+              <div class="card-columns" style="width: 70rem; margin-left: 2rem;">
+                <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= myItems[i].name %></h5>
+                    <img src="/images/itemPictures/<%= myItems[i].picture %>" onerror="this.src='images/default_image.jpg'" alt="<%= myItems[i].picture %>" class="img-thumbnail img-fluid">
+                    <p class="card-text"><%= myItems[i].description %></p>
+                  </div>
+                </a>
+                <% if( i + 1 < myItems.length ) {%>
+                <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i + 1].stuffid%>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= myItems[i + 1].name %></h5>
+                    <img src="/images/itemPictures/<%= myItems[i + 1].picture %>" onerror="this.src='images/default_image.jpg'" alt="<%= myItems[i + 1].picture %>" class="img-thumbnail img-fluid">
+                    <p class="card-text"><%= myItems[i + 1].description %></p>
+                  </div>
+                </a>
+              </div>
+              <% }} %>
             </div>
-            <% }} %>
-
           </div>
         </div>
       </div>
