@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid = $1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loanerContact, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 const getAdsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
 const delAdsQuery = 'DELETE FROM ads WHERE ads.owner = $1';
 const advertiseQuery = 'INSERT INTO ads (stuffId, owner) VALUES ($1, $2)';
@@ -46,8 +46,8 @@ router.get('/', isLoggedIn, function(req, res) {
                 return 0;
             }
             console.log("ownerRes: " + JSON.stringify(ownerRes));
-            const loaner = ownerRes.rows[0].owner;
-            const isOwner = (loaner == user.username);
+            const owner = ownerRes.rows[0].owner;
+            const isOwner = (owner == user.username);
             if (isOwner) {
                 displayMsg = "This item belongs to you";
                 isBorrowed = true;

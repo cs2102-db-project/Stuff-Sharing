@@ -29,8 +29,8 @@ FROM stuff natural join maxItem'
 var getMostFrequentCustomerQuery = '\
 with maxCustomer as (\
   SELECT loanee as username, count(*) as numLoans\
-  FROM transactions\
-  WHERE transactions.loaner = $1\
+  FROM transactions NATURAL JOIN stuff\
+  WHERE stuff.owner = $1\
   GROUP BY loanee\
   ORDER BY numLoans desc\
   LIMIT 1\
