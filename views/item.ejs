@@ -21,8 +21,8 @@
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>  
-    
+    </button>
+
     <a class="navbar-brand text-white" href="/profile">
       <p class="fas fa-user"></p>
     </a>
@@ -93,7 +93,7 @@
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Loan Start Date</label>
-        <input class="form-control col-sm-5" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
+        <input class="form-control col-sm-5" type="date" id="startDate" name="startDate" aria-label="Start Date" min="2019-04-12" onchange="document.getElementById('endDate').min=this.value"required>
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Loan End Date</label>

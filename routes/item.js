@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid = $1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loanerContact, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeContact, loaneeEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 const getAdsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
 const delAdsQuery = 'DELETE FROM ads WHERE ads.owner = $1';
 const advertiseQuery = 'INSERT INTO ads (stuffId, owner) VALUES ($1, $2)';
