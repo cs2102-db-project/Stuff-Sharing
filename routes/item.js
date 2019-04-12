@@ -13,11 +13,15 @@ const pool = new Pool({
   port: 5432,
 });
 
-const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeContact, loaneeEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+const sqlQuery = 'SELECT * from Stuff where stuffid = $1';
+const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+const getAdsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
+const delAdsQuery = 'DELETE FROM ads WHERE ads.owner = $1';
+const advertiseQuery = 'INSERT INTO ads (stuffId, owner) VALUES ($1, $2)';
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
+    const user = req.user.rows[0];
     let displayMsg = "";
     let isBorrowed = false;
 
@@ -42,8 +46,9 @@ router.get('/', isLoggedIn, function(req, res) {
                 return 0;
             }
             console.log("ownerRes: " + JSON.stringify(ownerRes));
-            const owner = ownerRes.rows[0].owner;
-            if (owner == req.user.rows[0].username) {
+            const loaner = ownerRes.rows[0].owner;
+            const isOwner = (loaner == user.username);
+            if (isOwner) {
                 displayMsg = "This item belongs to you";
                 isBorrowed = true;
             }
@@ -52,16 +57,27 @@ router.get('/', isLoggedIn, function(req, res) {
                     console.error("Error executing query", err.stack);
                     return 0;
                 }
+                var item = result.rows[0];
 
-                res.render('item', {
-                    title: 'Item',
-                    value: result.rows[0],
-                    displayMsg: displayMsg,
-                    isBorrowed: isBorrowed,
-                    displayDelete: true
+                pool.query(getAdsQuery, [id], (err, result) => {
+                    if (err) {
+                        console.error("Error executing query", err.stack);
+                        return 0;
+                    }
+
+                    var isAdvertised = (result.rows.length != 0);
+                    res.render('item', {
+                        title: 'Item',
+                        value: item,
+                        displayMsg: displayMsg,
+                        isBorrowed: isBorrowed,
+                        isOwner: isOwner,
+                        isAdvertised: isAdvertised,
+                        displayDelete: true
+                    });
+                    return 0;
                 });
-                console.log(result.rows[0]);
-                return 0;
+
             });
         });
     });
@@ -99,7 +115,9 @@ router.post('/borrow', function(req, res) {
                             value: data3.rows[0],
                             displayMsg: err,
                             isBorrowed: true,
-                            displayDelete: true
+                            isOwner: false,
+                            isAdvertised: false,
+                            displayDelete: false
                         });
                         return 0;
                     }
@@ -166,6 +184,36 @@ router.post('/delete', isLoggedIn, function(req, res) {
       });
   });
 });
+
+router.post('/advertise', function(req, res) {
+    console.log("updating advertisements table");
+    const stuffId = req.query.stuffId;
+    const currentUser = req.user.rows[0];
+
+    // delete owner's original ad if any and insert new ad
+    pool.query(delAdsQuery, [currentUser.username], (err, result) => {
+        if (err) {
+            return console.error("Error executing query", err.stack);
+        }
+        pool.query(advertiseQuery, [stuffId, currentUser.username], (err, result) => {
+            if (err) {
+                return console.error("Error executing query", err.stack);
+            }
+            res.redirect('/');
+        });
+    });
+    return 0;
+});
+
+// function advertise(item) {
+//     console.log("updating advertisements table");
+//     pool.query(advertiseQuery, [item.stuffId, item.owner], (err, result) => {
+//         if (err) {
+//             return console.error("Error executing query", err.stack);
+//         }
+//     });
+//     return 0;
+// }
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

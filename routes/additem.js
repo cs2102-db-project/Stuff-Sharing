@@ -8,6 +8,7 @@ var itemPicturesDir = "public/images/itemPictures";
 if (!fs.existsSync(itemPicturesDir)) {
   fs.mkdirSync(itemPicturesDir);
 }
+
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, itemPicturesDir);

@@ -1,7 +1,12 @@
 /* SQL Query */
-var allQuery = 'SELECT * from Stuff';
+var allQuery = 'SELECT * from Stuff WHERE not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\')';
 var searchQuery = 'SELECT * from Stuff where name=$1';
 var categoryQuery = (keyword) => `SELECT * from Stuff natural join ${keyword}`; // no sanitization here because pg doesn't allow placeholder for table identifiers
+var adsQuery = '\
+SELECT * \
+FROM Stuff \
+WHERE EXISTS (SELECT 1 FROM ads WHERE Stuff.stuffId = ads.stuffId)\
+    and not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\')';
 
 exports.random = function(randomData) {
     return [1,2,3,4];
@@ -15,10 +20,15 @@ exports.renderAll = function(req, res) {
         if (err) {
           return console.error('Error executing query', err.stack)
         }
-        res.render('index',
-            {title: 'Stuff Sharing',
-             value: result.rows});
-        return console.log(result.rows);
+        pool.query(adsQuery, (err2, result2) => {
+            var ads = result2.rows;
+            res.render('index',
+                {title: 'Stuff Sharing',
+                 value: result.rows,
+                 ads: ads
+                });
+            return console.log(result.rows);
+        });
     });
 }
 

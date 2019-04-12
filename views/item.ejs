@@ -21,8 +21,8 @@
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-
+    </button>  
+    
     <a class="navbar-brand text-white" href="/profile">
       <p class="fas fa-user"></p>
     </a>
@@ -61,7 +61,21 @@
     <img src="/images/itemPictures/<%= value.picture %>" alt="<%= value.picture %>" class="img-thumbnail rounded" style="width:20em">
     <h5> Owned by: <%= value.owner %> </h5>
     <br>
-    <p> <%= displayMsg %></p>
+    <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
+    <% if (isOwner) { %>
+      <br>
+      <hr>
+      <h5 style="margin-left: 8.5rem;"> Want to advertise this item? </h5>
+      <p style="margin-left: 8.5rem;"> Note that you can only advertise one item at any time</p>
+      <% if (isAdvertised) {%>
+      <button disabled style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #808080" >Advertise</button>
+      <% } else { %>
+        <form id="advertiseForm" method="post" action="/item/advertise?stuffId=<%=value.stuffid%>">
+          <button id="advertiseButton" type="submit" style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #FF9671">Advertise</button>
+        </form>
+      <% } %>
+    <% } %>
+
     <!-- Borrow item forms and button -->
     <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST">

@@ -26,6 +26,30 @@ SELECT *\
 FROM stuff natural join maxItem'
 ;
 
+var getMostFrequentCustomerQuery = '\
+with maxCustomer as (\
+  SELECT loanee as username, count(*) as numLoans\
+  FROM transactions\
+  WHERE transactions.loaner = $1\
+  GROUP BY loanee\
+  ORDER BY numLoans desc\
+  LIMIT 1\
+  )\
+SELECT *\
+FROM profiles natural join maxCustomer'
+;
+
+var getReviewRatings = 'with avgVoteItem as ( ' +
+        'select stuff.stuffId as stuffId, stuff.name as name, avg(reviews.rating) as avgRating' +
+        ' from transactions natural join reviews natural join stuff' +
+        ' where stuff.owner = $1' +
+        ' group by stuff.stuffId )' +
+        ' select stuffId, name, avgRating ' +
+        'from avgVoteItem ' +
+        'where avgRating >= all( ' +
+        'select avgRating ' +
+        'from avgVoteItem)';
+
 /* Gets current user's profile (which includes username, picture name, address) */
 function getCurrentUserProfile(req, res) {
   var currentUser = req.user.rows[0];
@@ -56,9 +80,9 @@ exports.displayProfile = function(req, res) {
       var profile = result.rows[0];
       pool.query(getUserStuffQuery, [currentUser.username], function(err, data) {
         var items = data.rows;
-        res.render('profile', { 
-          user : profile, 
-          myItems: items 
+        res.render('profile', {
+          user : profile,
+          myItems: items
         });
       });
     }
@@ -135,11 +159,47 @@ exports.displayProfileStats = function(req, res) {
       if (err) {
         return console.error('Error executing query', err.stack)
       } else {
-        var mostPopularItem = result.rows[0];
-        res.render('profile_stats', { user: profile, mostPopularItem: mostPopularItem });
+        if (result.rows.length != 0) {
+          var mostPopularItem = result.rows[0].name;
+          var borrows = result.rows[0].numloans;
+        } else {
+          var mostPopularItem = 'No item';
+        }
+        pool.query(getMostFrequentCustomerQuery, [currentUser.username], (err, result) => {
+          if (err) {
+            return console.error('Error executing query', err.stack)
+          } else {
+            if (result.rows.length != 0) {
+              var mostFrequentCustomer = result.rows[0].username;
+            } else {
+              var mostFrequentCustomer = 'No customer';
+            }
+            pool.query(getReviewRatings, [currentUser.username], (err, result2) => {
+              if (err) {
+                return console.log('Error executing query', err.stack);
+              } else {
+                console.log(result2);
+                if (result2.rows.length != 0) {
+                  var mostVotedItem = result2.rows[0].name;
+                  var avgVote = result2.rows[0].avgrating;
+                } else {
+                  var mostVotedItem = 'No item';
+                }
+                res.render('profile_stats', {
+                  user: profile,
+                  mostPopularItem: mostPopularItem,
+                  borrows: borrows,
+                  mostVotedItem: mostVotedItem,
+                  avgVote: avgVote,
+                  mostFrequentCustomer: mostFrequentCustomer
+                });
+              }
+            });
+          }
+        });
       }
     });
   });
-}
+};
 
 
