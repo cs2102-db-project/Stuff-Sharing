@@ -88,10 +88,8 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             pool.query('INSERT INTO accounts (username, password) VALUES ($1, $2);', [username, password], function(err, user) {
                 // check to see if theres already a user with that username
-                console.log(err + ' hi');
-                console.log("That's the error");
                 if (err == 'error: password') {
-                    console.log('Password error I hope');
+                    console.log('Password error');
                     return done(null, false, req.flash('signUpMessage', 'Password must be at least 8 characters long.'));
                 }
                 if (!user) {
