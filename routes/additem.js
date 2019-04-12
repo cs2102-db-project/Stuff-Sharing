@@ -1,23 +1,39 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
+var multer = require('multer');
+var fs = require('fs');
 
-// middleware for bodyParser
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended: true}));
+// Create directory for item pictures if doesn't yet exist
+var itemPicturesDir = "public/images/itemPictures";
+if (!fs.existsSync(itemPicturesDir)) {
+  fs.mkdirSync(itemPicturesDir);
+}
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, itemPicturesDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+var upload = multer({ storage: storage });
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
-
   res.render('additem', { title: 'additem' });
 });
 
-router.post('/', function(req, res) {
+router.post('/upload', upload.single('itemPicture'), function(req, res) {
   var itemName = req.body.itemName;
-  var itemPicture = req.body.itemPicture;
   var itemPrice = req.body.itemPrice;
   var itemType = req.body.itemType;
   var itemDescription = req.body.itemDescription;
+  
+  var itemPicture = encodeURI(req.file.originalname);
+
+  console.log(req.body);
+  console.log(req.file);
 
   console.log(itemName);
   console.log(itemPicture);
@@ -30,12 +46,12 @@ router.post('/', function(req, res) {
   pool.query('BEGIN', function(err) {
     if (err) {
       console.log('begin error');
-      return done(err);
+      return 1;
     }
     pool.query('SELECT MAX(stuffid) as stuffid FROM stuff;', function(err, data) {
       if (err) {
         console.log('select stuffid error');
-        return done(err);
+        return 1;
       }
       var itemId = data.rows[0].stuffid + 1;
       console.log("itemId = " + itemId);
@@ -43,7 +59,7 @@ router.post('/', function(req, res) {
         [itemId, itemPicture, itemName, currentUser.username, itemPrice, itemDescription], function(err) {
         if (err) {
           console.log('insertion into stuff error');
-          return done(err);
+          return 1;
         }
         if (itemType == "deliverables") {
           var itemDeliveryCost = req.body.itemDeliveryCost;
@@ -54,13 +70,13 @@ router.post('/', function(req, res) {
             pool.query('INSERT INTO deliverables (stuffid, deliverycost) VALUES ($1, $2);', [itemId, itemDeliveryCost], function(err) {
               if (err) {
                 console.log('insertion into deliverables error');
-                return done(err);
+                return 1;
               }
               //disconnect after successful commit
               pool.query('COMMIT', function(err) {
                 if (err) {
                   console.log('commit error');
-                  return done(err);
+                  return 1;
                 } else {
                   res.redirect('/');
                 }  
@@ -71,13 +87,13 @@ router.post('/', function(req, res) {
           pool.query('INSERT INTO services (stuffid) VALUES ($1);', [itemId], function(err, data) {
             if (err) {
               console.log('insertion into services error');
-              return done(err);
+              return 1;
             }
             //disconnect after successful commit
             pool.query('COMMIT', function(err) {
               if (err) {
                 console.log('commit error');
-                return done(err);
+                return 1;
               } else {
                 res.redirect('/');
               }              
@@ -92,13 +108,13 @@ router.post('/', function(req, res) {
             pool.query('INSERT INTO pickups (stuffid, pickupaddress) VALUES ($1, $2);', [itemId, itemPickupAddress], function(err) {
               if (err) {
                 console.log('insertion into pickups error');
-                return done(err);
+                return 1;
               }              
               //disconnect after successful commit
               pool.query('COMMIT', function(err) {
                 if (err) {
                   console.log('commit error');
-                  return done(err);
+                  return 1;
                 } else {
                   res.redirect('/');
                 }          
@@ -109,13 +125,13 @@ router.post('/', function(req, res) {
           pool.query('INSERT INTO intangibles (stuffid) VALUES ($1);', [itemId], function(err) {
             if (err) {
               console.log('insertion into intangibles error');
-              return done(err);
+              return 1
             }            
             //disconnect after successful commit
             pool.query('COMMIT', function(err) {
               if (err) {
                 console.log('commit error');
-                return done(err);
+                return 1
               } else {
                 res.redirect('/');
               }         
