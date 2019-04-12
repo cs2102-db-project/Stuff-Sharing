@@ -67,7 +67,7 @@
           <p class="card-text"><%= user.name %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <a href="#">
+          <a href="/profile">
             <li class="list-group-item">My items</li>
           </a>
           <a href="profile_transactions">
@@ -93,7 +93,7 @@
               </tr>
               <tr>
                 <td class="table-data"><%= mostPopularItem %> </td>
-                <td class="table-data"><%= borrows %></td>
+                <td class="table-data"><%= itemNumLoans %></td>
               </tr>
               <tr>
                 <th class="header__item">Highest rated item</th>
@@ -105,15 +105,19 @@
               </tr>
               <tr>
                 <th class="header__item">Most frequent customer</th>
+                <th class="header__item">Times borrowed</th>
               </tr>
               <tr>
                 <td class="table-data"><%= mostFrequentCustomer %></td>
+                 <td class="table-data"><%= userNumLoans %></td>
+             </tr>
+              <tr>
+                <th class="header__item">Person who gave you the highest ratings</th>
+                <th class="header__item">Average rating</th>
               </tr>
               <tr>
-                <th class="header__item">Most frequent customer</th>
-              </tr>
-              <tr>
-                <td class="table-data"><%= mostFrequentCustomer %></td>
+                <td class="table-data"><%= highestRatedPerson %></td>
+                <td class="table-data"><%= parseFloat(avgRatingPerson).toFixed(2) %></td>
               </tr>
             </table>
 
