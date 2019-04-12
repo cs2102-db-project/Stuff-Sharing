@@ -25,6 +25,16 @@ with maxItem as (\
 SELECT *\
 FROM stuff natural join maxItem'
 ;
+var getReviewRatings = 'with avgVoteItem as ( ' +
+        'select stuff.stuffId as stuffId, stuff.name as name, avg(reviews.rating) as avgRating' +
+        ' from transactions natural join reviews natural join stuff' +
+        ' where stuff.owner = $1' +
+        ' group by stuff.stuffId )' +
+        ' select stuffId, name, avgRating ' +
+        'from avgVoteItem ' +
+        'where avgRating >= all( ' +
+        'select avgRating ' +
+        'from avgVoteItem)';
 
 
 /* Gets current user's profile (which includes username, picture name, address) */
@@ -57,9 +67,9 @@ exports.displayProfile = function(req, res) {
       var profile = result.rows[0];
       pool.query(getUserStuffQuery, [currentUser.username], function(err, data) {
         var items = data.rows;
-        res.render('profile', { 
-          user : profile, 
-          myItems: items 
+        res.render('profile', {
+          user : profile,
+          myItems: items
         });
       });
     }
@@ -134,7 +144,19 @@ exports.displayProfileStats = function(req, res) {
         } else {
           var mostPopularItem = 'No item';
         }
-        res.render('profile_stats', { user: profile, mostPopularItem: mostPopularItem });
+        pool.query(getReviewRatings, [currentUser.username], (err, result2) => {
+          if(err) {
+            return console.log('Error executing query', err.stack);
+          } else {
+            console.log(result2);
+            if (result2.rows.length != 0) {
+              var mostVotedItem = result2.rows[0].name;
+            } else {
+              var mostVotedItem = 'No item';
+            }
+            res.render('profile_stats', {user: profile, mostPopularItem: mostPopularItem, mostVotedItem: mostVotedItem});
+          }
+        });
       }
     });
   });
