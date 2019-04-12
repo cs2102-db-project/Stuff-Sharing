@@ -11,10 +11,14 @@
   <body>
 		<!-- show any messages that come back with authentication -->
 		<% if (loginMessage.length > 0) { %>
-			<div class="alert alert-danger"><%= loginMessage %></div>
+			<div>
+        <p style="color:white"><%= loginMessage %></p>
+      </div>
 		<% } %>
 		<% if (signUpMessage.length > 0) { %>
-			<div class="alert alert-danger"><%= signUpMessage %></div>
+			<div>
+        <p style="color:white"><%= signUpMessage %></p>
+      </div>
 		<% } %>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">

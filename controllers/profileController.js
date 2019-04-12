@@ -16,8 +16,8 @@ WHERE stuff.stuffId = itemCount.stuffId and itemCount.numLoans = (SELECT max(num
 var getItemNumLoansQuery2 = '\
 with maxItem as (\
   SELECT stuffId as stuffId, count(*) as numLoans\
-  FROM transactions\
-  WHERE transactions.loaner = $1\
+  FROM transactions NATURAL JOIN stuff\
+  WHERE stuff.owner = $1\
   GROUP BY stuffId\
   ORDER BY numLoans desc\
   LIMIT 1\
@@ -29,8 +29,8 @@ FROM stuff natural join maxItem'
 var getMostFrequentCustomerQuery = '\
 with maxCustomer as (\
   SELECT loanee as username, count(*) as numLoans\
-  FROM transactions\
-  WHERE transactions.loaner = $1\
+  FROM transactions NATURAL JOIN stuff\
+  WHERE stuff.owner = $1\
   GROUP BY loanee\
   ORDER BY numLoans desc\
   LIMIT 1\
@@ -115,8 +115,11 @@ exports.editProfile = function(req, res) {
   var name = req.body.name;
   var password = req.body.password;
   var address = req.body.address;
+  var picture = null;
 
-  var picture = encodeURI(req.file.originalname);
+  if (req.file) {
+    picture = encodeURI(req.file.originalname);
+  }
 
   var currentUser = req.user.rows[0];
   var pool = req.app.get('pool');

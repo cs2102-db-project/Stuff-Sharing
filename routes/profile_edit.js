@@ -29,7 +29,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', upload.single('profilePic'), function(req, res) {
-  console.log("hi")
   profileController.editProfile(req, res);
 });
 
