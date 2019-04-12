@@ -90,7 +90,7 @@ module.exports = function(passport) {
                 // check to see if theres already a user with that username
                 if (err == 'error: password') {
                     console.log('Password error');
-                    return done(null, false, req.flash('signUpMessage', 'Password must be at least 8 characters long.'));
+                    return done(null, false, req.flash('signUpMessage', 'Password must be at least 6 characters long.'));
                 }
                 if (!user) {
                     console.log("This username is already taken")

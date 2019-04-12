@@ -146,7 +146,7 @@ DECLARE
   minLength NUMERIC;
   actualLength NUMERIC;
 BEGIN
-  minLength := 8;
+  minLength := 6;
   actualLength = length(NEW.password);
   IF actualLength < minLength THEN
     RAISE EXCEPTION 'password';
@@ -158,7 +158,7 @@ $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER check_password
-BEFORE INSERT ON Accounts
+BEFORE INSERT OR UPDATE ON Accounts
 FOR EACH ROW
 EXECUTE PROCEDURE check_password();
 
