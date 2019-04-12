@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
     loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
-    stuffId INTEGER not null references Stuff(stuffId),
+    stuffId INTEGER not null references Stuff(stuffId) ON DELETE CASCADE,
     loanerNum TEXT not null,
     loanerEmail TEXT not null,
     status TEXT not null,
@@ -158,6 +158,26 @@ CREATE TRIGGER check_overdue_loaner
 BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue_loaner();
+
+-- Prevent deletion if item is loaned out
+CREATE OR REPLACE FUNCTION check_borrowed()
+RETURNS trigger AS $$
+DECLARE
+  borrow_threshold NUMERIC;
+BEGIN
+  borrow_threshold := 0;
+  IF (SELECT COUNT(*) FROM Transactions T WHERE T.stuffId = OLD.stuffId AND T.status = 'ONGOING') > borrow_threshold THEN
+      RAISE EXCEPTION 'This item is currently borrowed by someone, so you cannot delete it';
+  END IF;
+  RETURN OLD;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_borrowed
+before DELETE ON Stuff
+FOR EACH ROW
+EXECUTE PROCEDURE check_borrowed();
 
 -- Function create both Account and Profile at the same time
 CREATE OR REPLACE FUNCTION update_profile(signUpUsername TEXT, signUpPassword TEXT, signUpName TEXT, signUpPicture TEXT, signUpAddress VARCHAR(100))
