@@ -52,6 +52,7 @@
     </div>
   </nav>
 
+  <% if (ads) {%>
   <div>
     <h2 style="margin-left: 2rem;">Featured</h2>
     <p> <% for (i = 0; i < ads.length; i += 3) { %> </p>
@@ -84,6 +85,7 @@
   </div>
 
   <hr>
+  <% } %>
 
   <h2 style="margin-left: 2rem;">Browse all items:</h2>
 
@@ -129,8 +131,8 @@
                     <p><% } %></p>
                 </div>
             </a>
-        <% } %>   
-         
+        <% } %>
+
       </div>
   <% } %> -->
   <% */ %>
