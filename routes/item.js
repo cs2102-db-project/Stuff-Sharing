@@ -91,7 +91,7 @@ router.get('/', isLoggedIn, function(req, res) {
                 console.log("Error executing query", err.stack);
                 return 0;
             }
-            console.log(ownerRes);
+            console.log("ownerRes: " + JSON.stringify(ownerRes));
             const loaner = ownerRes.rows[0].owner;
             if (loaner == req.user.rows[0].username) {
                 displayMsg = "This item belongs to you";

@@ -89,9 +89,25 @@
             <table>
               <tr>
                 <th class="header__item">Most popular item</th>
+                <th class="header__item">Times borrowed</th>
               </tr>
               <tr>
-                <td class="table-data"><%= mostPopularItem %></td>
+                <td class="table-data"><%= mostPopularItem %> </td>
+                <td class="table-data"><%= borrows %></td>
+              </tr>
+              <tr>
+                <th class="header__item">Highest rated item</th>
+                <th class="header__item">Average rating</th>
+              </tr>
+              <tr>
+                <td class="table-data"><%= mostVotedItem %></td>
+                <td class="table-data"><%= parseFloat(avgVote).toFixed(2) %></td>
+              </tr>
+              <tr>
+                <th class="header__item">Most frequent customer</th>
+              </tr>
+              <tr>
+                <td class="table-data"><%= mostFrequentCustomer %></td>
               </tr>
             </table>
 
