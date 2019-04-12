@@ -30,5 +30,6 @@
 5. Create a database called `stuffsharing` and connect to it
 6. Type `\i sql/init.sql` to initialize the database 
 7. Exit psql using `\quit`
-8. In the `Stuff-sharing` directory, run `npm start`
-9. Open your browser to `localhost:3000` to access our website.
+8. Run `npm install` and install all dependencies
+9. In the `Stuff-sharing` directory, run `npm start`
+10. Open your browser to `localhost:3000` to access our website.
