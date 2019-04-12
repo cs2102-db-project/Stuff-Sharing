@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loaner, loanee, stuffid, loanerNum, loanerEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeNum, loaneeEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 
 router.get('/delete', isLoggedIn, function(req, res) {
     const stuffId = req.query.stuffId;
@@ -92,8 +92,8 @@ router.get('/', isLoggedIn, function(req, res) {
                 return 0;
             }
             console.log("ownerRes: " + JSON.stringify(ownerRes));
-            const loaner = ownerRes.rows[0].owner;
-            if (loaner == req.user.rows[0].username) {
+            const owner = ownerRes.rows[0].owner;
+            if (owner == req.user.rows[0].username) {
                 displayMsg = "This item belongs to you";
                 isBorrowed = true;
             }
@@ -138,11 +138,9 @@ router.post('/borrow', function(req, res) {
                     return console.log(err);
                 }
                 console.log(user + " this is the current user");
-                const loaner = data3.rows[0].owner;
                 const cost = data3.rows[0].price;
-                console.log("Loaner: " + loaner);
-                pool.query(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, borrowResult) => {
-                    console.log(borrowQuery, [transId, loaner, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid]);
+                pool.query(borrowQuery, [transId, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, borrowResult) => {
+                    console.log(borrowQuery, [transId, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid]);
                     if (err) {
                         console.log("There's an error matey" + err);
 

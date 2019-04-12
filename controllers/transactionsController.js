@@ -4,6 +4,16 @@ var insertReviewQuery = 'INSERT INTO REVIEWS VALUES((SELECT max(reviewid) from R
 var endTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'FINISHED' WHERE transid=$1";
 var approveTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'ONGOING' WHERE transid=$1";
 var cancelTransactionQuery = "UPDATE TRANSACTIONS SET STATUS = 'CANCELLED' WHERE transid=$1";
+var loanedOutQuery = "\
+SELECT *\
+FROM transactions\
+  NATURAL JOIN stuff\
+  NATURAL LEFT JOIN reviews WHERE transactions.loaner = $1";
+var loanedQuery = "\
+  SELECT *\
+  FROM transactions\
+    NATURAL JOIN stuff\
+    NATURAL LEFT JOIN reviews WHERE transactions.loanee = $1";
 
 exports.getTransactions = function(req, res) {
   if (req.user == null) {
@@ -11,9 +21,9 @@ exports.getTransactions = function(req, res) {
   } else {
     var currentUser = req.user.rows[0];
     var pool = req.app.get('pool');
-    pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loaner = $1", [currentUser.username],
+    pool.query(loanedOutQuery, [currentUser.username],
       function (err1, data1) {
-        pool.query("SELECT * FROM transactions NATURAL JOIN stuff NATURAL LEFT JOIN reviews WHERE transactions.loanee = $1", [currentUser.username],
+        pool.query(loanedQuery, [currentUser.username],
           function (err2, data2) {
             var loanedOut = data1.rows;
             var loaned = data2.rows;
