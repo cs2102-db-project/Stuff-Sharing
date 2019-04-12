@@ -71,10 +71,8 @@ module.exports = function(passport) {
         console.log("password: " + password);
 
         var signUpName = req.body.signUpName;
-        var signUpPicture = req.body.signUpPicture;
         var signUpAddress = req.body.signUpAddress;
         console.log("name: " + signUpName);
-        console.log("picture: " + signUpPicture);
         console.log("address: " + signUpAddress);
 
         // load connection to database
@@ -100,7 +98,7 @@ module.exports = function(passport) {
                             console.log("Very weird error");
                             return done(err);
                         }
-                        pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [username, signUpName, signUpPicture, signUpAddress], function (err) {
+                        pool.query('INSERT INTO profiles (username, name, address) VALUES ($1, $2, $3)', [username, signUpName, signUpAddress], function (err) {
                             if (err) {
                                 console.log('insertion into profile error');
                                 return done(err);

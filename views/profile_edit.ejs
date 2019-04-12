@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= user.username %></title>
 
-  </head>
-  <body>
-      <!-- Don't remove the links please -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<head>
+  <title><%= user.username %></title>
 
-    <!-- Navbar Stuff -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+</head>
 
-      <a class="navbar-brand text-white" href="../"> <p class="fas fa-home"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body>
+  <!-- Don't remove the links please -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-      <a class="navbar-brand text-white" href="../profile"> <p class="fas fa-user"></p>  </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Navbar Stuff -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
 
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand text-white" href="../">
+      <p class="fas fa-home"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <li class="nav-item dropdown text-white">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Browse
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Pick-up</a>
-              <a class="dropdown-item" href="#">Deliver</a>
-              <a class="dropdown-item" href="#">Service</a>
-              <a class="dropdown-item" href="#">Intangible</a>
-            </div>
-          </li>
+    <a class="navbar-brand text-white" href="../profile">
+      <p class="fas fa-user"></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        </ul>
+    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-    </nav>
+        <li class="nav-item dropdown text-white">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browse
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Pick-up</a>
+            <a class="dropdown-item" href="#">Deliver</a>
+            <a class="dropdown-item" href="#">Service</a>
+            <a class="dropdown-item" href="#">Intangible</a>
+          </div>
+        </li>
 
-    <!-- Profile Page -->
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Profile Page -->
   <div class="container">
     <div class="row">
       <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
-        <img class="card-img-top" src="/images/default_profile2.png" alt="Card image cap" />
+        <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
         <div class="card-body">
           <a href="/profile">
             <h5 class="card-title"><%= user.username %></h5>
@@ -80,14 +86,16 @@
         <div class="profile-content">
           <!-- profile form, filled with current attributes -->
           <div class="form-container sign-up-container" style="margin-left: 2rem; margin-top: 2rem;">
-            <form method="post" action="/profile_edit">
+            <form method="post" action="/profile_edit" enctype="multipart/form-data">
               <h1>Edit profile details</h1>
+              <h3>Password</h3>
+              <input type="password" name="password" id="password" placeholder="Password">
               <h3>Name</h3>
               <input type="text" name="name" id="name" placeholder="Name" value="<%= user.name %>">
-               <h3>Password</h3>
-             <input type="password" name="password" id="password" placeholder="Password">
               <h3>Address</h3>
               <input type="text" name="address" id="address" placeholder="Address" value="<%= user.address %>">
+              <h3>Picture</h3>
+              <input type="file" accept="image/*" name="profilePic" id="profilePic" placeholder="Profile Picture" value="<%= user.picture %>">
               <br>
               <br>
               <button style="background-color:#FF9671; color:#ffffff; border-radius:18px; padding:10px 35px; font-size: 20px;" id="editButton" type="submit">Submit</button>
@@ -99,5 +107,6 @@
     </div>
 
 
-  </body>
+</body>
+
 </html>

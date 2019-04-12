@@ -100,7 +100,7 @@ router.get('/', isLoggedIn, function(req, res) {
                 console.log("Error executing query", err.stack);
                 return 0;
             }
-            console.log(ownerRes);
+            console.log("ownerRes: " + JSON.stringify(ownerRes));
             const loaner = ownerRes.rows[0].owner;
             const isOwner = (loaner == user.username);
             if (isOwner) {
