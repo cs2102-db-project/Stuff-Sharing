@@ -94,10 +94,11 @@
             <div class="card" style="background-color: #e9e9e9;">
               <div class="card-body">
                 <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].name %></h3>
+                <img src="/images/itemPictures/<%= loanedOut[i].picture %>" alt="<%= loanedOut[i].picture %>" class="img-thumbnail rounded" style="width:20em">
                   <p class="card-text">
                     Borrower: <%= loanedOut[i].loanee %><br />
-                    <%= loanedOut[i].loanee %>'s Address: <%= loanedOut[i].loaneeAddress %>
-                    <%= loanedOut[i].loanee %>'s Contact: <%= loanedOut[i].loaneeAddress %>
+                    <%= loanedOut[i].loanee %>'s Contact: <%= loanedOut[i].loaneecontact %><br />
+                    <%= loanedOut[i].loanee %>'s Email: <%= loanedOut[i].loaneeemail %><br />
                     Cost: $<%= loanedOut[i].cost %><br />
                     Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br />
                     End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br />
@@ -176,12 +177,13 @@
           </div>
 
           <h1 style="margin-left: 2rem;">Items I borrowed transactions history</h1>
-          <!-- My loaned items transations -->
+          <!-- Items I loaned transations -->
           <div class="column">
             <% for (i = 0; i < loaned.length; i ++) { %>
             <div class="card" style="background-color: #e9e9e9;">
               <div class="card-body">
                 <h3 style="color: #FF9671"><%= loaned[i].name %></h3>
+                <img src="/images/itemPictures/<%= loaned[i].picture %>" alt="<%= loaned[i].picture %>" class="img-thumbnail rounded" style="width:20em">
                   <p class="card-text">
                     Lender: <%= loaned[i].owner %><br />
                     Cost: $<%= loaned[i].cost %><br />

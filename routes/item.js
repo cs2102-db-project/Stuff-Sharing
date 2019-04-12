@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 const sqlQuery = 'SELECT * from Stuff where stuffid=$1';
-const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeNum, loaneeEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
+const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeContact, loaneeEmail, startDate, endDate, status, cost, bid) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'
 
 router.get('/delete', isLoggedIn, function(req, res) {
     const stuffId = req.query.stuffId;
@@ -119,7 +119,7 @@ router.get('/', isLoggedIn, function(req, res) {
 
 router.post('/borrow', function(req, res) {
     const stuffId = req.query.stuffId;
-    const num = req.body.number;
+    const contact = req.body.contact;
     const email = req.body.email;
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
@@ -139,8 +139,8 @@ router.post('/borrow', function(req, res) {
                 }
                 console.log(user + " this is the current user");
                 const cost = data3.rows[0].price;
-                pool.query(borrowQuery, [transId, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid], (err, borrowResult) => {
-                    console.log(borrowQuery, [transId, user, stuffId, num, email, startDate, endDate, "PENDING", cost, bid]);
+                pool.query(borrowQuery, [transId, user, stuffId, contact, email, startDate, endDate, "PENDING", cost, bid], (err, borrowResult) => {
+                    console.log(borrowQuery, [transId, user, stuffId, contact, email, startDate, endDate, "PENDING", cost, bid]);
                     if (err) {
                         console.log("There's an error matey" + err);
 

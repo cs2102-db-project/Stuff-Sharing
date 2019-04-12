@@ -8,7 +8,7 @@ var loanedOutQuery = "\
 SELECT *\
 FROM transactions\
   NATURAL JOIN stuff\
-  NATURAL LEFT JOIN reviews WHERE transactions.loaner = $1";
+  NATURAL LEFT JOIN reviews WHERE stuff.owner = $1";
 var loanedQuery = "\
   SELECT *\
   FROM transactions\
