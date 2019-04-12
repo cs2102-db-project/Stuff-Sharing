@@ -30,8 +30,8 @@ FROM profiles natural join maxCustomer'
 var getHighestRatedPersonQuery = '\
 with avgRatingsGivenBy as (\
   SELECT transactions.loanee as username, avg(reviews.rating) as avgrating\
-  FROM transactions natural join reviews\
-  WHERE transactions.loaner = $1\
+  FROM transactions natural join reviews natural join stuff\
+  WHERE stuff.owner = $1\
   GROUP BY loanee\
   ORDER BY avgrating desc\
   LIMIT 1\
