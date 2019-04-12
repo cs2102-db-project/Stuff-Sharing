@@ -94,25 +94,31 @@ module.exports = function(passport) {
                     console.log("This username is already taken")
                     return done(null, false, req.flash('signUpMessage', 'That username is already taken.'));
                 } else {
-                    // insert into profiles
-                    pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [username, signUpName, signUpPicture, signUpAddress], function(err) {
-                        if(err) {
-                            console.log('insertion into profile error');
+                    pool.query('INSERT INTO nonadmins (username) VALUES ($1);', [username], function(err, user) {
+                        // insert into nonadmins
+                        if (err) {
+                            console.log("Very weird error");
                             return done(err);
-                        } else {
-                            // end transaction after successful commit
-                            pool.query('COMMIT', function(err) {
-                                if(err) {
-                                    console.log('commit error');
-                                    return done(error);
-                                } else {
-                                    return done(null);
-                                }
-                            });
                         }
+                        pool.query('INSERT INTO profiles (username, name, picture, address) VALUES ($1, $2, $3, $4)', [username, signUpName, signUpPicture, signUpAddress], function (err) {
+                            if (err) {
+                                console.log('insertion into profile error');
+                                return done(err);
+                            } else {
+                                // end transaction after successful commit
+                                pool.query('COMMIT', function (err) {
+                                    if (err) {
+                                        console.log('commit error');
+                                        return done(error);
+                                    } else {
+                                        return done(null);
+                                    }
+                                });
+                            }
+                        });
                     });
                 }
-            });    
+            });
         });
     }));
 };

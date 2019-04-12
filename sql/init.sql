@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
     loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
-    stuffId INTEGER not null references Stuff(stuffId),
+    stuffId INTEGER not null references Stuff(stuffId) ON DELETE CASCADE,
     loanerNum TEXT not null,
     loanerEmail TEXT not null,
     status TEXT not null,
@@ -119,7 +119,7 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'ONGOING', 10.00, '2019-01-01', '2019-01-20', 12.42);
+    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'FINISHED', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
     (1, 1, 5, 'good');
 INSERT INTO ads VALUES
@@ -131,9 +131,9 @@ RETURNS trigger AS $$
 DECLARE
   overdue_threshold NUMERIC;
 BEGIN
-    overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee and status='ONGOING') > overdue_threshold THEN
-        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue', overdue_threshold;
+    overdue_threshold := 0;
+    IF (SELECT COUNT(*) FROM TRANSACTIONS T where loanee=NEW.loanee and status='ONGOING' and now()::date > T.endDate) > overdue_threshold THEN
+        RAISE EXCEPTION 'You have at least 1 overdue item. Please return that first if you wish to continue using the website.';
         RETURN NULL;
     END IF;
     RETURN NEW;
@@ -166,6 +166,26 @@ CREATE TRIGGER check_overdue_loaner
 BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue_loaner();
+
+-- Prevent deletion if item is loaned out
+CREATE OR REPLACE FUNCTION check_borrowed()
+RETURNS trigger AS $$
+DECLARE
+  borrow_threshold NUMERIC;
+BEGIN
+  borrow_threshold := 0;
+  IF (SELECT COUNT(*) FROM Transactions T WHERE T.stuffId = OLD.stuffId AND T.status = 'ONGOING') > borrow_threshold THEN
+      RAISE EXCEPTION 'This item is currently borrowed by someone, so you cannot delete it';
+  END IF;
+  RETURN OLD;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_borrowed
+before DELETE ON Stuff
+FOR EACH ROW
+EXECUTE PROCEDURE check_borrowed();
 
 -- Function create both Account and Profile at the same time
 CREATE OR REPLACE FUNCTION update_profile(signUpUsername TEXT, signUpPassword TEXT, signUpName TEXT, signUpPicture TEXT, signUpAddress VARCHAR(100))
