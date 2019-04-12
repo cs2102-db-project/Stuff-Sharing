@@ -3,16 +3,6 @@ var getUserProfileQuery = 'SELECT * FROM profiles WHERE username = $1';
 var getUserStuffQuery = 'SELECT * FROM stuff WHERE stuff.owner = $1';
 var editPasswordQuery = 'UPDATE accounts SET password = $1::text WHERE username = $2::text';
 var editProfileQuery = 'UPDATE profiles SET name = $1::text, address = $2::text, picture = $3::text WHERE username = $4::text';
-var getItemNumLoansQuery = '\
-with itemCount as (\
-  SELECT transactions.stuffId as stuffId, count(*) as numLoans\
-  FROM transactions\
-  WHERE transactions.loanee = $1\
-  GROUP BY stuffId\
-  )\
-SELECT *\
-FROM stuff natural join itemCount\
-WHERE stuff.stuffId = itemCount.stuffId and itemCount.numLoans = (SELECT max(numLoans) FROM itemCount)';
 var getItemNumLoansQuery2 = '\
 with maxItem as (\
   SELECT stuffId as stuffId, count(*) as numLoans\
@@ -25,7 +15,6 @@ with maxItem as (\
 SELECT *\
 FROM stuff natural join maxItem'
 ;
-
 var getMostFrequentCustomerQuery = '\
 with maxCustomer as (\
   SELECT loanee as username, count(*) as numLoans\
@@ -38,9 +27,20 @@ with maxCustomer as (\
 SELECT *\
 FROM profiles natural join maxCustomer'
 ;
-
+var getHighestRatedPersonQuery = '\
+with avgRatingsGivenBy as (\
+  SELECT transactions.loanee as username, avg(reviews.rating) as avgrating\
+  FROM transactions natural join reviews natural join stuff\
+  WHERE stuff.owner = $1\
+  GROUP BY loanee\
+  ORDER BY avgrating desc\
+  LIMIT 1\
+  )\
+SELECT *\
+FROM profiles natural join avgRatingsGivenBy'
+;
 var getReviewRatings = 'with avgVoteItem as ( ' +
-        'select stuff.stuffId as stuffId, stuff.name as name, avg(reviews.rating) as avgRating' +
+        'select stuff.stuffId as stuffId, stuff.name as name, avg(reviews.rating) as avgrating' +
         ' from transactions natural join reviews natural join stuff' +
         ' where stuff.owner = $1' +
         ' group by stuff.stuffId )' +
@@ -161,9 +161,10 @@ exports.displayProfileStats = function(req, res) {
       } else {
         if (result.rows.length != 0) {
           var mostPopularItem = result.rows[0].name;
-          var borrows = result.rows[0].numloans;
+          var itemNumLoans = result.rows[0].numloans;
         } else {
           var mostPopularItem = 'No item';
+          var itemNumLoans = 0;
         }
         pool.query(getMostFrequentCustomerQuery, [currentUser.username], (err, result) => {
           if (err) {
@@ -171,27 +172,45 @@ exports.displayProfileStats = function(req, res) {
           } else {
             if (result.rows.length != 0) {
               var mostFrequentCustomer = result.rows[0].username;
+              var userNumLoans = result.rows[0].numloans;
             } else {
               var mostFrequentCustomer = 'No customer';
+              var userNumLoans = 0;
             }
             pool.query(getReviewRatings, [currentUser.username], (err, result2) => {
               if (err) {
                 return console.log('Error executing query', err.stack);
               } else {
-                console.log(result2);
                 if (result2.rows.length != 0) {
                   var mostVotedItem = result2.rows[0].name;
                   var avgVote = result2.rows[0].avgrating;
                 } else {
                   var mostVotedItem = 'No item';
+                  var avgVote = 0;
                 }
-                res.render('profile_stats', {
-                  user: profile,
-                  mostPopularItem: mostPopularItem,
-                  borrows: borrows,
-                  mostVotedItem: mostVotedItem,
-                  avgVote: avgVote,
-                  mostFrequentCustomer: mostFrequentCustomer
+                pool.query(getHighestRatedPersonQuery, [currentUser.username], (err, result) => {
+                  if (err) {
+                    return console.log('Error executing query', err.stack);
+                  } else {
+                    if (result2.rows.length != 0) {
+                      var highestRatedPerson = result.rows[0].username;
+                      var avgRatingPerson = result.rows[0].avgrating;
+                    } else {
+                      var highestRatedPerson = 'No user';
+                      var avgRatingPerson = 0;
+                    }
+                    res.render('profile_stats', {
+                      user: profile,
+                      mostPopularItem: mostPopularItem,
+                      itemNumLoans: itemNumLoans,
+                      mostVotedItem: mostVotedItem,
+                      avgVote: avgVote,
+                      mostFrequentCustomer: mostFrequentCustomer,
+                      userNumLoans: userNumLoans,
+                      highestRatedPerson: highestRatedPerson,
+                      avgRatingPerson: avgRatingPerson
+                    });
+                  }
                 });
               }
             });
@@ -201,5 +220,3 @@ exports.displayProfileStats = function(req, res) {
     });
   });
 };
-
-
