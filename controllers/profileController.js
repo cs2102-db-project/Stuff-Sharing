@@ -141,6 +141,7 @@ exports.displayProfileStats = function(req, res) {
       } else {
         if (result.rows.length != 0) {
           var mostPopularItem = result.rows[0].name;
+          var borrows = result.rows[0].numloans;
         } else {
           var mostPopularItem = 'No item';
         }
@@ -151,10 +152,11 @@ exports.displayProfileStats = function(req, res) {
             console.log(result2);
             if (result2.rows.length != 0) {
               var mostVotedItem = result2.rows[0].name;
+              var avgVote = result2.rows[0].avgrating;
             } else {
               var mostVotedItem = 'No item';
             }
-            res.render('profile_stats', {user: profile, mostPopularItem: mostPopularItem, mostVotedItem: mostVotedItem});
+            res.render('profile_stats', {user: profile, mostPopularItem: mostPopularItem, borrows: borrows, mostVotedItem: mostVotedItem, avgVote: avgVote});
           }
         });
       }
