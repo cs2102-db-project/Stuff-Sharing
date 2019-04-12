@@ -45,7 +45,8 @@ exports.renderSearch = function(req, res) {
         }
         res.render('index',
             {title: 'Stuff Sharing',
-             value: result.rows});
+             value: result.rows,
+             ads: null});
         return console.log(result.rows);
     });
 }
@@ -60,7 +61,8 @@ exports.renderCategory = function(req, res) {
         }
         res.render('index',
             {title: 'Stuff Sharing',
-             value: result.rows});
+             value: result.rows,
+             ads: null});
         return console.log(result.rows);
     });
 }
