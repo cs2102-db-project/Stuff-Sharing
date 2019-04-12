@@ -98,7 +98,7 @@
             <div class="card" style="background-color: #e9e9e9;">
               <div class="card-body">
                 <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].name %></h3>
-                <img src="/images/itemPictures/<%= loanedOut[i].picture %>" alt="<%= loanedOut[i].picture %>" class="img-thumbnail rounded" style="width:20em">
+                <img src="/images/itemPictures/<%= loanedOut[i].picture %>" onerror="this.src='images/default_image.jpg'" alt="<%= loanedOut[i].picture %>" class="img-thumbnail rounded" style="width:20em">
                 <p class="card-text">
                   Borrower: <%= loanedOut[i].loanee %><br />
                   <%= loanedOut[i].loanee %>'s Contact: <%= loanedOut[i].loaneecontact %><br />
@@ -214,7 +214,7 @@
             <div class="card" style="background-color: #e9e9e9;">
               <div class="card-body">
                 <h3 style="color: #FF9671"><%= loaned[i].name %></h3>
-                <img src="/images/itemPictures/<%= loaned[i].picture %>" alt="<%= loaned[i].picture %>" class="img-thumbnail rounded" style="width:20em">
+                <img src="/images/itemPictures/<%= loaned[i].picture %>" onerror="this.src='images/default_image.jpg'" alt="<%= loaned[i].picture %>" class="img-thumbnail rounded" style="width:20em">
                 <p class="card-text">
                   Lender: <%= loaned[i].owner %><br />
                   Cost: $<%= loaned[i].cost %><br />
