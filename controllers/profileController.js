@@ -25,6 +25,18 @@ with maxItem as (\
 SELECT *\
 FROM stuff natural join maxItem'
 ;
+var getMostFrequentCustomerQuery = '\
+with maxCustomer as (\
+  SELECT loanee as username, count(*) as numLoans\
+  FROM transactions\
+  WHERE transactions.loaner = $1\
+  GROUP BY loanee\
+  ORDER BY numLoans desc\
+  LIMIT 1\
+  )\
+SELECT *\
+FROM profiles natural join maxCustomer'
+;
 
 
 /* Gets current user's profile (which includes username, picture name, address) */
@@ -134,7 +146,18 @@ exports.displayProfileStats = function(req, res) {
         } else {
           var mostPopularItem = 'No item';
         }
-        res.render('profile_stats', { user: profile, mostPopularItem: mostPopularItem });
+        pool.query(getMostFrequentCustomerQuery, [currentUser.username], (err, result) => {
+          if (err) {
+            return console.error('Error executing query', err.stack)
+          } else {
+            if (result.rows.length != 0) {
+              var mostFrequentCustomer = result.rows[0].username;
+            } else {
+              var mostFrequentCustomer = 'No customer';
+            }
+            res.render('profile_stats', { user: profile, mostPopularItem: mostPopularItem, mostFrequentCustomer: mostFrequentCustomer });
+          }
+        });
       }
     });
   });
