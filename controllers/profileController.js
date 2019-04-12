@@ -25,6 +25,20 @@ with maxItem as (\
 SELECT *\
 FROM stuff natural join maxItem'
 ;
+
+var getMostFrequentCustomerQuery = '\
+with maxCustomer as (\
+  SELECT loanee as username, count(*) as numLoans\
+  FROM transactions\
+  WHERE transactions.loaner = $1\
+  GROUP BY loanee\
+  ORDER BY numLoans desc\
+  LIMIT 1\
+  )\
+SELECT *\
+FROM profiles natural join maxCustomer'
+;
+
 var getReviewRatings = 'with avgVoteItem as ( ' +
         'select stuff.stuffId as stuffId, stuff.name as name, avg(reviews.rating) as avgRating' +
         ' from transactions natural join reviews natural join stuff' +
@@ -148,23 +162,41 @@ exports.displayProfileStats = function(req, res) {
         } else {
           var mostPopularItem = 'No item';
         }
-        pool.query(getReviewRatings, [currentUser.username], (err, result2) => {
-          if(err) {
-            return console.log('Error executing query', err.stack);
+        pool.query(getMostFrequentCustomerQuery, [currentUser.username], (err, result) => {
+          if (err) {
+            return console.error('Error executing query', err.stack)
           } else {
-            console.log(result2);
-            if (result2.rows.length != 0) {
-              var mostVotedItem = result2.rows[0].name;
-              var avgVote = result2.rows[0].avgrating;
+            if (result.rows.length != 0) {
+              var mostFrequentCustomer = result.rows[0].username;
             } else {
-              var mostVotedItem = 'No item';
+              var mostFrequentCustomer = 'No customer';
             }
-            res.render('profile_stats', {user: profile, mostPopularItem: mostPopularItem, borrows: borrows, mostVotedItem: mostVotedItem, avgVote: avgVote});
+            pool.query(getReviewRatings, [currentUser.username], (err, result2) => {
+              if (err) {
+                return console.log('Error executing query', err.stack);
+              } else {
+                console.log(result2);
+                if (result2.rows.length != 0) {
+                  var mostVotedItem = result2.rows[0].name;
+                  var avgVote = result2.rows[0].avgrating;
+                } else {
+                  var mostVotedItem = 'No item';
+                }
+                res.render('profile_stats', {
+                  user: profile,
+                  mostPopularItem: mostPopularItem,
+                  borrows: borrows,
+                  mostVotedItem: mostVotedItem,
+                  avgVote: avgVote,
+                  mostFrequentCustomer: mostFrequentCustomer
+                });
+              }
+            });
           }
         });
       }
     });
   });
-}
+};
 
 
