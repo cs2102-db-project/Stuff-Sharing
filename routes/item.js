@@ -124,6 +124,7 @@ router.post('/borrow', function(req, res) {
                         res.render('item', {
                             title: 'Item',
                             value: data3.rows[0],
+                            reviews: [],
                             displayMsg: err,
                             isBorrowed: true,
                             isOwner: false,
@@ -170,7 +171,9 @@ router.post('/delete', isLoggedIn, function(req, res) {
               res.render('item', {
                   title: 'Item',
                   value: data3.rows[0],
+                  reviews: [],
                   displayMsg: "You do not have the permission to delete the item",
+                  isOwner: false,
                   isBorrowed: true,
                   displayDelete: false
               });
@@ -181,8 +184,10 @@ router.post('/delete', isLoggedIn, function(req, res) {
                       res.render('item', {
                           title: 'Item',
                           value: data3.rows[0],
+                          reviews: [],
                           displayMsg: err,
                           isBorrowed: true,
+                          isOwner: false,
                           displayDelete: true
                       });
                       return 0;
