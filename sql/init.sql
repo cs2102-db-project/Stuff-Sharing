@@ -89,6 +89,13 @@ CREATE TABLE IF NOT EXISTS Reviews(
     primary key (reviewId),
     check (rating >= 0 and rating <= 5)
 );
+CREATE TABLE IF NOT EXISTS ads(
+    stuffId INTEGER references Stuff(stuffId)
+        ON DELETE CASCADE,
+    owner TEXT references Accounts(username),
+    primary key (owner)
+);
+
 INSERT INTO accounts VALUES
     ('johndoe', 'johndoe'),
     ('janedoe', 'janedoe');
@@ -116,6 +123,8 @@ INSERT INTO transactions VALUES
     (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'FINISHED', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
     (1, 1, 5, 'good');
+INSERT INTO ads VALUES
+    (2, 'johndoe');
 
 -- Prevent insertion if there are more than X overdue items
 CREATE OR REPLACE FUNCTION check_overdue()
