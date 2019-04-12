@@ -132,7 +132,11 @@ exports.displayProfileStats = function(req, res) {
       if (err) {
         return console.error('Error executing query', err.stack)
       } else {
-        var mostPopularItem = result.rows[0];
+        if (result.rows.length != 0) {
+          var mostPopularItem = result.rows[0].name;
+        } else {
+          var mostPopularItem = 'No item';
+        }
         res.render('profile_stats', { user: profile, mostPopularItem: mostPopularItem });
       }
     });
