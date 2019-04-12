@@ -59,11 +59,12 @@
   <div class="container">
     <div class="row">
       <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
-          <% if (user.picture) { %>
-            <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
-          <% } else {%>
-            <img class="card-img-top" src="/images/default_profile2.png" alt="default user profile pic" />
-          <% } %>        <div class="card-body">
+        <% if (user.picture) { %>
+        <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
+        <% } else {%>
+        <img class="card-img-top" src="/images/default_profile2.png" alt="default user profile pic" />
+        <% } %>
+        <div class="card-body">
           <a href="/profile">
             <h5 class="card-title"><%= user.username %></h5>
           </a>
@@ -98,80 +99,107 @@
               <div class="card-body">
                 <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].name %></h3>
                 <img src="/images/itemPictures/<%= loanedOut[i].picture %>" alt="<%= loanedOut[i].picture %>" class="img-thumbnail rounded" style="width:20em">
-                  <p class="card-text">
-                    Borrower: <%= loanedOut[i].loanee %><br />
-                    <%= loanedOut[i].loanee %>'s Contact: <%= loanedOut[i].loaneecontact %><br />
-                    <%= loanedOut[i].loanee %>'s Email: <%= loanedOut[i].loaneeemail %><br />
-                    Cost: $<%= loanedOut[i].cost %><br />
-                    Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br />
-                    End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br />
-                    Status: <%= loanedOut[i].status %><br />
-                    <% if (loanedOut[i].status === "PENDING") {%>
-                    <form id="approveTransaction" method="POST" action="/profile_transactions/approvetrans">
-                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmApprove">Approve Transaction</button>
+                <p class="card-text">
+                  Borrower: <%= loanedOut[i].loanee %><br />
+                  <%= loanedOut[i].loanee %>'s Contact: <%= loanedOut[i].loaneecontact %><br />
+                  <%= loanedOut[i].loanee %>'s Email: <%= loanedOut[i].loaneeemail %><br />
+                  Cost: $<%= loanedOut[i].cost %><br />
+                  Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br />
+                  End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br />
+                  Status: <%= loanedOut[i].status %><br />
+                  <% if (loanedOut[i].status === "ONGOING") {%>
+                  <form id="endTransaction" method="POST" action="/profile_transactions/endtrans">
+                    <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmEnd">End Transaction</button>
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="confirmApprove" tabindex="-1" role="dialog" aria-labelledby="confirmApprove" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body" align="center">
-                              Approve transaction?
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
-                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
-                            </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmEnd" tabindex="-1" role="dialog" aria-labelledby="confirmEnd" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" align="center">
+                            End transaction?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                            <button type="submit" class="btn btn-primary">Yes, save changes</button>
                           </div>
                         </div>
                       </div>
-                    </form>
-                    <form id="cancelTransaction" method="POST" action="/profile_transactions/canceltrans">
-                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmCancel">Cancel Transaction</button>
+                    </div>
+                  </form>
+                  <% } else if (loanedOut[i].status === "PENDING") {%>
+                  <form id="approveTransaction" method="POST" action="/profile_transactions/approvetrans">
+                    <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmApprove">Approve Transaction</button>
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="confirmCancel" tabindex="-1" role="dialog" aria-labelledby="confirmCancel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body" align="center">
-                              Cancel transaction?
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
-                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
-                            </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmApprove" tabindex="-1" role="dialog" aria-labelledby="confirmApprove" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" align="center">
+                            Approve transaction?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                            <button type="submit" class="btn btn-primary">Yes, save changes</button>
                           </div>
                         </div>
                       </div>
-                    </form>
-                    <% } %>
-  
-                    <% if (loanedOut[i].reviewid) {%>
-                    <p>
-                      <a class="float-left text-primary"><strong>Review</strong></a>
-                      <% for (star = 0; star < loanedOut[i].rating; star++) { %>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                      <% } %>
-                    </p>
-                    <div class="clearfix"></div>
-                    <p><%= `${loanedOut[i].details}` %></p>
+                    </div>
+                  </form>
+                  <form id="cancelTransaction" method="POST" action="/profile_transactions/canceltrans">
+                    <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmCancel">Cancel Transaction</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmCancel" tabindex="-1" role="dialog" aria-labelledby="confirmCancel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" align="center">
+                            Cancel transaction?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                            <button type="submit" class="btn btn-primary">Yes, save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <% } %>
+
+                  <% if (loanedOut[i].reviewid) {%>
+                  <p>
+                    <a class="float-left text-primary"><strong>Review</strong></a>
+                    <% for (star = 0; star < loanedOut[i].rating; star++) { %>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                     <% } %>
                   </p>
+                  <div class="clearfix"></div>
+                  <p><%= `${loanedOut[i].details}` %></p>
+                  <% } %>
+                </p>
               </div>
             </div>
             <br />
@@ -187,79 +215,51 @@
               <div class="card-body">
                 <h3 style="color: #FF9671"><%= loaned[i].name %></h3>
                 <img src="/images/itemPictures/<%= loaned[i].picture %>" alt="<%= loaned[i].picture %>" class="img-thumbnail rounded" style="width:20em">
-                  <p class="card-text">
-                    Lender: <%= loaned[i].owner %><br />
-                    Cost: $<%= loaned[i].cost %><br />
-                    Start date: <%= loaned[i].startdate.toLocaleDateString() %><br />
-                    End date: <%= loaned[i].enddate.toLocaleDateString() %><br />
-                    Status: <%= loaned[i].status %><br />
-                    <% if (loaned[i].status === "ONGOING") {%>
-                    <form id="endTransaction" method="POST" action="/profile_transactions/endtrans">
-                      <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmEnd">End Transaction</button>
-
-                      <!-- Modal -->
-                      <div class="modal fade" id="confirmEnd" tabindex="-1" role="dialog" aria-labelledby="confirmEnd" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body" align="center">
-                              End transaction?
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
-                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
-                            </div>
-                          </div>
+                <p class="card-text">
+                  Lender: <%= loaned[i].owner %><br />
+                  Cost: $<%= loaned[i].cost %><br />
+                  Start date: <%= loaned[i].startdate.toLocaleDateString() %><br />
+                  End date: <%= loaned[i].enddate.toLocaleDateString() %><br />
+                  Status: <%= loaned[i].status %><br />
+                  <% if (loaned[i].status === "FINISHED") { %>
+                  <% if (!loaned[i].reviewid) {%>
+                  <a data-toggle="collapse" href="#collapseExample<%= i %>" aria-expanded="false" aria-controls="collapseExample">
+                    Add Review
+                  </a>
+                  <div class="collapse" id="collapseExample<%= i %>">
+                    <div class="card card-body">
+                      <form id="review_form" action="/profile_transactions/addReview" method="POST">
+                        <div class="form-group">
+                          <label for="rating<%= i %>">Your rating:</label>
+                          <select type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-5">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
                         </div>
-                      </div>
-                    </form>
-                    <% } %>
-                    <%if (loaned[i].status === "FINISHED") { %>
-                    <% if (!loaned[i].reviewid) {%>
-                    <a data-toggle="collapse" href="#collapseExample<%= i %>" aria-expanded="false" aria-controls="collapseExample">
-                      Add Review
-                    </a>
-                    <div class="collapse" id="collapseExample<%= i %>">
-                      <div class="card card-body">
-                        <form id="review_form" action="/profile_transactions/addReview" method="POST">
-                          <div class="form-group">
-                            <label for="rating<%= i %>">Your rating:</label>
-                            <select type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-5">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="review<%= i %>">Your review:</label>
-                            <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
-                          </div>
-                          <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                      </div>
+                        <div class="form-group">
+                          <label for="review<%= i %>">Your review:</label>
+                          <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
+                        </div>
+                        <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
                     </div>
-                    <% } else { %>
-                    <p>
-                      <a class="float-left text-primary"><strong>Review</strong></a>
-                      <% for (star = 0; star < loaned[i].rating; star++) { %>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                      <% } %>
-                    </p>
-                    <div class="clearfix"></div>
-                    <p><%= `${loaned[i].details}` %></p>
+                  </div>
+                  <% } else { %>
+                  <p>
+                    <a class="float-left text-primary"><strong>Review</strong></a>
+                    <% for (star = 0; star < loaned[i].rating; star++) { %>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                     <% } %>
                   </p>
+                  <div class="clearfix"></div>
+                  <p><%= `${loaned[i].details}` %></p>
                   <% } %>
+                </p>
+                <% } %>
               </div>
             </div>
             <br />

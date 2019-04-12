@@ -18,6 +18,7 @@ const borrowQuery = 'INSERT INTO Transactions(transId, loanee, stuffid, loaneeCo
 const getAdsQuery = 'SELECT * FROM ads WHERE ads.stuffId = $1';
 const delAdsQuery = 'DELETE FROM ads WHERE ads.owner = $1';
 const advertiseQuery = 'INSERT INTO ads (stuffId, owner) VALUES ($1, $2)';
+const getReviewsQuery = 'SELECT * from Transactions NATURAL JOIN Reviews where stuffid = $1';
 
 router.get('/', isLoggedIn, function(req, res) {
     const id = req.query.stuffId;
@@ -25,6 +26,7 @@ router.get('/', isLoggedIn, function(req, res) {
     let displayMsg = "";
     let isBorrowed = false;
 
+    // Services and Intangibles can be borrowed multiple times
     pool.query('SELECT stuffid FROM Transactions WHERE $1 = stuffid AND $2 = status EXCEPT (SELECT ' +
             'stuffId FROM Services WHERE $1 = stuffId UNION SELECT stuffId FROM Intangibles WHERE ' +
             '$1 = stuffId);', [id, 'ONGOING'], (err, datum) => {
@@ -45,7 +47,6 @@ router.get('/', isLoggedIn, function(req, res) {
                 console.log("Error executing query", err.stack);
                 return 0;
             }
-            console.log("ownerRes: " + JSON.stringify(ownerRes));
             const owner = ownerRes.rows[0].owner;
             const isOwner = (owner == user.username);
             if (isOwner) {
@@ -66,18 +67,29 @@ router.get('/', isLoggedIn, function(req, res) {
                     }
 
                     var isAdvertised = (result.rows.length != 0);
-                    res.render('item', {
-                        title: 'Item',
-                        value: item,
-                        displayMsg: displayMsg,
-                        isBorrowed: isBorrowed,
-                        isOwner: isOwner,
-                        isAdvertised: isAdvertised,
-                        displayDelete: true
-                    });
-                    return 0;
-                });
+                    
+                    pool.query(getReviewsQuery, [id], (err, result) => {
+                      if (err) {
+                        console.error("Error executing query", err.stack);
+                        return 0;
+                      }
+                      console.log(result.rows);
+                      var reviews = result.rows;
+                      console.log(reviews[0].details)
 
+                      res.render('item', {
+                          title: 'Item',
+                          value: item,
+                          reviews: reviews,
+                          displayMsg: displayMsg,
+                          isBorrowed: isBorrowed,
+                          isOwner: isOwner,
+                          isAdvertised: isAdvertised,
+                          displayDelete: true
+                      });
+                      return 0;
+                    });
+                });
             });
         });
     });

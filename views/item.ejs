@@ -21,8 +21,8 @@
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>  
-    
+    </button>
+
     <a class="navbar-brand text-white" href="/profile">
       <p class="fas fa-user"></p>
     </a>
@@ -62,22 +62,34 @@
     <h5> Owned by: <%= value.owner %> </h5>
     <br>
     <p> <%= displayMsg %></p>
+    <p>
+      <div style="width:50%">
+        <a class="float-left text-primary"><strong>Reviews</strong></a>
+        <% for (review = 0; review < reviews.length; review++) { %>
+        <% for (star = 0; star < reviews[review].rating; star++) { %>
+        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        <% } %>
+        <p style="width:25em; overflow:hidden; text-overflow: ellipsis;"><%= reviews[review].details %></p>
+        <% } %>
+      </div>
+    </p>
+    <div class="clearfix"></div>
     <% if (isOwner) { %>
-      <br>
-      <hr>
-      <h5> Want to advertise this item? </h5>
-      <p> Note that you can only advertise one item at any time</p>
-      <% if (isAdvertised) {%>
-        <div align="center">
-          <small class="text-muted"> This item is already being advertised. </small><br/>
-          <button disabled class="btn-secondary" style="width: 200px; height: 70px;" >Advertise</button>
-        </div>
-      <% } else { %>
-        <form id="advertiseForm" method="post" action="/item/advertise?stuffId=<%=value.stuffid%>">
-          <small class="text-muted"> Advertising this item will replace your currently advertised item. </small><br/>
-          <button class="btn btn-outline-warning my-2 my-sm-0" id="advertiseButton" type="submit" style="width: 200px; height: 70px;">Advertise</button>
-        </form>
-      <% } %>
+    <br>
+    <hr>
+    <h5> Want to advertise this item? </h5>
+    <p> Note that you can only advertise one item at any time</p>
+    <% if (isAdvertised) {%>
+    <div align="center">
+      <small class="text-muted"> This item is already being advertised. </small><br />
+      <button disabled class="btn-secondary" style="width: 200px; height: 70px;">Advertise</button>
+    </div>
+    <% } else { %>
+    <form id="advertiseForm" method="post" action="/item/advertise?stuffId=<%=value.stuffid%>">
+      <small class="text-muted"> Advertising this item will replace your currently advertised item. </small><br />
+      <button class="btn btn-outline-warning my-2 my-sm-0" id="advertiseButton" type="submit" style="width: 200px; height: 70px;">Advertise</button>
+    </form>
+    <% } %>
     <% } %>
 
     <!-- Borrow item forms and button -->
@@ -130,7 +142,7 @@
       </div>
     </form>
     <% } %>
-    <br/>
+    <br />
 
     <% if(displayDelete) { %>
     <form id="delete_form" action="../item/delete/?stuffId=<%=value.stuffid%>" method="POST">
