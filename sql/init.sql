@@ -145,7 +145,6 @@ BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue();
 
-
 -- Prevent insertion if password is too weak
 CREATE OR REPLACE FUNCTION check_password()
 RETURNS trigger as $$
@@ -168,35 +167,6 @@ CREATE TRIGGER check_password
 BEFORE INSERT OR UPDATE ON Accounts
 FOR EACH ROW
 EXECUTE PROCEDURE check_password();
-
--- Prevent insertion if there are more than X overdue items to the same loaner
-CREATE OR REPLACE FUNCTION check_overdue_loaner()
-RETURNS trigger AS $$
-DECLARE
-  overdue_threshold NUMERIC;
-BEGIN
-    overdue_threshold := 5;
-    IF (SELECT COUNT(*)
-      FROM TRANSACTIONS NATURAL JOIN STUFF S
-      where loanee=NEW.loanee
-        AND owner=(
-          SELECT owner
-          FROM STUFF S1
-          WHERE S1.stuffid = NEW.stuffid
-        )
-        AND status='ONGOING') > overdue_threshold THEN
-        RAISE EXCEPTION 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, owner;
-        RETURN NULL;
-    END IF;
-    RETURN NEW;
-END;
-$$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER check_overdue_loaner
-BEFORE INSERT ON Transactions
-FOR EACH ROW
-EXECUTE PROCEDURE check_overdue_loaner();
 
 -- Prevent deletion if item is loaned out
 CREATE OR REPLACE FUNCTION check_borrowed()
