@@ -21,8 +21,8 @@
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>  
-    
+    </button>
+
     <a class="navbar-brand text-white" href="/profile">
       <p class="fas fa-user"></p>
     </a>
@@ -87,12 +87,12 @@
       </div>
       <hr style="display: block; position: relative; padding: 0; margin: 3rem auto; height: 0; width: 90%; max-height: 0; font-size: 1px;
             line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 200px; height: 70px;"> Borrow now! </button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="position: fixed; width: 200px; height: 70px; right: 100px; bottom: 50px;"> Borrow now! </button>
     </form>
     <% } %>
     <% if(displayDelete) { %>
     <a href="delete/?stuffId=<%=value.stuffid%>">
-      <button class="delete btn btn-outline-danger my-2 my-sm-0" type="submit" style="width: 200px; height: 70px;"> Delete this Item </button>
+      <button class="delete btn btn-outline-danger my-2 my-sm-0" type="submit" style="width: 200px; height: 70px; position: fixed; left: 100px; bottom: 50px;"> Delete this Item </button>
     </a>
     <% } %>
 </body>
