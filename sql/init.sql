@@ -138,6 +138,30 @@ BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue();
 
+
+-- Prevent insertion if password is too weak
+CREATE OR REPLACE FUNCTION check_password()
+RETURNS trigger as $$
+DECLARE
+  minLength NUMERIC;
+  actualLength NUMERIC;
+BEGIN
+  minLength := 6;
+  actualLength = length(NEW.password);
+  IF actualLength < minLength THEN
+    RAISE EXCEPTION 'password';
+    RETURN NULL;
+  END IF;
+  RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_password
+BEFORE INSERT OR UPDATE ON Accounts
+FOR EACH ROW
+EXECUTE PROCEDURE check_password();
+
 -- Prevent insertion if there are more than X overdue items to the same loaner
 CREATE OR REPLACE FUNCTION check_overdue_loaner()
 RETURNS trigger AS $$
