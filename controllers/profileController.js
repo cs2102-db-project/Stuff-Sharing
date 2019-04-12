@@ -37,6 +37,18 @@ with maxCustomer as (\
 SELECT *\
 FROM profiles natural join maxCustomer'
 ;
+var getHighestRatedPersonQuery = '\
+with avgRatingsGivenBy as (\
+  SELECT transactions.loanee as loanee, avg(reviews.rating) as avgRating\
+  FROM transactions natural join reviews\
+  WHERE transactions.loaner = $1\
+  GROUP BY loanee\
+  ORDER BY numLoans desc\
+  LIMIT 1\
+  )\
+SELECT *\
+FROM profiles natural join avgRatingsGivenBy'
+;
 
 
 /* Gets current user's profile (which includes username, picture name, address) */
