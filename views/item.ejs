@@ -13,9 +13,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+      <a class="navbar-brand text-white" href="/"> <p class="fas fa-home"></p>  </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
   <!-- Navbar Stuff -->
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #845EC2;">
+      <a class="navbar-brand text-white" href="/profile"> <p class="fas fa-user"></p>  </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
     <a class="navbar-brand text-white" href="../">
       <p class="fas fa-home"></p>
@@ -81,6 +89,14 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Borrow now! </button>
     </form>
     <% } %>
+    <% if(displayDelete) { %>
+    <a href="delete/?stuffId=<%=value.stuffid%>">
+      <button class="delete btn btn-outline-danger my-2 my-sm-0" type="submit"
+        style="position: fixed; z-index: 10; bottom: 100px; left: 120px;
+        width: 200px; height: 70px;"> Delete this Item </button>
+    </a>
+    <% } %>
+  </body>
   </div>
 </body>
 
