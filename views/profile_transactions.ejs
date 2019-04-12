@@ -40,11 +40,11 @@
             Browse
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
-              <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
-              <a class="dropdown-item" href="../category?keyword=services">Services</a>
-              <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
-            </div>
+            <a class="dropdown-item" href="../category?keyword=pickups">Pick-ups</a>
+            <a class="dropdown-item" href="../category?keyword=deliverables">Deliverables</a>
+            <a class="dropdown-item" href="../category?keyword=services">Services</a>
+            <a class="dropdown-item" href="../category?keyword=intangibles">Intangibles</a>
+          </div>
         </li>
 
       </ul>
@@ -59,7 +59,7 @@
   <div class="container">
     <div class="row">
       <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
-        <img class="card-img-top" src="/images/default_profile2.png" alt="Card image cap" />
+        <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
         <div class="card-body">
           <a href="/profile">
             <h5 class="card-title"><%= user.username %></h5>
@@ -95,21 +95,21 @@
               <div class="card-body">
                 <h3 class="card-title" style="color: #FF9671"><%= loanedOut[i].item %></h5>
                   <p class="card-text">
-                    Item: <%= loanedOut[i].name %><br/>
-                    Borrower: <%= loanedOut[i].loanee %><br/>
-                    Cost: $<%= loanedOut[i].cost %><br/>
-                    Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br/>
-                    End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br/>
-                    Status: <%= loanedOut[i].status %><br/>
+                    Item: <%= loanedOut[i].name %><br />
+                    Borrower: <%= loanedOut[i].loanee %><br />
+                    Cost: $<%= loanedOut[i].cost %><br />
+                    Start date: <%= loanedOut[i].startdate.toLocaleDateString() %><br />
+                    End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br />
+                    Status: <%= loanedOut[i].status %><br />
                     <% if (loanedOut[i].status === "PENDING") {%>
-                      <form id="approveTransaction" method="POST">
-                        <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                        <button type="submit" formaction="/profile_transactions/approvetrans" class="btn btn-warning">Approve Transaction</button>
-                      </form>
-                      <form id="cancelTransaction" method="POST">
-                        <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                        <button type="submit" formaction="/profile_transactions/canceltrans" class="btn btn-warning">Cancel Transaction</button>
-                      </form>
+                    <form id="approveTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/approvetrans" class="btn btn-warning">Approve Transaction</button>
+                    </form>
+                    <form id="cancelTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/canceltrans" class="btn btn-warning">Cancel Transaction</button>
+                    </form>
                     <% } %>
   
                     <% if (loanedOut[i].reviewid) {%>
@@ -125,7 +125,7 @@
                   </p>
               </div>
             </div>
-            <br/>
+            <br />
             <% } %>
             <hr>
           </div>
@@ -138,60 +138,60 @@
               <div class="card-body">
                 <h3 style="color: #FF9671"><%= loaned[i].item %></h5>
                   <p class="card-text">
-                      Item: <%= loaned[i].name %><br/>
-                      Lender: <%= loaned[i].loaner %><br/>
-                      Cost: $<%= loaned[i].cost %><br/>
-                      Start date: <%= loaned[i].startdate.toLocaleDateString() %><br/>
-                      End date: <%= loaned[i].enddate.toLocaleDateString() %><br/>
-                      Status: <%= loaned[i].status %><br/>
+                    Item: <%= loaned[i].name %><br />
+                    Lender: <%= loaned[i].loaner %><br />
+                    Cost: $<%= loaned[i].cost %><br />
+                    Start date: <%= loaned[i].startdate.toLocaleDateString() %><br />
+                    End date: <%= loaned[i].enddate.toLocaleDateString() %><br />
+                    Status: <%= loaned[i].status %><br />
                     <% if (loaned[i].status === "ONGOING") {%>
-                      <form id="endTransaction" method="POST">
-                        <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
-                        <button type="submit" formaction="/profile_transactions/endtrans" class="btn btn-warning">End Transaction</button>
-                      </form>
+                    <form id="endTransaction" method="POST">
+                      <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
+                      <button type="submit" formaction="/profile_transactions/endtrans" class="btn btn-warning">End Transaction</button>
+                    </form>
                     <% } %>
                     <%if (loaned[i].status === "FINISHED") { %>
-                      <% if (!loaned[i].reviewid) {%>
-                        <a data-toggle="collapse" href="#collapseExample<%= i %>" aria-expanded="false" aria-controls="collapseExample">
-                          Add Review
-                        </a>
-                        <div class="collapse" id="collapseExample<%= i %>">
-                          <div class="card card-body">
-                            <form id="review_form" action="/profile_transactions/addReview" method="POST">
-                              <div class="form-group">
-                                <label for="rating<%= i %>">Your rating:</label>
-                                <select type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-5">
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="review<%= i %>">Your review:</label>
-                                <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
-                              </div>
-                              <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
-                              <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                    <% if (!loaned[i].reviewid) {%>
+                    <a data-toggle="collapse" href="#collapseExample<%= i %>" aria-expanded="false" aria-controls="collapseExample">
+                      Add Review
+                    </a>
+                    <div class="collapse" id="collapseExample<%= i %>">
+                      <div class="card card-body">
+                        <form id="review_form" action="/profile_transactions/addReview" method="POST">
+                          <div class="form-group">
+                            <label for="rating<%= i %>">Your rating:</label>
+                            <select type="text" name="rating" class="form-control" id="rating<%= i %>" aria-describedby="ratingHelp" placeholder="Any number within 0-5">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
                           </div>
-                        </div>
-                      <% } else { %>
-                        <p>
-                          <a class="float-left text-primary"><strong>Review</strong></a>
-                          <% for (star = 0; star < loaned[i].rating; star++) { %>
-                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                          <% } %>
-                        </p>
-                        <div class="clearfix"></div>
-                        <p><%= `${loaned[i].details}` %></p>
+                          <div class="form-group">
+                            <label for="review<%= i %>">Your review:</label>
+                            <input type="text" name="details" class="form-control" id="details<%= i %>" aria-describedby="detailsHelp" placeholder="Type your review here!">
+                          </div>
+                          <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                    <% } else { %>
+                    <p>
+                      <a class="float-left text-primary"><strong>Review</strong></a>
+                      <% for (star = 0; star < loaned[i].rating; star++) { %>
+                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                       <% } %>
                     </p>
+                    <div class="clearfix"></div>
+                    <p><%= `${loaned[i].details}` %></p>
+                    <% } %>
+                  </p>
                   <% } %>
               </div>
             </div>
-            <br/>
+            <br />
             <% } %>
             <hr>
           </div>
