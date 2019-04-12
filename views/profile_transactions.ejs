@@ -102,13 +102,35 @@
                     End date: <%= loanedOut[i].enddate.toLocaleDateString() %><br />
                     Status: <%= loanedOut[i].status %><br />
                     <% if (loanedOut[i].status === "PENDING") {%>
-                    <form id="approveTransaction" method="POST">
+                    <form id="approveTransaction" method="POST" action="/profile_transactions/approvetrans">
                       <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                      <button type="submit" formaction="/profile_transactions/approvetrans" class="btn btn-warning">Approve Transaction</button>
+                      <button type="submit" class="btn btn-warning">Approve Transaction</button>
                     </form>
-                    <form id="cancelTransaction" method="POST">
+                    <form id="cancelTransaction" method="POST" action="/profile_transactions/canceltrans">
                       <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                      <button type="submit" formaction="/profile_transactions/canceltrans" class="btn btn-warning">Cancel Transaction</button>
+                      <!-- Button trigger modal -->
+                      <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#confirmModal">Cancel Transaction</button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              ...
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </form>
                     <% } %>
 
