@@ -104,29 +104,51 @@
                     <% if (loanedOut[i].status === "PENDING") {%>
                     <form id="approveTransaction" method="POST" action="/profile_transactions/approvetrans">
                       <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
-                      <button type="submit" class="btn btn-warning">Approve Transaction</button>
-                    </form>
-                    <form id="cancelTransaction" method="POST" action="/profile_transactions/canceltrans">
-                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
                       <!-- Button trigger modal -->
-                      <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#confirmModal">Cancel Transaction</button>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmApprove">Approve Transaction</button>
 
                       <!-- Modal -->
-                      <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+                      <div class="modal fade" id="confirmApprove" tabindex="-1" role="dialog" aria-labelledby="confirmApprove" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              ...
+                              Approve transaction?
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <form id="cancelTransaction" method="POST" action="/profile_transactions/canceltrans">
+                      <input type="hidden" name="transid" value=<%= loanedOut[i].transid %>>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmCancel">Cancel Transaction</button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="confirmCancel" tabindex="-1" role="dialog" aria-labelledby="confirmCancel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              Cancel transaction?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
                             </div>
                           </div>
                         </div>
@@ -167,9 +189,31 @@
                     End date: <%= loaned[i].enddate.toLocaleDateString() %><br />
                     Status: <%= loaned[i].status %><br />
                     <% if (loaned[i].status === "ONGOING") {%>
-                    <form id="endTransaction" method="POST">
+                    <form id="endTransaction" method="POST" action="/profile_transactions/endtrans">
                       <input type="hidden" name="transid" value=<%= loaned[i].transid %>>
-                      <button type="submit" formaction="/profile_transactions/endtrans" class="btn btn-warning">End Transaction</button>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmEnd">End Transaction</button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="confirmEnd" tabindex="-1" role="dialog" aria-labelledby="confirmEnd" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              End transaction?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+                              <button type="submit" class="btn btn-primary">Yes, save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </form>
                     <% } %>
                     <%if (loaned[i].status === "FINISHED") { %>
