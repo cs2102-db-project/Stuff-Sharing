@@ -65,19 +65,17 @@ CREATE TABLE IF NOT EXISTS Services(
 CREATE TYPE STATUS AS ENUM('ONGOING', 'PENDING', 'FINISHED', 'CANCELLED');
 CREATE TABLE IF NOT EXISTS Transactions(
     transId INTEGER,
-    loaner TEXT not null references Profiles(username),
     loanee TEXT not null references Profiles(username),
     stuffId INTEGER not null references Stuff(stuffId) ON DELETE CASCADE,
-    loanerNum TEXT not null,
-    loanerEmail TEXT not null,
+    loaneeContact TEXT not null,
+    loaneeEmail TEXT not null,
     status TEXT not null,
     cost DECIMAL(10, 2) not null,
     startDate DATE not null,
     endDate DATE not null,
     bid DECIMAL(10, 2) not null,
     primary key (transId),
-    check (startDate <= endDate),
-    check (loaner <> loanee)
+    check (startDate <= endDate)
 );
 CREATE TABLE IF NOT EXISTS Reviews(
     reviewId INTEGER,
@@ -89,6 +87,13 @@ CREATE TABLE IF NOT EXISTS Reviews(
     primary key (reviewId),
     check (rating >= 0 and rating <= 5)
 );
+CREATE TABLE IF NOT EXISTS ads(
+    stuffId INTEGER references Stuff(stuffId)
+        ON DELETE CASCADE,
+    owner TEXT references Accounts(username),
+    primary key (owner)
+);
+
 INSERT INTO accounts VALUES
     ('johndoe', 'johndoe'),
     ('janedoe', 'janedoe');
@@ -113,9 +118,11 @@ INSERT INTO intangibles VALUES
 INSERT INTO services VALUES
     (3);
 INSERT INTO transactions VALUES
-    (1, 'johndoe', 'janedoe', 1, '83365620', 'johndoe@joe.com', 'FINISHED', 10.00, '2019-01-01', '2019-01-20', 12.42);
+    (1, 'janedoe', 1, '83365620', 'janedoe@joe.com', 'FINISHED', 10.00, '2019-01-01', '2019-01-20', 12.42);
 INSERT INTO reviews VALUES
     (1, 1, 5, 'good');
+INSERT INTO ads VALUES
+    (2, 'johndoe');
 
 -- Prevent insertion if there are more than X overdue items
 CREATE OR REPLACE FUNCTION check_overdue()
@@ -138,6 +145,30 @@ BEFORE INSERT ON Transactions
 FOR EACH ROW
 EXECUTE PROCEDURE check_overdue();
 
+
+-- Prevent insertion if password is too weak
+CREATE OR REPLACE FUNCTION check_password()
+RETURNS trigger as $$
+DECLARE
+  minLength NUMERIC;
+  actualLength NUMERIC;
+BEGIN
+  minLength := 6;
+  actualLength = length(NEW.password);
+  IF actualLength < minLength THEN
+    RAISE EXCEPTION 'password';
+    RETURN NULL;
+  END IF;
+  RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_password
+BEFORE INSERT OR UPDATE ON Accounts
+FOR EACH ROW
+EXECUTE PROCEDURE check_password();
+
 -- Prevent insertion if there are more than X overdue items to the same loaner
 CREATE OR REPLACE FUNCTION check_overdue_loaner()
 RETURNS trigger AS $$
@@ -145,8 +176,16 @@ DECLARE
   overdue_threshold NUMERIC;
 BEGIN
     overdue_threshold := 5;
-    IF (SELECT COUNT(*) FROM TRANSACTIONS where loanee=NEW.loanee AND loaner=NEW.loaner and status='ONGOING') > overdue_threshold THEN
-        RAISE NOTICE 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, NEW.loaner;
+    IF (SELECT COUNT(*)
+      FROM TRANSACTIONS NATURAL JOIN STUFF S
+      where loanee=NEW.loanee
+        AND owner=(
+          SELECT owner
+          FROM STUFF S1
+          WHERE S1.stuffid = NEW.stuffid
+        )
+        AND status='ONGOING') > overdue_threshold THEN
+        RAISE EXCEPTION 'You cannot borrow anymore items as you have more than % ongoing items overdue to %', overdue_threshold, owner;
         RETURN NULL;
     END IF;
     RETURN NEW;

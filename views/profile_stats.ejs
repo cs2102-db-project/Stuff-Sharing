@@ -59,7 +59,11 @@
   <div class="container">
     <div class="row">
       <div class="card col-md-3 col-sm-6 h-25" style="width: 18rem;">
-        <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
+          <% if (user.picture) { %>
+            <img class="card-img-top" src="/images/profilePictures/<%= user.picture %>" alt="<%= user.picture %>" />
+          <% } else {%>
+            <img class="card-img-top" src="/images/default_profile2.png" alt="default user profile pic" />
+          <% } %>
         <div class="card-body">
           <a href="/profile">
             <h5 class="card-title"><%= user.username %></h5>

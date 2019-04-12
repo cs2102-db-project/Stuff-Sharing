@@ -61,7 +61,21 @@
     <img src="/images/itemPictures/<%= value.picture %>" alt="<%= value.picture %>" class="img-thumbnail rounded" style="width:20em">
     <h5> Owned by: <%= value.owner %> </h5>
     <br>
-    <p> <%= displayMsg %></p>
+    <p style="margin-left: 8.5rem;"> <%= displayMsg %></p>
+    <% if (isOwner) { %>
+      <br>
+      <hr>
+      <h5 style="margin-left: 8.5rem;"> Want to advertise this item? </h5>
+      <p style="margin-left: 8.5rem;"> Note that you can only advertise one item at any time</p>
+      <% if (isAdvertised) {%>
+      <button disabled style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #808080" >Advertise</button>
+      <% } else { %>
+        <form id="advertiseForm" method="post" action="/item/advertise?stuffId=<%=value.stuffid%>">
+          <button id="advertiseButton" type="submit" style="margin-left: 8.5rem; padding:11px 38px; border-radius: 15px; color: #ffffff; font-size: 20px; background-color: #FF9671">Advertise</button>
+        </form>
+      <% } %>
+    <% } %>
+
     <!-- Borrow item forms and button -->
     <% if (!isBorrowed) {%>
     <form id="borrow_form" action="../item/borrow/?stuffId=<%=value.stuffid%>" method="POST">
@@ -71,7 +85,7 @@
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Contact Number</label>
-        <input class="form-control col-sm-5" type="tel" id="number" name="number" placeholder="87654321" aria-label="Contact Number" required>
+        <input class="form-control col-sm-5" type="tel" id="contact" name="contact" placeholder="87654321" aria-label="Contact Number" required>
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Email Address</label>
@@ -79,7 +93,7 @@
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Loan Start Date</label>
-        <input class="form-control col-sm-5" type="date" id="startDate" name="startDate" aria-label="Start Date" required>
+        <input class="form-control col-sm-5" type="date" id="startDate" name="startDate" aria-label="Start Date" min="2019-04-12" onchange="document.getElementById('endDate').min=this.value"required>
       </div>
       <div class="form-group row">
         <label for="bid" class="col-sm-5 col-form-label">Loan End Date</label>
@@ -87,13 +101,57 @@
       </div>
       <hr style="display: block; position: relative; padding: 0; margin: 3rem auto; height: 0; width: 90%; max-height: 0; font-size: 1px;
             line-height: 0; clear: both; border: none; border-top: 1px solid #aaaaaa; border-bottom: 1px solid #ffffff;">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="position: fixed; width: 200px; height: 70px; right: 100px; bottom: 50px;"> Borrow now! </button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#confirmBorrow" style="width: 200px; height: 70px;">Borrow now!</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirmBorrow" tabindex="-1" role="dialog" aria-labelledby="confirmBorrow" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Borrow this item?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+              <button type="submit" class="btn btn-primary">Yes, save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
     <% } %>
     <% if(displayDelete) { %>
-    <a href="delete/?stuffId=<%=value.stuffid%>">
-      <button class="delete btn btn-outline-danger my-2 my-sm-0" type="submit" style="width: 200px; height: 70px; position: fixed; left: 100px; bottom: 50px;"> Delete this Item </button>
-    </a>
+    <form id="delete_form" action="../item/delete/?stuffId=<%=value.stuffid%>" method="POST">
+      <!-- Button trigger modal -->
+      <button type="button" class="delete btn btn-outline-danger my-2 my-sm-0" data-toggle="modal" data-target="#confirmDelete" style="width: 200px; height: 70px;">Delete this item</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDelete" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmTitle">Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Delete this item?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, take me back</button>
+              <button type="submit" class="btn btn-primary">Yes, save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <% } %>
 </body>
 </div>

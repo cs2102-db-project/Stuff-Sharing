@@ -5,9 +5,9 @@ var editPasswordQuery = 'UPDATE accounts SET password = $1::text WHERE username 
 var editProfileQuery = 'UPDATE profiles SET name = $1::text, address = $2::text, picture = $3::text WHERE username = $4::text';
 var getItemNumLoansQuery2 = '\
 with maxItem as (\
-  SELECT stuffId as stuffId, count(*) as numloans\
-  FROM transactions\
-  WHERE transactions.loaner = $1\
+  SELECT stuffId as stuffId, count(*) as numLoans\
+  FROM transactions NATURAL JOIN stuff\
+  WHERE stuff.owner = $1\
   GROUP BY stuffId\
   ORDER BY numLoans desc\
   LIMIT 1\
@@ -17,9 +17,9 @@ FROM stuff natural join maxItem'
 ;
 var getMostFrequentCustomerQuery = '\
 with maxCustomer as (\
-  SELECT loanee as username, count(*) as numloans\
-  FROM transactions\
-  WHERE transactions.loaner = $1\
+  SELECT loanee as username, count(*) as numLoans\
+  FROM transactions NATURAL JOIN stuff\
+  WHERE stuff.owner = $1\
   GROUP BY loanee\
   ORDER BY numLoans desc\
   LIMIT 1\
@@ -218,5 +218,4 @@ exports.displayProfileStats = function(req, res) {
     });
   });
 };
-
 
