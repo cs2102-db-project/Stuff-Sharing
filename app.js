@@ -12,6 +12,7 @@ require('./config/passport')(passport); // pass passport for configuration
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup')
 var profileRouter = require('./routes/profile');
 var profileTransactionsRouter = require('./routes/profile_transactions');
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/signup', signupRouter);
 app.use('/profile', profileRouter);
 app.use('/profile_transactions', profileTransactionsRouter);

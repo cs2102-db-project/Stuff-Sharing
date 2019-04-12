@@ -54,6 +54,11 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
+    
+    <form id="logout_form" method="get" action="/logout">
+      <input class="form-control mr-sm-2" name="submit2" type="submit" id="submit2" value="Logout">
+      </label>
+    </form>
   </nav>
 
   <div class="container">
@@ -93,21 +98,21 @@
             <!-- Cards for the Items fetched -->
             <p> <% for (i = 0; i < myItems.length; i += 3) { %> </p>
             <div class="card-columns" style="width: 70rem; margin-left: 10rem;">
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i].name %></h5>
                   <p class="card-text"><%= myItems[i].description %></p>
                 </div>
               </a>
               <% if( i + 1 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 1%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 1].name %></h5>
                   <p class="card-text"><%= myItems[i + 1].description %></p>
                 </div>
               </a>
               <% } if ( i + 2 < myItems.length ) {%>
-              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=i + 2%>">
+              <a class="card text-white" style="width: 20rem; background-color: #845EC2;" href="../item/?stuffId=<%=myItems[i].stuffid%>">
                 <div class="card-body">
                   <h5 class="card-title"><%= myItems[i + 2].name %></h5>
                   <p class="card-text"><%= myItems[i + 2].description %></p>
