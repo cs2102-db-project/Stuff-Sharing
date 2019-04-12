@@ -1,8 +1,12 @@
 /* SQL Query */
-var allQuery = 'SELECT * from Stuff';
+var allQuery = 'SELECT * from Stuff WHERE not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\')';
 var searchQuery = 'SELECT * from Stuff where name=$1';
 var categoryQuery = (keyword) => `SELECT * from Stuff natural join ${keyword}`; // no sanitization here because pg doesn't allow placeholder for table identifiers
-var adsQuery = 'SELECT * from Stuff WHERE EXISTS (SELECT 1 FROM ads WHERE stuff.stuffId = ads.stuffId)';
+var adsQuery = '\
+SELECT * \
+FROM Stuff \
+WHERE EXISTS (SELECT 1 FROM ads WHERE Stuff.stuffId = ads.stuffId)\
+    and not exists (SELECT * FROM transactions WHERE Stuff.stuffId = transactions.stuffId and transactions.status = \'ONGOING\')';
 
 exports.random = function(randomData) {
     return [1,2,3,4];

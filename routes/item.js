@@ -38,13 +38,16 @@ router.get('/delete', isLoggedIn, function(req, res) {
             console.log(numAdmin + " numAdmin");
             console.log(owner != currentUser);
             console.log(numAdmin == 0 + " !numAdmin");
+            var isOwner = (owner == currentUser);
             console.log(!numAdmin && owner != currentUser);
-            if (numAdmin == 0 && owner != currentUser) {
+            if (numAdmin == 0 && !isOwner) {
                 res.render('item', {
                     title: 'Item',
                     value: data3.rows[0],
                     displayMsg: "You do not have the permission to delete the item",
                     isBorrowed: true,
+                    isOwner: isOwner,
+                    isAdvertised: false,
                     displayDelete: false
                 });
                 return 0;
@@ -56,6 +59,8 @@ router.get('/delete', isLoggedIn, function(req, res) {
                             value: data3.rows[0],
                             displayMsg: err,
                             isBorrowed: true,
+                            isOwner: isOwner,
+                            isAdvertised: false,
                             displayDelete: true
                         });
                         return 0;
@@ -167,7 +172,9 @@ router.post('/borrow', function(req, res) {
                             value: data3.rows[0],
                             displayMsg: err,
                             isBorrowed: true,
-                            displayDelete: true
+                            isOwner: false,
+                            isAdvertised: false,
+                            displayDelete: false
                         });
                         return 0;
                     }
@@ -190,6 +197,7 @@ router.post('/advertise', function(req, res) {
     const stuffId = req.query.stuffId;
     const currentUser = req.user.rows[0];
 
+    // delete owner's original ad if any and insert new ad
     pool.query(delAdsQuery, [currentUser.username], (err, result) => {
         if (err) {
             return console.error("Error executing query", err.stack);

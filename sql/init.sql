@@ -90,7 +90,8 @@ CREATE TABLE IF NOT EXISTS Reviews(
     check (rating >= 0 and rating <= 5)
 );
 CREATE TABLE IF NOT EXISTS ads(
-    stuffId INTEGER references Stuff(stuffId),
+    stuffId INTEGER references Stuff(stuffId)
+        ON DELETE CASCADE,
     owner TEXT references Accounts(username),
     primary key (owner)
 );
