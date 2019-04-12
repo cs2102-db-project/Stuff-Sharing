@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+var profilePicturesDir = "public/images/profilePictures";
+
 var bodyParser = require('body-parser');
 
 // middleware for bodyParser
