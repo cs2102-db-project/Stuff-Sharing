@@ -74,8 +74,7 @@ router.get('/', isLoggedIn, function(req, res) {
                         return 0;
                       }
                       console.log(result.rows);
-                      var reviews = result.rows;
-                      console.log(reviews[0].details)
+                      var reviews = result.rows ? result.rows : null;
 
                       res.render('item', {
                           title: 'Item',
