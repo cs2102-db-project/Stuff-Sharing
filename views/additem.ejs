@@ -63,7 +63,7 @@
     <!-- Actual page -->
     <div class="container-contact100">
       <div class="wrap-contact100">
-        <form class="contact100-form validate-form" method="post" action="/additem">
+        <form class="contact100-form validate-form" method="post" action="/additem/upload" enctype="multipart/form-data">
           <span class="contact100-form-title">
             Add Item!
           </span>
@@ -82,7 +82,7 @@
 
           <div class="wrap-input100 validate-input">
               <span class="label-input100">Item Picture</span>
-              <input class="input100" type="text" name="itemPicture" placeholder="Enter your item picture" required>
+              <input class="input100" type="file" accept="image/*" name="itemPicture" placeholder="Enter your item picture" required>
               <span class="focus-input100"></span>
             </div>
 

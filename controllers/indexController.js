@@ -11,6 +11,7 @@ exports.renderAll = function(req, res) {
     console.log("Displaying all stuff...");
     var pool = req.app.get('pool');
     pool.query(allQuery, (err, result) => {
+        console.log(result.rows);
         if (err) {
           return console.error('Error executing query', err.stack)
         }
